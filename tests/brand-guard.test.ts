@@ -7,7 +7,6 @@ const ROOT = resolve(import.meta.dirname, "..");
 const SCANNED_DIRS = ["apps", "packages"];
 const SKIPPED_DIRS = new Set(["node_modules", "dist"]);
 const EXTENSIONS = /\.(ts|tsx|vue|js|mjs)$/;
-const TEST_FILE = /\.(test|spec)\.[^.]+$/;
 const BRAND_FILE = "packages/core/src/brand.ts";
 // Especificadores do workspace (@curupira/...) mudam pelo comando de renomear do ADR-0008, não à mão.
 const WORKSPACE_SPECIFIER = /@curupira\//gi;
@@ -19,7 +18,7 @@ function listSourceFiles(dir: string): string[] {
     const path = join(dir, entry.name);
     if (entry.isDirectory()) {
       if (!SKIPPED_DIRS.has(entry.name)) files.push(...listSourceFiles(path));
-    } else if (entry.isFile() && EXTENSIONS.test(entry.name) && !TEST_FILE.test(entry.name)) {
+    } else if (entry.isFile() && EXTENSIONS.test(entry.name)) {
       files.push(path);
     }
   }
