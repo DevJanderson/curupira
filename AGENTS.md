@@ -26,4 +26,5 @@ Formato `tipo: descrição`, com `tipo` entre `feat`, `fix`, `docs`, `refactor`,
 - `vp install` depois de puxar mudanças. `vp toolchain` mostra as versões das ferramentas.
 - Documentação local em `node_modules/vite-plus/docs` ou em https://viteplus.dev/guide/.
 - Se o ambiente parecer errado, rode `vp env doctor` e inclua a saída ao pedir ajuda.
-- O hook de pre-commit roda `vp staged`, que aplica `vp check --fix` nos arquivos preparados.
+- O hook de pre-commit roda o Gitleaks nos arquivos preparados e depois `vp staged`, que aplica `vp check --fix`.
+- O Gitleaks (ADR-0019) é um binário à parte, exigido pelo pre-commit e pelo `vp run ready`. Nunca contorne o hook com `--no-verify`.

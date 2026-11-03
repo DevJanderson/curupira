@@ -16,5 +16,12 @@ export default defineConfig({
   },
   run: {
     cache: true,
+    tasks: {
+      // Sem cache: a varredura de segredos tem de rodar sempre, inclusive depois de commits novos.
+      secrets: {
+        command: "gitleaks git --redact --no-banner",
+        cache: false,
+      },
+    },
   },
 });

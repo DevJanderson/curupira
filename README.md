@@ -8,12 +8,14 @@ Base do repositório; nada implementado ainda.
 
 ## Comandos
 
-Requer [Vite+](https://viteplus.dev) (`vp`) e Node 24 (fixado em `.node-version`).
+Requer [Vite+](https://viteplus.dev) (`vp`), Node 24 (fixado em `.node-version`) e
+[Gitleaks](https://github.com/gitleaks/gitleaks), que barra segredos no pre-commit e no `vp run ready`.
 
 ```bash
 vp install   # instala as dependências
 vp check     # formatação, lint e tipos
 vp test      # testes
+vp run ready # check, testes e varredura de segredos (o mesmo da CI)
 ```
 
 ## Licença
