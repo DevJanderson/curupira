@@ -1,6 +1,7 @@
 # F01a: Estado e comandos
 
-- **Status:** rascunho, na fase 3
+- **Status:** aprovada no portão da fase 4, em 2026-11-03, com a resposta "sim"
+- **Aprovada por:** Janderson
 - **Data:** 2026-11-03
 
 ## Objetivo

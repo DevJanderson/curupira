@@ -15,3 +15,4 @@ numa linha nova.
 | 2026-11-03 | 8     | Onde ficam o estado, os artefatos e os dados locais no projeto instalado (ADR-0023)                                                   |
 | 2026-11-03 | 9     | O que fica na máquina e o que fica no projeto, com vários projetos (ADR-0024)                                                         |
 | 2026-11-03 | 10    | Fase 3 à mão: F01 dividida em F01a e F01b, specs paradas antes do portão; roteiro da spec e ADRs 0025 e 0026                          |
+| 2026-11-03 | 11    | Portão da fase 4 da F01a aprovado com "sim", registrado à mão no status da spec; F01b segue na fase 3                                 |
