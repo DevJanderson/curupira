@@ -64,22 +64,22 @@ nome ([ADR-0008](0008-nome-provisorio-e-troca-facil.md)), e uma variável de amb
 
 ### No projeto
 
-| Onde                                                          | Git | O que guarda                                                                      |
-| ------------------------------------------------------------- | --- | --------------------------------------------------------------------------------- |
-| `docs/produto/` e `docs/specs/<ID>-<nome>/`                   | sim | os artefatos (ADR-0023), inclusive a `verificacao.md` de cada funcionalidade      |
-| `.curupira/`                                                  | sim | o perfil, o estado, a medição, o id do projeto e a versão do Curupira que ele usa |
-| `.curupira/local/`                                            | não | provas brutas, rodadas, eventos dos hooks para o painel e temporários             |
-| `.claude/skills/curupira-*/` e `.claude/agents/curupira-*.md` | não | as skills e os subagentes, postos pela CLI na versão do projeto                   |
-| `.claude/settings.json`                                       | sim | os hooks do Curupira, só com o "sim" da pessoa                                    |
-| `AGENTS.md` e `CLAUDE.md`                                     | sim | um bloco curto e delimitado do Curupira; o resto do arquivo é do projeto          |
-| `.gitignore`                                                  | sim | as linhas de `.curupira/local/` e dos arquivos gerados do adaptador               |
+| Onde                                              | Git | O que guarda                                                                      |
+| ------------------------------------------------- | --- | --------------------------------------------------------------------------------- |
+| `docs/produto/` e `docs/specs/<ID>-<nome>/`       | sim | os artefatos (ADR-0023), inclusive a `verificacao.md` de cada funcionalidade      |
+| `.curupira/`                                      | sim | o perfil, o estado, a medição, o id do projeto e a versão do Curupira que ele usa |
+| `.curupira/local/`                                | não | provas brutas, rodadas, eventos dos hooks para o painel e temporários             |
+| `.claude/skills/cr-*/` e `.claude/agents/cr-*.md` | não | as skills e os subagentes, postos pela CLI na versão do projeto                   |
+| `.claude/settings.json`                           | sim | os hooks do Curupira, só com o "sim" da pessoa                                    |
+| `AGENTS.md` e `CLAUDE.md`                         | sim | um bloco curto e delimitado do Curupira; o resto do arquivo é do projeto          |
+| `.gitignore`                                      | sim | as linhas de `.curupira/local/` e dos arquivos gerados do adaptador               |
 
 Nomes e formatos dos arquivos dentro de `.curupira/` ficam para a F01.
 
 ### Regras
 
-1. **Adaptador no projeto.** A CLI põe as skills e os subagentes no `.claude/` do projeto, com o prefixo do nome
-   (`curupira-`), fora do Git, e os refaz a cada adoção e atualização. Os hooks são propostos na adoção e gravados
+1. **Adaptador no projeto.** A CLI põe as skills e os subagentes no `.claude/` do projeto, com o prefixo curto
+   (`cr-`, ADR-0008), fora do Git, e os refaz a cada adoção e atualização. Os hooks são propostos na adoção e gravados
    no `.claude/settings.json` só com o "sim" da pessoa; cada hook só chama `curupira hook <nome>`, sem lógica
    própria.
 2. **Versão.** A CLI refaz os arquivos do adaptador na versão que o projeto usa e avisa quando a versão instalada não
@@ -123,3 +123,4 @@ Nomes e formatos dos arquivos dentro de `.curupira/` ficam para a F01.
 - 2026-11-03: o adaptador deixou de ser plugin do Claude Code e passou a ser arquivos postos no projeto pela CLI,
   fora do Git, como no specwork: cada projeto fica com a sua versão, tudo fica dentro do projeto, as skills se testam
   sem reinstalar, e o formato serve a outros agentes.
+- 2026-11-03: o prefixo dos arquivos do adaptador passou de `curupira-` para `cr-`, a abreviação do nome (ADR-0008).

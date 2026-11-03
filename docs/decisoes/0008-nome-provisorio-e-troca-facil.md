@@ -22,3 +22,8 @@ Um teste barra o nome escrito fora dela, e um comando de renomear migra projetos
 
 - Trocar o nome é fácil até a publicação.
 - O teste e o comando de renomear entram no escopo.
+
+## Histórico
+
+- 2026-11-03: a constante ganhou uma abreviação (`cr`), de onde sai o prefixo das skills e dos subagentes (`cr-`),
+  para os nomes ficarem curtos, como o `sw-` do specwork. O comando e as pastas continuam com o nome inteiro.
