@@ -1,6 +1,7 @@
 # PRD do Curupira
 
-- **Status:** rascunho, aguardando aprovação
+- **Status:** aprovado no portão da fase 2, em 2026-11-03
+- **Aprovado por:** Janderson
 - **Data:** 2026-11-03
 
 ## Problema
