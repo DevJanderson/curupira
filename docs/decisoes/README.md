@@ -22,3 +22,4 @@ Cada decisão de arquitetura nova ou mudada vira um ADR aqui, antes do código. 
 | [0016](0016-vite-plus-como-ferramental.md)                    | Vite+ como ferramental                         | aceita   |
 | [0017](0017-node-24.md)                                       | Node 24                                        | aceita   |
 | [0018](0018-licenca-agpl-3-0.md)                              | Licença AGPL-3.0                               | aceita   |
+| [0019](0019-gitleaks-contra-vazamento-de-segredos.md)         | Gitleaks contra vazamento de segredos          | aceita   |
