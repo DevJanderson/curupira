@@ -21,7 +21,8 @@ Citar com regras:
 1. Nomes de outras ferramentas aparecem só em `docs/pesquisa/` e nos ADRs, sempre com fonte (link direto ou para
    [`docs/pesquisa/fontes.md`](../pesquisa/fontes.md)). Nunca no código, nas skills, nos modelos instalados nem na
    interface do produto.
-2. De projetos proprietários (Kiro, Ranger), nada é copiado (textos, prompts, modelos, código): só descrito com palavras nossas.
+2. De projetos proprietários (Kiro, Ranger), nada é copiado (textos, prompts, modelos, código): só descrito com
+   palavras nossas.
 3. De projetos com licença permissiva (MIT, Apache-2.0), reaproveitar trechos é permitido, mantendo o aviso de copyright
    e a licença deles junto do trecho, e registrando o reaproveitamento em `docs/pesquisa/fontes.md`.
 4. Do specwork (do mesmo autor, AGPL-3.0), reaproveitar livremente.
