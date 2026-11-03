@@ -23,3 +23,4 @@ Cada decisão de arquitetura nova ou mudada vira um ADR aqui, antes do código. 
 | [0017](0017-node-24.md)                                       | Node 24                                        | aceita   |
 | [0018](0018-licenca-agpl-3-0.md)                              | Licença AGPL-3.0                               | aceita   |
 | [0019](0019-gitleaks-contra-vazamento-de-segredos.md)         | Gitleaks contra vazamento de segredos          | aceita   |
+| [0020](0020-uso-de-referencias-de-terceiros.md)               | Uso de referências de terceiros                | aceita   |
