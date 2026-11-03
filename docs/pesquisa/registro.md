@@ -14,3 +14,4 @@ numa linha nova.
 | 2026-11-03 | 7     | Retrospectiva da fase 2: relato corrigido, ADRs 0021 e 0022, ADR-0002 aceito, ADR-0020 ajustado, LGPD nas fontes, roteiro revisado    |
 | 2026-11-03 | 8     | Onde ficam o estado, os artefatos e os dados locais no projeto instalado (ADR-0023)                                                   |
 | 2026-11-03 | 9     | O que fica na máquina e o que fica no projeto, com vários projetos (ADR-0024)                                                         |
+| 2026-11-03 | 10    | Fase 3 à mão: F01 dividida em F01a e F01b, specs paradas antes do portão; roteiro da spec e ADRs 0025 e 0026                          |
