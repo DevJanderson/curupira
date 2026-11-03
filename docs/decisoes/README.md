@@ -29,3 +29,4 @@ Cada decisão de arquitetura nova ou mudada vira um ADR aqui, antes do código. 
 | [0023](0023-estado-artefatos-e-dados-locais.md)               | Onde ficam o estado, os artefatos e os dados locais | aceita   |
 | [0024](0024-o-que-fica-na-maquina-e-no-projeto.md)            | O que fica na máquina e o que fica no projeto       | aceita   |
 | [0025](0025-a-pessoa-decide-pela-conversa.md)                 | A pessoa decide pela conversa                       | aceita   |
+| [0026](0026-o-que-o-curupira-grava-nao-cresce-com-o-tempo.md) | O que o Curupira grava não cresce com o tempo       | aceita   |

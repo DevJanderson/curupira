@@ -45,14 +45,14 @@ Três categorias, cada uma no seu lugar:
 | Dados locais         | `.curupira/local/`              | fora, no `.gitignore` | CLI e verificador | provas brutas, rodadas, eventos dos hooks e temporários                          |
 
 1. **Um arquivo de estado por funcionalidade**, não um arquivo único, para que duas funcionalidades em branches
-   diferentes não escrevam no mesmo arquivo. Isso não resolve a Q09, mas o desenho do estado não pode impedir a
-   solução dela.
+   diferentes não escrevam no mesmo arquivo. Na v1, isso responde a Q09
+   ([ADR-0026](0026-o-que-o-curupira-grava-nao-cresce-com-o-tempo.md)).
 2. **Caminho e hash juntos.** Para cada artefato aprovado, o estado guarda o caminho e o hash da aprovação. Se o
    artefato for movido ou renomeado, a ferramenta avisa, em vez de seguir em silêncio.
 3. **Uma pasta visível só: `docs/`.** No repositório-piloto e em qualquer outro projeto, os artefatos ficam em
-   `docs/produto/` (PRD, funcionalidades e perguntas em aberto) e em `docs/specs/<ID>-<nome>/` (spec, cenários,
-   plano e verificação de cada funcionalidade, por exemplo `docs/specs/F01-estado-e-portoes/`). O perfil pode trocar
-   a pasta, para o projeto que já usa `docs/` para outra coisa.
+   `docs/produto/` (PRD, funcionalidades e perguntas em aberto) e em `docs/specs/<ID>-<nome>/` (a spec com os
+   cenários, o plano e a verificação de cada funcionalidade, por exemplo `docs/specs/F01a-estado-e-comandos/`). O
+   perfil pode trocar a pasta, para o projeto que já usa `docs/` para outra coisa.
 
 ## Consequências
 
@@ -73,3 +73,5 @@ Três categorias, cada uma no seu lugar:
 - 2026-11-03: o veredito de cada cenário e o resumo da prova passaram para o Git, em
   `docs/specs/<ID>-<nome>/verificacao.md`; só a saída bruta fica em `.curupira/local/`. A medição entrou no estado
   ([ADR-0024](0024-o-que-fica-na-maquina-e-no-projeto.md)).
+- 2026-11-03: a spec e os cenários passaram a um arquivo só, a medição entrou no arquivo de estado de cada
+  funcionalidade, e a Q09 ficou respondida na v1 ([ADR-0026](0026-o-que-o-curupira-grava-nao-cresce-com-o-tempo.md)).

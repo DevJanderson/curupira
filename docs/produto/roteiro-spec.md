@@ -20,11 +20,14 @@ O que já está decidido entra na spec com a referência e não vira pergunta.
 
 ## O que sai
 
-Três arquivos em `docs/specs/<ID>-<nome>/` ([ADR-0023](../decisoes/0023-estado-artefatos-e-dados-locais.md)):
+Dois arquivos em `docs/specs/<ID>-<nome>/`, um por portão
+([ADR-0026](../decisoes/0026-o-que-o-curupira-grava-nao-cresce-com-o-tempo.md)):
 
-- `spec.md`: objetivo, fora do escopo, requisitos, dados pessoais, decisões e o que falta esclarecer;
-- `cenarios.md`: os cenários que o verificador roda;
-- `plano.md`: os passos da implementação.
+- `spec.md`: objetivo, requisitos, cenários, fora do escopo, dados pessoais, decisões e o que falta esclarecer; passa
+  pelo portão da fase 4;
+- `plano.md`: os passos da implementação; não passa por portão.
+
+A `verificacao.md`, do portão da fase 7, vem depois, na verificação.
 
 ## spec.md
 
@@ -45,16 +48,7 @@ Cada requisito é uma frase com um gatilho e uma resposta, numa das cinco formas
 - O comportamento é observável de fora: um comando, um arquivo, uma saída. A spec não diz como implementar.
 - Requisito que não dá para testar é reescrito ou sai.
 
-### As outras seções
-
-- **Fora do escopo:** o que a peça não faz, para a revisão não cobrar.
-- **Dados pessoais:** os campos com dados pessoais e a base legal; "nenhum", quando não houver.
-- **Decisões:** o que foi decidido ao escrever a spec, com a referência (ADR, pergunta respondida). Decisão de
-  arquitetura vira pendência de ADR.
-- **A esclarecer:** cada dúvida fica marcada no ponto do texto como `[A ESCLARECER: …]`. A spec não vai para
-  aprovação com marca aberta.
-
-## cenarios.md
+### Cenários
 
 - Cada cenário tem um ID (C1, C2…), os requisitos que cobre, um ponto de partida, uma ação e um resultado esperado,
   e verifica uma condição só.
@@ -63,6 +57,15 @@ Cada requisito é uma frase com um gatilho e uma resposta, numa das cinco formas
 - Os cenários cobrem os comportamentos principais; o resto dos requisitos é coberto pelos testes do plano. Todo
   requisito aparece num cenário ou num passo do plano.
 - Cenário aprovado vira teste de regressão.
+
+### As outras seções
+
+- **Fora do escopo:** o que a peça não faz, para a revisão não cobrar.
+- **Dados pessoais:** os campos com dados pessoais e a base legal; "nenhum", quando não houver.
+- **Decisões:** o que foi decidido ao escrever a spec, com a referência (ADR, pergunta respondida). Decisão de
+  arquitetura vira pendência de ADR.
+- **A esclarecer:** cada dúvida fica marcada no ponto do texto como `[A ESCLARECER: …]`. A spec não vai para
+  aprovação com marca aberta.
 
 ## plano.md
 
@@ -86,8 +89,9 @@ Acima disso, o agente propõe dividir a peça com sufixo (F10a, F10b), em vez de
 
 ## O portão
 
-A spec e os cenários só valem depois do "sim" da pessoa, no portão da fase 4. O plano não passa pelo portão.
+A spec, com os cenários, só vale depois do "sim" da pessoa, no portão da fase 4. O plano não passa pelo portão.
 
 ## Histórico
 
 - 2026-11-03: primeira versão, para a fase 3 à mão da F01.
+- 2026-11-03: os cenários passaram para dentro do `spec.md` (ADR-0026).

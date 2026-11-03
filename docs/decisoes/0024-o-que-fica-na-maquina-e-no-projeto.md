@@ -64,15 +64,15 @@ nome ([ADR-0008](0008-nome-provisorio-e-troca-facil.md)), e uma variável de amb
 
 ### No projeto
 
-| Onde                                              | Git | O que guarda                                                                      |
-| ------------------------------------------------- | --- | --------------------------------------------------------------------------------- |
-| `docs/produto/` e `docs/specs/<ID>-<nome>/`       | sim | os artefatos (ADR-0023), inclusive a `verificacao.md` de cada funcionalidade      |
-| `.curupira/`                                      | sim | o perfil, o estado, a medição, o id do projeto e a versão do Curupira que ele usa |
-| `.curupira/local/`                                | não | provas brutas, rodadas, eventos dos hooks para o painel e temporários             |
-| `.claude/skills/cr-*/` e `.claude/agents/cr-*.md` | não | as skills e os subagentes, postos pela CLI na versão do projeto                   |
-| `.claude/settings.json`                           | sim | os hooks do Curupira, só com o "sim" da pessoa                                    |
-| `AGENTS.md` e `CLAUDE.md`                         | sim | um bloco curto e delimitado do Curupira; o resto do arquivo é do projeto          |
-| `.gitignore`                                      | sim | as linhas de `.curupira/local/` e dos arquivos gerados do adaptador               |
+| Onde                                              | Git | O que guarda                                                                         |
+| ------------------------------------------------- | --- | ------------------------------------------------------------------------------------ |
+| `docs/produto/` e `docs/specs/<ID>-<nome>/`       | sim | os artefatos (ADR-0023), inclusive a `verificacao.md` de cada funcionalidade         |
+| `.curupira/`                                      | sim | o perfil, o estado com a medição, o id do projeto e a versão do Curupira que ele usa |
+| `.curupira/local/`                                | não | provas brutas, rodadas, eventos dos hooks para o painel e temporários                |
+| `.claude/skills/cr-*/` e `.claude/agents/cr-*.md` | não | as skills e os subagentes, postos pela CLI na versão do projeto                      |
+| `.claude/settings.json`                           | sim | os hooks do Curupira, só com o "sim" da pessoa                                       |
+| `AGENTS.md` e `CLAUDE.md`                         | sim | um bloco curto e delimitado do Curupira; o resto do arquivo é do projeto             |
+| `.gitignore`                                      | sim | as linhas de `.curupira/local/` e dos arquivos gerados do adaptador                  |
 
 Nomes e formatos dos arquivos dentro de `.curupira/` ficam para a F01.
 
@@ -96,9 +96,9 @@ Nomes e formatos dos arquivos dentro de `.curupira/` ficam para a F01.
    inclusive a prova do vermelho), vai para `docs/specs/<ID>-<nome>/verificacao.md`, no Git. A saída bruta fica em
    `.curupira/local/`, fora do Git: é grande e pode ter dados pessoais do ambiente de teste
    ([LGPD](../pesquisa/fontes.md#normas), art. 6º, III).
-8. **Medição.** No fim de cada sessão, a CLI grava os números em `.curupira/medicao/`, um arquivo por
-   funcionalidade, a partir do caminho do registro que o hook recebe (`transcript_path`). O registro de sessão nunca
-   é copiado. A leitura do formato fica no adaptador
+8. **Medição.** No fim de cada sessão, a CLI soma os números no arquivo de estado da funcionalidade
+   ([ADR-0026](0026-o-que-o-curupira-grava-nao-cresce-com-o-tempo.md)), a partir do caminho do registro que o hook
+   recebe (`transcript_path`). O registro de sessão nunca é copiado. A leitura do formato fica no adaptador
    ([ADR-0021](0021-nucleo-independente-de-agente-com-adaptadores.md)).
 
 ## Consequências
@@ -124,3 +124,5 @@ Nomes e formatos dos arquivos dentro de `.curupira/` ficam para a F01.
   fora do Git, como no specwork: cada projeto fica com a sua versão, tudo fica dentro do projeto, as skills se testam
   sem reinstalar, e o formato serve a outros agentes.
 - 2026-11-03: o prefixo dos arquivos do adaptador passou de `curupira-` para `cr-`, a abreviação do nome (ADR-0008).
+- 2026-11-03: a medição passou de `.curupira/medicao/` para o arquivo de estado de cada funcionalidade, para nenhuma
+  pasta crescer com o tempo ([ADR-0026](0026-o-que-o-curupira-grava-nao-cresce-com-o-tempo.md)).
