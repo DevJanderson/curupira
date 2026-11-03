@@ -10,6 +10,7 @@ Ela será exibida dentro do painel do Curupira ([ADR-0012](decisoes/0012-documen
 - **Conceitos**: [a jornada](conceitos/jornada.md); o resto a escrever.
 - **Referência**: a escrever.
 - **Método**: a escrever.
-- **Pesquisa**: a escrever.
+- **Pesquisa**: [estado da arte](pesquisa/estado-da-arte.md), [fontes](pesquisa/fontes.md) e
+  [registro da pesquisa](pesquisa/registro.md).
 - **Produto**: a escrever.
 - **Decisões**: [registro de decisões](decisoes/README.md).

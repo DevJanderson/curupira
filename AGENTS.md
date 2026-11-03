@@ -10,6 +10,7 @@ Este repositório é um monorepo TypeScript com Vite+ (`vp`) e pnpm: aplicaçõe
 - Dependência nova só com justificativa na mensagem do commit.
 - Decisão de arquitetura nova ou mudada vira ADR em `docs/decisoes/` antes do código.
 - Referências de terceiros seguem o ADR-0020: conteúdo de projetos proprietários nunca é copiado, só descrito, com fonte.
+- Ao fim de cada passo, uma linha datada em `docs/pesquisa/registro.md`.
 
 ## Idioma
 

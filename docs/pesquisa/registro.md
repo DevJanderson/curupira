@@ -1,0 +1,10 @@
+# Registro da pesquisa
+
+Diário datado da pesquisa, com uma linha ao fim de cada passo. Uma linha escrita não se reescreve: um erro se corrige
+numa linha nova.
+
+| Data       | Passo | O que aconteceu                                                                                                                       |
+| ---------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-11-03 | 1     | Monorepo criado com Vite+ (`vp create`) e pnpm; AGENTS.md e README                                                                    |
+| 2026-11-03 | 2     | Node 24, licença AGPL-3.0, CI com `vp run ready`, ADRs 0001–0018 e jornada; depois Gitleaks (ADR-0019) e Node lido do `.node-version` |
+| 2026-11-03 | 3     | Pesquisa em `docs/pesquisa/` e regra de referências de terceiros (ADR-0020)                                                           |
