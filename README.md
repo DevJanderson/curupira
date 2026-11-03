@@ -15,3 +15,7 @@ vp install   # instala as dependências
 vp check     # formatação, lint e tipos
 vp test      # testes
 ```
+
+## Licença
+
+[GNU AGPL v3](LICENSE) (`AGPL-3.0-only`).
