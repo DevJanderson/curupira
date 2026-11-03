@@ -6,8 +6,9 @@ Este repositório é um monorepo TypeScript com Vite+ (`vp`) e pnpm: aplicaçõe
 ## Como trabalhamos
 
 - Trabalhamos em passos pequenos. Não crie nada fora do que o passo pede.
-- Antes de dizer que terminou: `vp check` e `vp test` passando.
+- Antes de dizer que terminou: `vp run ready` passando (é o mesmo que roda na CI).
 - Dependência nova só com justificativa na mensagem do commit.
+- Decisão de arquitetura nova ou mudada vira ADR em `docs/decisoes/` antes do código.
 
 ## Idioma
 
