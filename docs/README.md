@@ -7,7 +7,9 @@ Ela será exibida dentro do painel do Curupira ([ADR-0012](decisoes/0012-documen
 
 - **Começar**: a escrever.
 - **Guias**: a escrever.
-- **Conceitos**: [a jornada](conceitos/jornada.md); o resto a escrever.
+- **Conceitos**: [a jornada](conceitos/jornada.md), [humano e agente](conceitos/humano-e-agente.md),
+  [verificação](conceitos/verificacao.md), [contexto e cache](conceitos/contexto-e-cache.md) e
+  [painel](conceitos/painel.md).
 - **Referência**: a escrever.
 - **Método**: [visão e pergunta central](metodo/README.md), [hipóteses](metodo/hipoteses.md) e
   [mapa do conhecimento](metodo/mapa-do-conhecimento.md).
