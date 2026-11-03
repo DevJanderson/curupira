@@ -135,7 +135,8 @@ Para a pesquisa, o resultado é evidência medida a favor ou contra cada hipóte
 Em ordem de valor; o detalhe está em [funcionalidades.md](funcionalidades.md), e as dúvidas em
 [perguntas-em-aberto.md](perguntas-em-aberto.md).
 
-- **F01 Estado e portões:** estado versionado no Git e registro de cada decisão pela CLI.
+- **F01a Estado e comandos:** estado versionado no Git e registro de cada decisão pela CLI.
+- **F01b Prova de decisão humana:** a CLI só aprova ou recusa um portão com a resposta que a pessoa digitou.
 - **F02 Adotar o projeto:** o perfil do projeto, proposto pelo agente e confirmado pela pessoa.
 - **F03 Instrução mínima e adaptador:** a instrução do agente e as skills por estação, para o Claude Code.
 - **F04a Portões básicos:** lint, tipos, testes e segredos.
@@ -155,6 +156,10 @@ Em ordem de valor; o detalhe está em [funcionalidades.md](funcionalidades.md), 
 - **F17 Contexto em camadas:** contratos dos subagentes e teto de contexto por papel.
 - **F19 Evals das skills:** o comportamento do agente provado em projetos descartáveis.
 - **F18 Comando de renomear:** a troca do nome a partir da constante.
+
+A F01 foi dividida em F01a e F01b na fase 3 dela
+([ADR-0025](../decisoes/0025-a-pessoa-decide-pela-conversa.md)). A lista cresce por divisão sem reabrir o PRD, e a
+aprovação continua valendo.
 
 ## Referências
 

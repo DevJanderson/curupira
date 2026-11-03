@@ -8,7 +8,7 @@
 - Cada funcionalidade tem poucos cenários. Cada cenário tem um ponto de partida, uma ação e um resultado esperado, e
   verifica uma condição só.
 - Uma lista longa de cenários indica detalhe de implementação, não comportamento.
-- Os cenários nascem na especificação (fase 3) e são aprovados junto com ela (fase 4).
+- Os cenários nascem na especificação (fase 3), dentro do `spec.md`, e são aprovados junto com ela (fase 4).
 
 ## O verificador
 
@@ -32,6 +32,12 @@
 ## Provas em texto
 
 Cada veredito vem com provas em texto: saída de testes, requisições e respostas reais à API e logs.
+
+- O veredito de cada cenário e um resumo da prova (o que foi rodado e o que saiu de importante, inclusive a prova do
+  vermelho) vão para `docs/specs/<ID>-<nome>/verificacao.md`, no Git, e passam pelo portão da fase 7.
+- A saída bruta fica em `.curupira/local/`, fora do Git, até a funcionalidade terminar
+  ([ADR-0024](../decisoes/0024-o-que-fica-na-maquina-e-no-projeto.md),
+  [ADR-0026](../decisoes/0026-o-que-o-curupira-grava-nao-cresce-com-o-tempo.md)).
 
 ## Depois da verificação
 
