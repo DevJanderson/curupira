@@ -15,5 +15,5 @@ Ela será exibida dentro do painel do Curupira ([ADR-0012](decisoes/0012-documen
   [mapa do conhecimento](metodo/mapa-do-conhecimento.md).
 - **Pesquisa**: [estado da arte](pesquisa/estado-da-arte.md), [fontes](pesquisa/fontes.md) e
   [registro da pesquisa](pesquisa/registro.md).
-- **Produto**: a escrever.
+- **Produto**: [o PRD (a escrever na fase 2)](produto/README.md) e [roteiro do PRD](produto/roteiro-prd.md).
 - **Decisões**: [registro de decisões](decisoes/README.md).
