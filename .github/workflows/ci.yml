@@ -1,0 +1,24 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  ready:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      # A tag móvel v1 está congelada na v1.15.0; usamos a versão exata.
+      - uses: voidzero-dev/setup-vp@v1.22.0
+        with:
+          node-version: "24"
+          cache: true
+          # O vp install roda no passo seguinte.
+          run-install: false
+      - run: vp install
+      - run: vp run ready
