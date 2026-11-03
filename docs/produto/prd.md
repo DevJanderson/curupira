@@ -14,7 +14,8 @@ Agentes de código produzem rápido, mas sem estrutura:
 - os processos estruturados que existem pesam: muito texto, muito contexto e custo alto.
 
 Hoje, quem usa agente trabalha em sessões soltas, com um arquivo de instrução (AGENTS.md ou CLAUDE.md) escrito à mão
-e sem estrutura, ou adota ferramentas pesadas, proprietárias ou caras ([estado da arte](../pesquisa/estado-da-arte.md)).
+e sem estrutura, ou adota ferramentas pesadas, proprietárias ou caras
+([ferramentas estudadas](../pesquisa/ferramentas-estudadas.md)).
 O problema aparece em toda sessão de trabalho. O desafio é estruturar sem pesar.
 
 ## Usuários
@@ -159,7 +160,7 @@ Em ordem de valor; o detalhe está em [funcionalidades.md](funcionalidades.md), 
 
 - [Roteiro do PRD](roteiro-prd.md), [método](../metodo/README.md), [hipóteses](../metodo/hipoteses.md),
   [jornada](../conceitos/jornada.md), [humano e agente](../conceitos/humano-e-agente.md) e
-  [estado da arte](../pesquisa/estado-da-arte.md).
+  [ferramentas estudadas](../pesquisa/ferramentas-estudadas.md).
 - ADRs 0002 a 0020, no [registro de decisões](../decisoes/README.md).
 
 ### Pendências de ADR

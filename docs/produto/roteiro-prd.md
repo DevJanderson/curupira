@@ -11,7 +11,7 @@ O agente lê o que o projeto já decidiu:
 
 - visão, método e hipóteses;
 - a jornada e a divisão entre humano e agente;
-- o estado da arte;
+- as ferramentas estudadas;
 - o índice das decisões de arquitetura e o conteúdo das que tratam de escopo;
 - o perfil do projeto;
 - o código, se o projeto já tiver.

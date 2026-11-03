@@ -36,5 +36,5 @@ Ler do cache custa cerca de 10% do preço normal de entrada; gravar no cache cus
 ## Lição da pesquisa
 
 Na tentativa anterior, o contexto do agente chegou a centenas de milhares de tokens por resposta
-(ver o [estado da arte](../pesquisa/estado-da-arte.md)).
+(ver as [ferramentas estudadas](../pesquisa/ferramentas-estudadas.md)).
 O Curupira terá um teto de tamanho de contexto por papel, medido em teste.

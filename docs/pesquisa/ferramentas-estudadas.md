@@ -1,4 +1,4 @@
-# Estado da arte
+# Ferramentas estudadas
 
 Em 2026-11-03, a pesquisa estudou quatro ferramentas que organizam o trabalho entre pessoas e agentes de código:
 o [GitHub Spec Kit](https://github.com/github/spec-kit), o [Kiro](https://kiro.dev/docs/specs.md), o
