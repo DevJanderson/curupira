@@ -34,6 +34,12 @@ pesquisa e nos ADRs tem a sua fonte aqui. Os nomes são marcas dos seus donos; c
 | [Chroma (2025): Context Rot](https://trychroma.com/research/context-rot)                                                                                                | Estudo da queda de desempenho dos modelos com contextos longos                 | 2026-11-03 |
 | [Anthropic: prompt caching](https://docs.claude.com/en/docs/build-with-claude/prompt-caching)                                                                           | Documentação do cache de prompt da API                                         | 2026-11-03 |
 
+## Normas
+
+| Fonte                                                                                                | Artigos usados              | O que sustenta                                                           | Consulta   |
+| ---------------------------------------------------------------------------------------------------- | --------------------------- | ------------------------------------------------------------------------ | ---------- |
+| [Lei nº 13.709/2018 (LGPD)](https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm) | art. 6º, III; art. 46, § 2º | A medição guarda só números (necessidade); privacidade desde a concepção | 2026-11-03 |
+
 ## Reaproveitamentos
 
 Nenhum trecho de terceiros foi reaproveitado até agora.

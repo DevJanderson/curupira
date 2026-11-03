@@ -120,10 +120,10 @@ Para a pesquisa, o resultado é evidência medida a favor ou contra cada hipóte
 - **Git e GitHub:** Git é obrigatório. Na v1, o código fica no GitHub e o PR é aberto pela CLI `gh`.
 - **Sistemas:** Linux e macOS; no Windows, pelo WSL.
 - **Dados pessoais:** a medição guarda só números (tokens, custo, cache e tempo, por fase e por papel), nunca o texto
-  das conversas nem o código, pelo princípio da necessidade (LGPD, Lei nº 13.709/2018, art. 6º, III) e pela
-  privacidade desde a concepção (art. 46, § 2º). A retrospectiva aponta onde está a prova, sem copiá-la. Quem aprovou
-  cada portão é registrado pelo nome de autor do Git; num repositório público, esse nome fica visível, e a
-  documentação avisa.
+  das conversas nem o código, pelo princípio da necessidade ([LGPD](../pesquisa/fontes.md#normas), Lei nº
+  13.709/2018, art. 6º, III) e pela privacidade desde a concepção (art. 46, § 2º). A retrospectiva aponta onde está a
+  prova, sem copiá-la. Quem aprovou cada portão é registrado pelo nome de autor do Git; num repositório público, esse
+  nome fica visível, e a documentação avisa.
 - **Prazo:** sem data. Marcos, nesta ordem: fases 1 a 4 funcionando com a ferramenta; a primeira funcionalidade do
   Curupira entregue pela jornada completa, com verificação e medição; o Curupira usado num segundo projeto real
   (primeiro teste da H6).
