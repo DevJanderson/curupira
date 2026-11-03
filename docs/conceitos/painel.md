@@ -30,13 +30,16 @@ ADR-0013 (no [registro de decisões](../decisoes/README.md))).
 
 ```text
 pessoa ── conversa ──▶ agente ── chama ──▶ CLI ── grava ──▶ .curupira/
+                       agente ── escreve ─────────────────▶ docs/
 pessoa ── decide ───▶ painel ── pede ───▶ CLI
-painel ◀── lê ─────── .curupira/
+painel ◀── lê ─────── .curupira/ e docs/
 painel ◀── eventos ── hooks
 ```
 
 - A pessoa conversa com o agente e decide no painel.
 - O agente chama a CLI.
-- A CLI é a única que grava os arquivos do projeto, em `.curupira/`.
-- O painel lê esses arquivos e recebe eventos dos hooks.
+- A CLI é a única que grava o estado, em `.curupira/`
+  ([ADR-0023](../decisoes/0023-estado-artefatos-e-dados-locais.md)).
+- Os artefatos (PRD, specs, cenários e planos) ficam em `docs/`, escritos pela pessoa e pelo agente.
+- O painel lê o estado e os artefatos e recebe eventos dos hooks.
 - Decisões dadas no painel também passam pela CLI.
