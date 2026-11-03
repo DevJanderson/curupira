@@ -18,12 +18,6 @@ instalado e autenticado, que fala com o modelo.
 O Curupira não chama API de modelo nenhuma e não tem servidor próprio. Ele trabalha só através dos agentes de
 terminal que a pessoa já tem instalados e autenticados, e nunca pede nem guarda chave de API.
 
-A pesquisa mostra os dois caminhos sem API ([estado da arte](../pesquisa/estado-da-arte.md)): o specwork roda cada
-etapa num subagente novo, que recebe só ponteiros, e usa uma sessão nova como reserva
-([sw-deliver-feature](https://github.com/DevJanderson/specwork/blob/main/src/specwork/skills/sw-deliver-feature/SKILL.md));
-o Spec Kit roda cada etapa de um fluxo como o agente em modo não interativo
-([integração com o Claude Code](https://github.com/github/spec-kit/blob/main/docs/integrations/claude.md)).
-
 ## Consequências
 
 - O verificador separado roda como subagente, com definição própria e recebendo só ponteiros, ou como outra sessão
