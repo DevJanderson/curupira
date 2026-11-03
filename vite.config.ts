@@ -10,10 +10,6 @@ export default defineConfig({
     rules: { "vite-plus/prefer-vite-plus-imports": "error" },
     options: { typeAware: true, typeCheck: true },
   },
-  test: {
-    // Ainda não há testes; sem isto o Vitest sai com código 1.
-    passWithNoTests: true,
-  },
   run: {
     cache: true,
     tasks: {
