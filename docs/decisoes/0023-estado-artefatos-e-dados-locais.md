@@ -38,28 +38,35 @@ das pastas foi conferida nas fontes abaixo.
 
 Três categorias, cada uma no seu lugar:
 
-| Categoria            | Onde                                  | Git                   | Quem escreve      | O que guarda                                                       |
-| -------------------- | ------------------------------------- | --------------------- | ----------------- | ------------------------------------------------------------------ |
-| Estado da ferramenta | `.curupira/`                          | versionado            | só a CLI          | o perfil, o estado de cada funcionalidade e as aprovações          |
-| Artefatos do produto | pasta visível, configurável no perfil | versionado            | pessoa e agente   | PRD, perguntas em aberto, funcionalidades, specs, cenários, planos |
-| Dados locais         | `.curupira/local/`                    | fora, no `.gitignore` | CLI e verificador | provas, rodadas e temporários                                      |
+| Categoria            | Onde                            | Git                   | Quem escreve      | O que guarda                                                       |
+| -------------------- | ------------------------------- | --------------------- | ----------------- | ------------------------------------------------------------------ |
+| Estado da ferramenta | `.curupira/`                    | versionado            | só a CLI          | o perfil, o estado de cada funcionalidade e as aprovações          |
+| Artefatos do produto | `docs/`, configurável no perfil | versionado            | pessoa e agente   | PRD, perguntas em aberto, funcionalidades, specs, cenários, planos |
+| Dados locais         | `.curupira/local/`              | fora, no `.gitignore` | CLI e verificador | provas, rodadas e temporários                                      |
 
 1. **Um arquivo de estado por funcionalidade**, não um arquivo único, para que duas funcionalidades em branches
    diferentes não escrevam no mesmo arquivo. Isso não resolve a Q09, mas o desenho do estado não pode impedir a
    solução dela.
 2. **Caminho e hash juntos.** Para cada artefato aprovado, o estado guarda o caminho e o hash da aprovação. Se o
    artefato for movido ou renomeado, a ferramenta avisa, em vez de seguir em silêncio.
-3. **Onde ficam as specs.** No repositório-piloto, em `docs/specs/<ID>-<nome>/` (por exemplo,
-   `docs/specs/F01-estado-e-portoes/`), ao lado do PRD em `docs/produto/`. Em outros projetos, o padrão sugerido é
-   `specs/<ID>-<nome>/`, configurável no perfil.
+3. **Uma pasta visível só: `docs/`.** No repositório-piloto e em qualquer outro projeto, os artefatos ficam em
+   `docs/produto/` (PRD, funcionalidades e perguntas em aberto) e em `docs/specs/<ID>-<nome>/` (spec, cenários e
+   plano de cada funcionalidade, por exemplo `docs/specs/F01-estado-e-portoes/`). O perfil pode trocar a pasta, para
+   o projeto que já usa `docs/` para outra coisa.
 
 ## Consequências
 
+- Na raiz do projeto, o Curupira acrescenta no máximo uma pasta visível (`docs/`, se ainda não existir) e uma oculta
+  (`.curupira/`).
 - Desinstalar o Curupira deixa os artefatos onde estão, legíveis sem a ferramenta.
 - Trocar o nome (ADR-0008) move só o estado e os dados locais; os artefatos ficam no lugar. O comando de renomear
   também ajusta a linha de `.curupira/local/` no `.gitignore`.
 - A adoção do projeto (fase 1) acrescenta `.curupira/local/` ao `.gitignore`.
 - A visão do projeto inteiro (painel e CLI) junta os arquivos de estado das funcionalidades ao ler.
-- A CLI continua sendo a única que escreve o estado; os artefatos são escritos pela pessoa e pelo agente. O
-  [conceito do painel](../conceitos/painel.md) diz hoje que a CLI grava "os arquivos do projeto, em `.curupira/`" e
-  precisa ser ajustado para falar só do estado.
+- A CLI continua sendo a única que escreve o estado; os artefatos são escritos pela pessoa e pelo agente
+  ([conceito do painel](../conceitos/painel.md)).
+
+## Histórico
+
+- 2026-11-03: o padrão dos artefatos passou de `specs/` na raiz para uma pasta visível só, `docs/`, igual à do
+  repositório-piloto, para não espalhar pastas na raiz do projeto.
