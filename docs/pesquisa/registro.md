@@ -10,3 +10,4 @@ numa linha nova.
 | 2026-11-03 | 3     | Pesquisa em `docs/pesquisa/` e regra de referências de terceiros (ADR-0020)                                                           |
 | 2026-11-03 | 4     | Método, conceitos e roteiro do PRD em `docs/`                                                                                         |
 | 2026-11-03 | 5     | Pacote core com a constante do nome e teste de guarda (ADR-0008)                                                                      |
+| 2026-11-03 | 6     | Fase 2 à mão: PRD do Curupira por entrevista (aprovado)                                                                               |
