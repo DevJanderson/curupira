@@ -164,9 +164,13 @@ Em ordem de valor; o detalhe está em [funcionalidades.md](funcionalidades.md), 
 
 ### Pendências de ADR
 
-1. Núcleo independente de agente, com adaptadores; complementa o ADR-0005.
-2. Sem API de modelo: só agentes de terminal.
-3. ADR-0002 passa a aceita, com a spec ancorada.
-4. Uma ferramenta por portão extra da F04b.
-5. Ajuste do ADR-0020: referências estudadas só em `docs/pesquisa/` e nos ADRs; dependências e plataformas que o
-   Curupira usa podem ser citadas onde for necessário.
+Resolvidas:
+
+- [ADR-0021](../decisoes/0021-nucleo-independente-de-agente-com-adaptadores.md): núcleo independente de agente, com
+  adaptadores; complementa o ADR-0005.
+- [ADR-0022](../decisoes/0022-sem-api-de-modelo-so-agentes-de-terminal.md): sem API de modelo, só agentes de terminal.
+- [ADR-0002](../decisoes/0002-nivel-de-spec-driven-development.md): aceita, com a spec ancorada.
+- [ADR-0020](../decisoes/0020-uso-de-referencias-de-terceiros.md), item 7: referências estudadas só em
+  `docs/pesquisa/` e nos ADRs; dependências e plataformas que o Curupira usa podem ser citadas onde for necessário.
+
+Ainda pendente: uma ferramenta por portão extra da F04b, quando essa peça chegar.

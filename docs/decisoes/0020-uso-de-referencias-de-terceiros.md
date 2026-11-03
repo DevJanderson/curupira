@@ -30,9 +30,18 @@ Citar com regras:
 6. A regra vale para produtos e marcas de terceiros. Normas e padrões (ISO/IEC, SWEBOK, OWASP), relatórios (DORA,
    SPACE), formatos abertos (AGENTS.md) e termos técnicos podem ser citados em qualquer documento, com fonte em
    [`docs/pesquisa/fontes.md`](../pesquisa/fontes.md) quando houver.
+7. A regra dos itens 1 a 3 vale para referências estudadas (ferramentas e métodos analisados na pesquisa, como Kiro,
+   Spec Kit, Ranger, Tessl e BMAD). Dependências e plataformas que o Curupira usa ou integra (Claude Code, GitHub,
+   Node, Vite+, Vue, Gitleaks, Figma) podem ser citadas onde for necessário, inclusive no PRD, no README, na
+   configuração e no código de integração, como o adaptador de cada agente.
 
 ## Consequências
 
 - A pesquisa fica rastreável e o produto fica neutro.
 - Cada reaproveitamento de código de terceiro exige registrar origem e licença.
 - Não é parecer jurídico: se o Curupira virar produto comercial, as marcas devem passar por revisão jurídica.
+
+## Histórico
+
+- 2026-11-03: acrescentado o item 7, porque a regra original impediria o adaptador do Claude Code de ter o nome dele
+  e o PRD de citar a stack.
