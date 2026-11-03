@@ -1,0 +1,28 @@
+# AGENTS.md
+
+O Curupira é uma ferramenta (ainda a construir) que organiza o desenvolvimento de software como uma fábrica humano + IA.
+Este repositório é um monorepo TypeScript com Vite+ (`vp`) e pnpm: aplicações em `apps/`, bibliotecas em `packages/`.
+
+## Como trabalhamos
+
+- Trabalhamos em passos pequenos. Não crie nada fora do que o passo pede.
+- Antes de dizer que terminou: `vp check` e `vp test` passando.
+- Dependência nova só com justificativa na mensagem do commit.
+
+## Idioma
+
+- Identificadores de código em inglês.
+- Documentação, mensagens, comentários e commits em português (pt-BR).
+
+## Commits
+
+Formato `tipo: descrição`, com `tipo` entre `feat`, `fix`, `docs`, `refactor`, `test`, `chore`.
+
+## Ferramental (Vite+)
+
+- `vp <nome>` roda um comando embutido; `vp run <nome>` roda um script do `package.json` ou uma tarefa do `vite.config.ts`. Confira esses arquivos antes e use `vp run` quando o projeto define o nome.
+- Rode arquivos TS/JS com `vpx <arquivo>` (não adicione `tsx` nem `ts-node`). `vp node <arquivo>` roda Node puro.
+- `vp install` depois de puxar mudanças. `vp toolchain` mostra as versões das ferramentas.
+- Documentação local em `node_modules/vite-plus/docs` ou em https://viteplus.dev/guide/.
+- Se o ambiente parecer errado, rode `vp env doctor` e inclua a saída ao pedir ajuda.
+- O hook de pre-commit roda `vp staged`, que aplica `vp check --fix` nos arquivos preparados.
