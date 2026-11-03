@@ -3,7 +3,8 @@
 ## A divisão de trabalho
 
 - **O humano decide e aprova.** Define a intenção, escolhe entre caminhos e dá o "sim" em cada portão.
-- **O agente produz.** Escreve specs, testes, código e relatórios, e verifica o próprio trabalho.
+- **O agente produz.** Escreve specs, testes, código e relatórios, e um verificador separado, que não implementou o
+  código, confere o resultado ([verificação](verificacao.md)).
 - **A CLI garante que o fluxo seja seguido.** Ela registra cada decisão e não deixa uma fase começar antes do portão
   anterior abrir.
 
@@ -22,7 +23,7 @@ Os portões ficam nas fases 1, 2, 4, 7 e 8 da [jornada](jornada.md).
 ## O humano revisa resultados, não cada falha
 
 A pessoa revisa resultados e decisões, não cada falha do caminho.
-Entre os portões, o agente trabalha sozinho: corrige o que falhou e verifica de novo.
+Entre os portões, o agente trabalha sozinho: corrige o que falhou, e o verificador separado confere de novo.
 Ele só chama a pessoa quando a verificação dá "bloqueado", ou seja, quando o ambiente não deixou testar
 (ver [verificação](verificacao.md)).
 

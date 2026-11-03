@@ -26,7 +26,7 @@
 
 ## O laço de correção
 
-- Em "falhou", o agente corrige e verifica de novo, com um limite de tentativas.
+- Em "falhou", o agente que implementou corrige, e o verificador roda os cenários de novo, com um limite de tentativas.
 - Em "bloqueado", o agente chama a pessoa.
 
 ## Provas em texto

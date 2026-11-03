@@ -26,6 +26,9 @@ Citar com regras:
    e a licença deles junto do trecho, e registrando o reaproveitamento em `docs/pesquisa/fontes.md`.
 4. Do specwork (do mesmo autor, AGPL-3.0), reaproveitar livremente.
 5. Nada sugere parceria, endosso ou vínculo com os donos das marcas; os nomes são marcas dos seus donos.
+6. A regra vale para produtos e marcas de terceiros. Normas e padrões (ISO/IEC, SWEBOK, OWASP), relatórios (DORA,
+   SPACE), formatos abertos (AGENTS.md) e termos técnicos podem ser citados em qualquer documento, com fonte em
+   [`docs/pesquisa/fontes.md`](../pesquisa/fontes.md) quando houver.
 
 ## Consequências
 
