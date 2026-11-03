@@ -8,7 +8,7 @@ Base do repositório; nada implementado ainda.
 
 ## Comandos
 
-Requer [Vite+](https://viteplus.dev) (`vp`) e Node 22.18+ ou 24.11+.
+Requer [Vite+](https://viteplus.dev) (`vp`) e Node 24 (fixado em `.node-version`).
 
 ```bash
 vp install   # instala as dependências
