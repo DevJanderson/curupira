@@ -17,7 +17,7 @@ Este repositório é um monorepo TypeScript com Vite+ (`vp`) e pnpm: aplicaçõe
 
 ## Commits
 
-Formato `tipo: descrição`, com `tipo` entre `feat`, `fix`, `docs`, `refactor`, `test`, `chore`.
+Formato `tipo: descrição`, com `tipo` entre `feat`, `fix`, `docs`, `refactor`, `test`, `chore`, `ci`.
 
 ## Ferramental (Vite+)
 

@@ -30,7 +30,7 @@ jobs:
       # A tag móvel v1 está congelada na v1.15.0; usamos a versão exata.
       - uses: voidzero-dev/setup-vp@v1.22.0
         with:
-          node-version: "24"
+          node-version-file: ".node-version"
           cache: true
           # O vp install roda no passo seguinte.
           run-install: false
