@@ -6,7 +6,7 @@
 ## Contexto
 
 A pesquisa de engenharia de software sobre a fábrica humano + IA precisa de uma entrega concreta.
-O espaço já tem ferramentas como o GitHub Spec Kit e o Kiro.
+O espaço já tem ferramentas como o GitHub Spec Kit e o Kiro ([fontes](../pesquisa/fontes.md#ferramentas-e-métodos)).
 
 ## Opções consideradas
 

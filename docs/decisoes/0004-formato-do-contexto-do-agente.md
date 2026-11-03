@@ -6,7 +6,7 @@
 ## Contexto
 
 O agente precisa de contexto sobre o projeto, mas contexto demais custa caro e pode atrapalhar.
-Um estudo da ETH Zurich (2026) mostrou que arquivos de contexto gerados por LLM pioram o sucesso e encarecem em 20%+;
+Um [estudo da ETH Zurich (2026)](../pesquisa/fontes.md#artigos-estudos-e-relatórios) mostrou que arquivos de contexto gerados por LLM pioram o sucesso e encarecem em 20%+;
 os escritos por humanos ajudam pouco, e só se forem enxutos.
 
 ## Opções consideradas

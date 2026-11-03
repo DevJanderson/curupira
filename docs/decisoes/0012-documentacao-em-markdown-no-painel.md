@@ -9,7 +9,7 @@ A documentação para pessoas precisa estar perto do trabalho e acessível sem i
 
 ## Opções consideradas
 
-- Site Astro Starlight (como o Ranger): uma segunda peça para construir.
+- Site Astro Starlight (como o Ranger; [fontes](../pesquisa/fontes.md#ferramentas-e-métodos)): uma segunda peça para construir.
 - Os mesmos `.md` de `docs/`, renderizados pelo painel.
 
 ## Decisão

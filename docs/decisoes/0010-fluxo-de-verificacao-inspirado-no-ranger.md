@@ -6,7 +6,7 @@
 ## Contexto
 
 É preciso verificar que o agente entregou o que a spec pede, sem chamar a pessoa a cada falha.
-O fluxo de verificação do Ranger serve de inspiração.
+O fluxo de verificação do Ranger ([fontes](../pesquisa/fontes.md#ferramentas-e-métodos)) serve de inspiração.
 
 ## Opções consideradas
 

@@ -11,7 +11,7 @@ O GitHub já faz varredura de segredos e bloqueia o push de tokens conhecidos, m
 ## Opções consideradas
 
 - Só a proteção do GitHub.
-- Gitleaks só na CI.
+- [Gitleaks](../pesquisa/fontes.md#ferramentas-e-métodos) só na CI.
 - Gitleaks no pre-commit, no `vp run ready` e na CI.
 
 ## Decisão

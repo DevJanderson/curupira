@@ -11,7 +11,7 @@ Spec-driven development tem graus diferentes de compromisso com a spec. É preci
 
 - **Spec-first:** a spec só inicia o trabalho.
 - **Spec-anchored:** a spec evolui junto com o código.
-- **Spec-as-source:** só a spec é editada; o código é gerado a partir dela (como o Tessl).
+- **Spec-as-source:** só a spec é editada; o código é gerado a partir dela (como o Tessl, descrito na [análise de Böckeler](../pesquisa/fontes.md#artigos-estudos-e-relatórios)).
 
 ## Decisão
 

@@ -9,7 +9,7 @@ O monorepo precisa de formatação, lint, checagem de tipos, testes, tarefas e e
 
 ## Opções consideradas
 
-- Vite+: um comando só (`vp`).
+- [Vite+](../pesquisa/fontes.md#ferramentas-e-métodos): um comando só (`vp`).
 - Biome + Vitest + tsc, montados à mão.
 
 ## Decisão
