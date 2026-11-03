@@ -15,6 +15,9 @@ Fonte: [repositório](https://github.com/github/spec-kit), consultado na v1.2.7.
 
 - **O que é:** uma CLI instalável (`specify init`) que prepara o projeto para spec-driven development, com 43 integrações de agentes.
 - **Licença:** MIT.
+- **Como chama o modelo:** sem API própria; cada etapa de um fluxo roda o agente em modo não interativo (na integração
+  com o Claude Code, `claude -p <prompt>`), segundo a
+  [documentação da integração](https://github.com/github/spec-kit/blob/main/docs/integrations/claude.md).
 - **Aproveitar:**
   - a constituição, com princípios versionados, checada como portão no plano: violar um princípio exige justificativa;
   - a marca dos pontos que faltam esclarecer, com um comando que faz até 5 perguntas;
@@ -56,6 +59,9 @@ Fonte: [repositório](https://github.com/DevJanderson/specwork), consultado na v
 
 - **O que é:** um pacote Python com 960 testes, a tentativa anterior de organizar a fábrica humano + IA.
 - **Licença:** AGPL-3.0, a mesma do Curupira; pode ser reaproveitado livremente.
+- **Como chama o modelo:** sem API própria; na entrega, cada etapa roda num subagente novo, que recebe só ponteiros
+  para os arquivos; sem subagente, a etapa para e a pessoa segue numa sessão nova
+  ([sw-deliver-feature](https://github.com/DevJanderson/specwork/blob/main/src/specwork/skills/sw-deliver-feature/SKILL.md)).
 - **Aproveitar:**
   - o contrato verificável, item a item, com PASS/FAIL;
   - a avaliação independente: quem implementa não avalia;
