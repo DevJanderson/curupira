@@ -30,11 +30,12 @@ Na máquina do autor, em 2026-11-03, esses registros somavam 479 MB em 12 pastas
 Para os arquivos do adaptador (skills, subagentes e hooks):
 
 - No projeto, no Git: quem clona já tem tudo, mas cada atualização gera diffs grandes de arquivos gerados.
-- No projeto, fora do Git, refeitos pela instalação, como o specwork
-  ([README do specwork](https://github.com/DevJanderson/specwork/blob/main/README.md)): o Git fica limpo, mas os
-  arquivos gerados ficam dentro do `.claude/` do projeto, e os hooks teriam de ir no `settings.json`, que é
-  versionado.
-- Na máquina, como plugin do Claude Code, ligado por projeto: nenhum arquivo gerado no projeto.
+- No projeto, fora do Git, refeitos pela CLI, como o specwork
+  ([README do specwork](https://github.com/DevJanderson/specwork/blob/main/README.md)): o Git fica limpo, cada
+  projeto tem os arquivos da sua versão, e os hooks são propostos na adoção e ligados só com o "sim" da pessoa, cada
+  um chamando um comando único. Os arquivos gerados ficam dentro do `.claude/` do projeto.
+- Na máquina, como plugin do Claude Code, ligado por projeto: nenhum arquivo gerado no projeto, mas uma versão só por
+  máquina, o adaptador fora do projeto e uma reinstalação a cada mudança nas skills.
 
 Para a organização da máquina:
 
@@ -51,8 +52,7 @@ na máquina não perde nada, e o que se apaga se refaz ao abrir cada projeto.
 
 | Onde                               | O que guarda                                                                                                 |
 | ---------------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| onde o instalador puser (ADR-0009) | o programa: CLI, núcleo, painel e o adaptador                                                                |
-| `~/.claude/plugins/`               | o adaptador, instalado como plugin do Claude Code; a pasta é do Claude Code                                  |
+| onde o instalador puser (ADR-0009) | o programa: CLI, núcleo, painel e os modelos do adaptador                                                    |
 | `~/.config/curupira/`              | a configuração da pessoa; só existe se ela mudar algo (a porta do painel, por exemplo)                       |
 | `~/.local/state/curupira/`         | os ponteiros: os projetos conhecidos e seus caminhos, o painel em execução, o log da ferramenta com rotação  |
 | `~/.cache/curupira/projetos/<id>/` | o cache de cada projeto, como até onde cada registro de sessão já foi lido; pode ser apagado a qualquer hora |
@@ -64,24 +64,26 @@ nome ([ADR-0008](0008-nome-provisorio-e-troca-facil.md)), e uma variável de amb
 
 ### No projeto
 
-| Onde                                        | Git | O que guarda                                                                      |
-| ------------------------------------------- | --- | --------------------------------------------------------------------------------- |
-| `docs/produto/` e `docs/specs/<ID>-<nome>/` | sim | os artefatos (ADR-0023), inclusive a `verificacao.md` de cada funcionalidade      |
-| `.curupira/`                                | sim | o perfil, o estado, a medição, o id do projeto e a versão do Curupira que ele usa |
-| `.curupira/local/`                          | não | provas brutas, rodadas, eventos dos hooks para o painel e temporários             |
-| `.claude/settings.json`                     | sim | só a entrada que liga o plugin do Curupira                                        |
-| `AGENTS.md` e `CLAUDE.md`                   | sim | um bloco curto e delimitado do Curupira; o resto do arquivo é do projeto          |
-| `.gitignore`                                | sim | a linha `.curupira/local/`                                                        |
+| Onde                                                          | Git | O que guarda                                                                      |
+| ------------------------------------------------------------- | --- | --------------------------------------------------------------------------------- |
+| `docs/produto/` e `docs/specs/<ID>-<nome>/`                   | sim | os artefatos (ADR-0023), inclusive a `verificacao.md` de cada funcionalidade      |
+| `.curupira/`                                                  | sim | o perfil, o estado, a medição, o id do projeto e a versão do Curupira que ele usa |
+| `.curupira/local/`                                            | não | provas brutas, rodadas, eventos dos hooks para o painel e temporários             |
+| `.claude/skills/curupira-*/` e `.claude/agents/curupira-*.md` | não | as skills e os subagentes, postos pela CLI na versão do projeto                   |
+| `.claude/settings.json`                                       | sim | os hooks do Curupira, só com o "sim" da pessoa                                    |
+| `AGENTS.md` e `CLAUDE.md`                                     | sim | um bloco curto e delimitado do Curupira; o resto do arquivo é do projeto          |
+| `.gitignore`                                                  | sim | as linhas de `.curupira/local/` e dos arquivos gerados do adaptador               |
 
 Nomes e formatos dos arquivos dentro de `.curupira/` ficam para a F01.
 
 ### Regras
 
-1. **Adaptador como plugin.** A instalação do Curupira registra um marketplace local, que aponta para o programa
-   instalado. Em cada projeto, a CLI liga o plugin no `.claude/settings.json` e o instala no escopo do projeto,
-   em cada máquina. Os hooks ficam dentro do plugin.
-2. **Versão.** Como o plugin não fixa versão por projeto, a CLI compara a versão que o projeto usa com a instalada e
-   avisa quando não batem.
+1. **Adaptador no projeto.** A CLI põe as skills e os subagentes no `.claude/` do projeto, com o prefixo do nome
+   (`curupira-`), fora do Git, e os refaz a cada adoção e atualização. Os hooks são propostos na adoção e gravados
+   no `.claude/settings.json` só com o "sim" da pessoa; cada hook só chama `curupira hook <nome>`, sem lógica
+   própria.
+2. **Versão.** A CLI refaz os arquivos do adaptador na versão que o projeto usa e avisa quando a versão instalada não
+   é essa.
 3. **Projeto pelo id, não pelo caminho.** O id fica em `.curupira/`, no Git. Um mesmo id pode ter vários caminhos
    (pasta movida, worktrees); caminho que sumiu aparece como "não encontrado".
 4. **Projetos isolados.** O cache é separado por id do projeto, e não há banco central que junte os projetos. O
@@ -103,12 +105,21 @@ Nomes e formatos dos arquivos dentro de `.curupira/` ficam para a F01.
 
 - Gravar a medição a cada sessão protege os números da limpeza de 30 dias. A mudança de formato continua sendo um
   risco, e a [Q10](../produto/perguntas-em-aberto.md) continua aberta para o teste com registro de exemplo.
-- Quem clona o projeto sem o Curupira vê o erro do Claude Code, sem falha silenciosa. Avançar fases exige a CLI, e
-  os portões continuam valendo na CI.
-- O plugin do projeto só carrega depois que a pessoa marca a pasta como confiável no Claude Code.
-- As skills passam a ter o nome do plugin na frente (`curupira:<skill>`), e o `SKILL_PREFIX` do núcleo pode ficar
-  desnecessário; isso se revê na F03.
+- Quem clona o projeto roda `curupira iniciar` para ter as skills e os subagentes. Sem o Curupira instalado, os
+  hooks falham com erro visível, sem falha silenciosa. Avançar fases exige a CLI, e os portões continuam valendo na
+  CI.
+- Mudar uma skill no repositório-piloto e testar não exige reinstalar nada, e as evals (F19) copiam os arquivos para
+  projetos descartáveis.
+- O formato de skills em pasta serve também a outros agentes, quando vierem novos adaptadores (ADR-0021).
+- O plugin do Claude Code fica como opção para quando a instalação por um comando chegar (ADR-0009).
 - Num repositório público, os números da medição ficam visíveis; a documentação avisa, como faz com o nome de quem
   aprova.
-- Desinstalar remove o programa, as três pastas da máquina e o plugin; os projetos ficam intactos.
+- Desinstalar remove o programa, as três pastas da máquina e os arquivos gerados do adaptador; os artefatos e o
+  estado dos projetos ficam intactos.
 - Ajusta o ADR-0023: as provas se dividem entre o Git e `.curupira/local/`, e a medição entra em `.curupira/`.
+
+## Histórico
+
+- 2026-11-03: o adaptador deixou de ser plugin do Claude Code e passou a ser arquivos postos no projeto pela CLI,
+  fora do Git, como no specwork: cada projeto fica com a sua versão, tudo fica dentro do projeto, as skills se testam
+  sem reinstalar, e o formato serve a outros agentes.
