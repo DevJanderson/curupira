@@ -1,8 +1,13 @@
-import { defineConfig } from "vite-plus";
+import { configDefaults, defineConfig } from "vite-plus";
 
 export default defineConfig({
   staged: {
     "*": "vp check --fix",
+  },
+  test: {
+    // As cópias de trabalho dos agentes (.claude/worktrees/) trazem os testes do repositório; um revisor que muda o
+    // código de propósito numa delas não pode derrubar os testes desta.
+    exclude: [...configDefaults.exclude, ".claude/**"],
   },
   fmt: {},
   lint: {
