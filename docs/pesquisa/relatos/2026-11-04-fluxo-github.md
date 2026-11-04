@@ -49,3 +49,10 @@ O agente recomenda a primeira opção de cada uma.
 | E3  | quem aprova no GitHub      | o ruleset não exige revisão; a aprovação segue pelo "sim" e o `curupira request`, porque o agente usa o `gh` da pessoa, e o autor não aprova o próprio PR | uma conta ou GitHub App só do agente, com revisão formal da pessoa |
 | E4  | PRs por peça               | um só, aberto como rascunho depois da spec e marcado pronto na fase 7                                                                                     | um PR da spec e outro da implementação                             |
 | E5  | release                    | uma linha no "Unreleased" do changelog a cada peça; tag SemVer 0.y.z e release só em marcos                                                               | uma release a cada peça                                            |
+
+## A decisão
+
+A pessoa aceitou as cinco recomendações com "sim, as cinco". O fluxo virou o
+[ADR-0034](../../decisoes/0034-fluxo-no-github.md), com o form da issue de peça, o template do PR e o `CHANGELOG.md`
+no repositório. A configuração do GitHub (o ruleset da `main`, só o commit de merge, a branch apagada no merge e o
+rótulo "peça") é uma mudança de configuração da conta, feita depois do merge, com a confirmação da pessoa.

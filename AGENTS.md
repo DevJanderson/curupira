@@ -26,7 +26,13 @@ Este repositório é um monorepo TypeScript com Vite+ (`vp`) e pnpm: aplicaçõe
 
 ## Commits
 
-Formato `tipo: descrição`, com `tipo` entre `feat`, `fix`, `docs`, `refactor`, `test`, `chore`, `ci`.
+Formato `tipo: descrição` ou `tipo(<ID>): descrição`, do Conventional Commits, com `tipo` entre `feat`, `fix`,
+`docs`, `refactor`, `test`, `chore`, `ci` (ADR-0034).
+
+## GitHub
+
+O fluxo segue o ADR-0034: uma issue e uma branch `feat/<ID>` por peça, a partir da `main`; o PR abre como rascunho
+depois do commit da spec, com "Closes #n", e sai de rascunho na fase 7; a pessoa faz o merge, com commit de merge.
 
 ## Ferramental (Vite+)
 
