@@ -60,10 +60,14 @@ function read(file: string): string {
   return readFileSync(join(repo, file), "utf8");
 }
 
+// Tudo o que há no repositório, fora do .git, para um arquivo novo também contar como mudança.
 function files(): Record<string, string> {
   return Object.fromEntries(
-    [SETTINGS, ".gitignore"]
-      .filter((file) => existsSync(join(repo, file)))
+    readdirSync(repo, { recursive: true, withFileTypes: true })
+      .filter((entry) => entry.isFile())
+      .map((entry) => join(entry.parentPath, entry.name).slice(repo.length + 1))
+      .filter((file) => file !== ".git" && !file.startsWith(".git/"))
+      .sort()
       .map((file) => [file, read(file)]),
   );
 }
@@ -71,6 +75,8 @@ function files(): Record<string, string> {
 test("C1. A instalação põe o comando no caminho, sem npm", () => {
   const result = install();
   expect(result.code).toBe(0);
+  expect(result.out).toContain(join(home, ".local/share", BRAND.name));
+  expect(result.out).toContain(join(home, ".local/bin", BRAND.name));
   for (const manager of ["npm", "npx", "pnpm"]) {
     expect(existsSync(join(result.tools, manager))).toBe(false);
   }
@@ -98,6 +104,9 @@ test("C3. O init prepara o projeto", () => {
   );
   expect(commands).toEqual([`${BRAND.name} hook answer`]);
   expect(read(".gitignore")).toBe(`dist/\n${DATA_DIR}/local/\n`);
+  expect(result.out).toContain(SETTINGS);
+  expect(result.out).toContain(".gitignore");
+  expect(existsSync(join(repo, DATA_DIR))).toBe(false);
 });
 
 test("C4. O init de novo não muda nada", () => {
