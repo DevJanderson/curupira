@@ -30,3 +30,4 @@ numa linha nova.
 | 2026-11-03 | 23    | Fase 6 à mão da F01b: C1 a C5 verificados em 2 rodadas, 2 defeitos do R2 e do R5 corrigidos, 4 observações para a revisão                      |
 | 2026-11-03 | 24    | Fase 7 à mão da F01b: 5 defeitos (4 de testes e a CLI importando o adaptador) corrigidos, PR #2 aberto                                         |
 | 2026-11-03 | 25    | Aprovação da fase 7 da F01b com "sim", gravado pelo hook da própria F01b; PR #2 com a CI passando                                              |
+| 2026-11-03 | 26    | Fase 8 da F01b: merge pela pessoa (`7a2ec9b`); 4 melhorias aceitas no roteiro da spec e no ADR-0003                                            |

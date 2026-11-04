@@ -61,6 +61,8 @@ Cada requisito é uma frase com um gatilho e uma resposta, numa das cinco formas
   sem permissão, arquivo que é pasta, disco cheio).
 - Quando duas condições de erro podem acontecer juntas (fase errada e autor ausente, por exemplo), um cenário ou
   requisito diz qual erro vence.
+- Quando uma regra depende de texto digitado (uma resposta, um nome, um comando), a spec lista exemplos do que vale e
+  do que não vale, variando pontuação, espaços e maiúsculas; os testes de unidade usam essa lista.
 - Cenário aprovado vira teste de regressão.
 
 ### As outras seções
@@ -82,6 +84,10 @@ Cada requisito é uma frase com um gatilho e uma resposta, numa das cinco formas
   o executor de testes pode aceitar o que o ambiente real recusa.
 - O passo dos cenários não tem vermelho natural, porque testa o que os passos anteriores fizeram. Ele prova que os
   cenários pegam defeito com uma mutação de propósito no código, desfeita em seguida.
+- O mesmo vale para todo teste escrito depois de o comportamento existir, como os das correções da verificação e da
+  revisão: um teste que passa de primeira só conta depois de uma mutação de propósito que o derrube.
+- O plano lista as consequências de ADR que o código toca. Uma consequência que pede checagem por máquina vira teste
+  no primeiro passo que toca aquilo.
 
 ## Tamanho
 
@@ -109,3 +115,6 @@ A spec, com os cenários, só vale depois do "sim" da pessoa, na aprovação da 
 - 2026-11-03: depois da entrega da F01a, entraram os erros de leitura e gravação, o cenário de dois erros juntos, a
   entrada real no plano e a mutação no passo dos cenários
   ([relato](../pesquisa/relatos/2026-11-03-fase-5-f01a.md)).
+- 2026-11-03: depois da entrega da F01b, entraram os exemplos para regras de texto digitado, a mutação em todo teste
+  escrito depois do comportamento e o teste para a consequência de ADR checada por máquina
+  ([relato](../pesquisa/relatos/2026-11-03-fase-5-f01b.md)).
