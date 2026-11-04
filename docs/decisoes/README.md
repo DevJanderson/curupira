@@ -33,3 +33,4 @@ Cada decisão de arquitetura nova ou mudada vira um ADR aqui, antes do código. 
 | [0027](0027-idioma-e-vocabulario-da-ferramenta.md)            | Idioma e vocabulário da ferramenta                  | aceita   |
 | [0028](0028-cartao-de-decisao.md)                             | O cartão de decisão                                 | aceita   |
 | [0029](0029-mascote-no-terminal.md)                           | O mascote no terminal                               | aceita   |
+| [0030](0030-como-o-agente-fala-com-a-pessoa.md)               | Como o agente fala com a pessoa                     | aceita   |

@@ -54,3 +54,8 @@ que diz se a pessoa teve tempo de olhar os pontos do cartão.
   resposta. As skills de aprovação da F03 montam o cartão; a F12 guarda o tempo com a medição; a CLI usa o mesmo
   formato quando mostra o que espera decisão.
 - O que o cartão diz é texto para a pessoa; os dados por trás dele (pontos, links, checagens) não vão para o estado.
+
+## Histórico
+
+- 2026-11-04: o cartão passou a ser um dos três tipos de mensagem do agente
+  ([ADR-0030](0030-como-o-agente-fala-com-a-pessoa.md)).

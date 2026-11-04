@@ -32,3 +32,4 @@ numa linha nova.
 | 2026-11-03 | 25    | Aprovação da fase 7 da F01b com "sim", gravado pelo hook da própria F01b; PR #2 com a CI passando                                              |
 | 2026-11-03 | 26    | Fase 8 da F01b: merge pela pessoa (`7a2ec9b`); 4 melhorias aceitas no roteiro da spec e no ADR-0003                                            |
 | 2026-11-04 | 27    | Parecer sobre o fluxo da F01a e da F01b, com 5 recomendações aceitas; ADR-0028 (cartão de decisão) e ADR-0029 (mascote)                        |
+| 2026-11-04 | 28    | ADR-0030: três tipos de mensagem do agente (aviso de passo, cartão de decisão, resposta), "segue" para continuar e 🔥 no próximo passo         |
