@@ -21,3 +21,7 @@ numa linha nova.
 | 2026-11-03 | 14    | Combinado: todo o conteúdo das skills e dos subagentes em inglês, inclusive descrição, exemplos e modelos (ADR-0027)                           |
 | 2026-11-03 | 15    | Aprovação da fase 4 da F01a de novo com "sim", com os nomes em inglês; F01b segue na fase 3                                                    |
 | 2026-11-03 | 16    | Aprovação da fase 4 da F01b com "sim", depois de ajustar sessão, motivo digitado e o cenário do "sim" com outra frase                          |
+| 2026-11-03 | 17    | Fase 5 à mão da F01a na branch `feat/F01a`: jornada, estado, autor, comandos e cenários C1 a C5                                                |
+| 2026-11-03 | 18    | Fase 6 à mão da F01a: verificador separado, C1 a C5 verificados em 4 rodadas, `verification.md` com 8 observações                              |
+| 2026-11-03 | 19    | Fase 7 à mão da F01a: revisão em 4 eixos, 5 defeitos corrigidos, PR #1 aberto; espera a aprovação da fase 7                                    |
+| 2026-11-03 | 20    | Aprovação da fase 7 da F01a com "sim", PR #1 com a CI passando; o merge é da pessoa, na fase 8                                                 |
