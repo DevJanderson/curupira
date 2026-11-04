@@ -1,6 +1,6 @@
 # F01c: Pedido e teto
 
-- **Status:** rascunho, na fase 3
+- **Status:** na aprovação da fase 4
 - **Data:** 2026-11-04
 
 ## Objetivo
@@ -13,8 +13,9 @@ relatos.
 
 ## Linha
 
-Muda as linhas 4, 7 e 8 do ADR-0031, cuja coluna "Fica registrado" já pede a hora do pedido, o hash do `spec.md` e o
-commit revisado; hoje, nada disso é gravado. Na entrega, a F01c entra nas peças da linha 7, e o ADR-0031 ganha uma
+Muda as linhas 4, 7 e 8 do ADR-0031. Na coluna "Fica registrado", a linha 4 já pede a hora do pedido e o hash do
+`spec.md`, e a 7, a hora do pedido e o commit revisado; hoje, nada disso é gravado. A linha 8 passa a pedir também a
+hora do pedido e o commit, como a regra 6 manda. Na entrega, a F01c entra nas peças da linha 7, e o ADR-0031 ganha uma
 linha no histórico. As fases 1 e 2 e o `project.json` ficam com a F01d.
 
 ## Requisitos
@@ -39,7 +40,8 @@ linha no histórico. As fases 1 e 2 e o `project.json` ficam com a F01d.
   280 caracteres valem como estão.
 
 Exemplos do R7: um motivo de 280 caracteres fica inteiro; um de 281 vira 279 e "…"; uma letra com acento e um emoji
-contam um caractere cada.
+contam um caractere cada (o caractere é o ponto de código, e o emoji nunca se parte); os espaços das pontas saem antes
+da contagem.
 
 Entre os erros de `approve`, vale a ordem: a fase, o pedido, o conteúdo mudado, a sessão, a resposta e, por último, o
 autor. O `reject` segue a mesma ordem sem o conteúdo: um "não" ao que a pessoa viu continua valendo.
@@ -135,3 +137,12 @@ Os mesmos da F01b: o nome de autor do Git e o texto digitado na decisão. O teto
 ## Histórico
 
 - 2026-11-04: rascunho. A F01c se dividiu antes do rascunho: as regras 3 a 5 do ADR-0031 foram para a F01d.
+- 2026-11-04: contraditório em duas rodadas, com 26 achados (15 da Completude e 8 da Necessidade na primeira; 3 na
+  segunda). Na spec: a transição da própria F01c; o caminho do `spec.md` no pedido e na decisão; o que é "commit" e
+  "mudança sem commit"; o `spec.md` que é pasta, link ou ilegível; "não posterior" no R4; o teto só no motivo, com a
+  contagem por ponto de código; a ordem dos erros do `reject`; o C5 trocado pelo commit novo na fase 7; a linha 8 do
+  ADR-0031. O R9 saiu dos requisitos: o estado da F01a e da F01b é um dado, gravado uma vez fora da CLI, como exceção
+  dita nas decisões. Riscos aceitos: sem trava entre comandos e o commit que some num squash. No plano: os campos em
+  inglês, as mensagens com `curupira request <ID>`, commitar antes do pedido, o `AGENTS.md` e o README. Recusados:
+  mostrar o pedido no `status`, HEAD solto e submódulo, e juntar o C1 e o C3. O destino de cada achado está no
+  [relato](../../pesquisa/relatos/2026-11-04-fase-3-f01c.md).

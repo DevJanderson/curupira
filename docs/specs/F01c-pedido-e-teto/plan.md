@@ -35,7 +35,8 @@ e as respostas digitadas, e da F00, que trouxe o comando instalado.
   - sem pedido, ou com o pedido de outra fase, `approve` e `reject` recusam, e a mensagem cita
     `curupira request <ID>`;
   - com a resposta mais velha que o pedido, recusam; com a mesma hora, também;
-  - a decisão guarda a hora e o hash do pedido, e o pedido sai do estado;
+  - a decisão guarda a hora e o hash do pedido (e, na fase 4, o caminho), nos campos opcionais `requestedAt`, `hash`
+    e `path`, e o pedido sai do estado; o `load` aceita a decisão sem eles (R8) e recusa um deles malformado;
   - a ordem dos erros do `approve`: a fase, o pedido, o conteúdo, a sessão, a resposta, o autor; a do `reject`, a
     mesma sem o conteúdo.
 - **O que muda:** o núcleo e `run.ts`. Os testes da F01a, da F01b e da F00 que aprovam passam a fazer o pedido antes
@@ -82,7 +83,8 @@ e as respostas digitadas, e da F00, que trouxe o comando instalado.
 
 - **Teste primeiro:** não se aplica.
 - **O que muda:**
-  - o ADR-0031 ganha a F01c nas peças da linha 7 e a linha da entrega no histórico;
+  - o ADR-0031 ganha a F01c nas peças da linha 7, a hora do pedido e o commit na coluna "Fica registrado" da linha
+    8, e a linha da entrega no histórico;
   - o [humano e agente](../../conceitos/humano-e-agente.md) e o `AGENTS.md` dizem que o agente commita tudo, roda
     `request` e só então mostra o cartão, sem commitar entre o pedido e a resposta;
   - o [roteiro da entrega](../../metodo/roteiro-entrega.md) diz o mesmo nas fases 7 e 8;

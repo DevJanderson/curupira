@@ -54,3 +54,4 @@ numa linha nova.
 | 2026-11-04 | 47    | F00 nas fases 5 a 7: a pessoa instalou e rodou o `init` no piloto; verificação sem defeitos; revisão em 4 eixos com 13 defeitos, 12 corrigidos e 4 só do outro olhar                               |
 | 2026-11-04 | 48    | F00 aprovada na fase 7 com "sim"; medição e propostas do método: entra o eixo de mutação à parte, sai o cartão sem outro modelo, cresce a regra dos dados gravados                                 |
 | 2026-11-04 | 49    | F00 entregue com "sim" na fase 8, gravado pelo `curupira` instalado; as três mudanças do método entraram; o merge do PR #4 é da pessoa                                                             |
+| 2026-11-04 | 50    | F01c aberta numa branch da `main`; dividida em F01c (pedido e teto) e F01d (branch e projeto) com "sim"; spec e plano, contraditório em duas rodadas com 26 achados, nenhuma pergunta              |
