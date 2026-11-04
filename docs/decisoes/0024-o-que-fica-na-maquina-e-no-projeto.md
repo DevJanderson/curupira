@@ -55,7 +55,7 @@ na máquina não perde nada, e o que se apaga se refaz ao abrir cada projeto.
 | onde o instalador puser (ADR-0009) | o programa: CLI, núcleo, painel e os modelos do adaptador                                                    |
 | `~/.config/curupira/`              | a configuração da pessoa; só existe se ela mudar algo (a porta do painel, por exemplo)                       |
 | `~/.local/state/curupira/`         | os ponteiros: os projetos conhecidos e seus caminhos, o painel em execução, o log da ferramenta com rotação  |
-| `~/.cache/curupira/projetos/<id>/` | o cache de cada projeto, como até onde cada registro de sessão já foi lido; pode ser apagado a qualquer hora |
+| `~/.cache/curupira/projects/<id>/` | o cache de cada projeto, como até onde cada registro de sessão já foi lido; pode ser apagado a qualquer hora |
 | `~/.claude/projects/`              | os registros de sessão do agente; a pasta é do Claude Code, e o Curupira só lê                               |
 
 As pastas seguem o padrão XDG ([XDG Base Directory](https://specifications.freedesktop.org/basedir-spec/latest/)),
@@ -126,5 +126,6 @@ Nomes e formatos dos arquivos dentro de `.curupira/` ficam para a F01.
 - 2026-11-03: o prefixo dos arquivos do adaptador passou de `curupira-` para `cr-`, a abreviação do nome (ADR-0008).
 - 2026-11-03: a medição passou de `.curupira/medicao/` para o arquivo de estado de cada funcionalidade, para nenhuma
   pasta crescer com o tempo ([ADR-0026](0026-o-que-o-curupira-grava-nao-cresce-com-o-tempo.md)).
-- 2026-11-03: os nomes da interface passaram para o inglês (`docs/product/`, `verification.md`, `curupira init`), e
-  "portões" passou a "checagens" ([ADR-0027](0027-idioma-e-vocabulario-da-ferramenta.md)).
+- 2026-11-03: os nomes da interface passaram para o inglês (`docs/product/`, `verification.md`, `curupira init`,
+  `~/.cache/curupira/projects/`), e "portões" passou a "checagens"
+  ([ADR-0027](0027-idioma-e-vocabulario-da-ferramenta.md)).

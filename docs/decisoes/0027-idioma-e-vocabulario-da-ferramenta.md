@@ -81,6 +81,8 @@ Exemplos da interface, para orientar as specs: `curupira init`, `curupira approv
   - `docs/produto/` virou `docs/product/`, com `features.md` e `open-questions.md`; os roteiros do PRD e da spec
     foram para `docs/metodo/`, porque são do método deste repositório, e não arquivos que a ferramenta cria;
   - nas specs, `plano.md` virou `plan.md`, e o ADR-0015 mudou de nome;
+  - na máquina, a pasta de cache passou a `~/.cache/curupira/projects/`;
+  - a pasta vazia `docs/produto/` foi apagada;
   - "portão" virou "aprovação" ou "checagem" em toda a documentação, menos no registro e nos relatos, que guardam o
     que aconteceu, e na pesquisa;
   - a spec da F01a voltou à fase 3 com os comandos `open`, `status`, `advance`, `approve` e `reject --reason`.
