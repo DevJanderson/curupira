@@ -1,6 +1,6 @@
 # F02: Adotar o projeto
 
-- **Status:** rascunho, na aprovação da fase 4
+- **Status:** rascunho, na fase 3, parada até a revisão do fluxo
 - **Data:** 2026-11-04
 
 ## Objetivo
@@ -168,3 +168,5 @@ nenhum.
 - 2026-11-04: a pergunta 2 (a recusa deixa rastro?) foi respondida com "a": toda decisão da fase 1 fica gravada.
 - 2026-11-04: segunda rodada do contraditório, com 5 lacunas e 1 excesso; destinos no
   [relato](../../pesquisa/relatos/2026-11-04-fase-3-f02.md).
+- 2026-11-04: recusada de novo na aprovação da fase 4: o `init` tem três sentidos na documentação, e o "sim" antes da
+  proposta tem conserto barato. A F02 fica parada até a revisão do fluxo inteiro.
