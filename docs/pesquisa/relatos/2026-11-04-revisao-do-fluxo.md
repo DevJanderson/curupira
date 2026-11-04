@@ -173,6 +173,23 @@ O que decorre:
   demais, ele pode guardar só as decisões desde a última aprovação de cada fase, sem perder nada.
 - **A medição acompanha o tamanho:** a F12 mede o tamanho dos arquivos de estado junto com o resto.
 
+### Nó 4: estado, branch e entrega (2026-11-04)
+
+**Decisão da pessoa:** "a". A branch da funcionalidade nasce no `open`, na fase 3, e leva junto a spec, o plano, o
+estado, o código e a verificação, num PR só. O merge, que é da pessoa, leva tudo para a `main`.
+
+O que decorre:
+
+- O `open` cria a branch da funcionalidade e passa para ela; a "branch por funcionalidade" sai da F09.
+- O "sim" da fase 8 grava "entregue, esperando merge" na branch; na `main`, depois do merge, a funcionalidade
+  aparece como entregue. A F12 registra a entrega e a medição nesse "sim", e não depois do merge.
+- O trabalho do projeto, nas fases 1 e 2, segue a mesma regra: a adoção e o PRD andam numa branch própria e
+  chegam à `main` pelo merge da pessoa.
+- A F01a e a F01b, já entregues sem estado, ganham o estado na `main`, montado a partir dos relatos e marcado como
+  registrado depois.
+- Ver na `main` as funcionalidades em andamento em outras branches fica para o `status` e o painel, que podem ler o
+  estado das branches pelo Git.
+
 ## Números
 
 | Medida                                   | Valor                                       |
