@@ -167,3 +167,12 @@ test("a decisão com o pedido e a decisão sem ele, de antes da F01c, são váli
     expect(readState(root, "F01a")!.decisions[0]).toMatchObject(fields);
   }
 });
+
+test("um estado de antes da F01c, com decisões sem pedido e um motivo longo, é válido como está", () => {
+  const dir = join(root, DATA_DIR, "state");
+  mkdirSync(dir, { recursive: true });
+  const reason = "falta um cenário. ".repeat(40).trim();
+  const old = { phase: 4, decision: "reject", by: "Ana", at: AT, reason };
+  writeFileSync(join(dir, "F02.json"), JSON.stringify({ id: "F02", phase: 3, decisions: [old] }));
+  expect(readState(root, "F02")!.decisions[0]!.reason).toBe(reason);
+});

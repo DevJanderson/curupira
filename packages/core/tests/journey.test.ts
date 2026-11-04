@@ -169,3 +169,24 @@ describe("o pedido", () => {
     expect(errorCode(() => requestApproval(at(5), AT, { hash: "x" }))).toBe("no-approval");
   });
 });
+
+describe("o teto do motivo", () => {
+  const reason = (text: string) => reject(at(4), "Ana", AT, text).decisions[0]!.reason!;
+
+  test("um motivo de 280 caracteres fica inteiro; um de 281 vira 279 e reticências", () => {
+    expect(reason("a".repeat(280))).toBe("a".repeat(280));
+    expect(reason("a".repeat(281))).toBe("a".repeat(279) + "…");
+  });
+
+  test("conta ponto de código: o acento e o emoji contam um, e o emoji não se parte", () => {
+    expect(reason("é".repeat(280))).toBe("é".repeat(280));
+    expect(reason("🙂".repeat(280))).toBe("🙂".repeat(280));
+    const cut = reason("a".repeat(278) + "🙂🙂🙂");
+    expect(cut).toBe("a".repeat(278) + "🙂…");
+    expect([...cut]).toHaveLength(280);
+  });
+
+  test("os espaços das pontas saem antes da contagem", () => {
+    expect(reason("  " + "a".repeat(280) + "  ")).toBe("a".repeat(280));
+  });
+});

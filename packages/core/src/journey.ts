@@ -36,6 +36,8 @@ export interface FeatureState {
   request?: Request;
 }
 
+// O que passar do teto fica na conversa (ADR-0031, regra 7; ADR-0026).
+const MAX_REASON = 280;
 const APPROVAL_PHASES: ReadonlySet<Phase> = new Set([4, 7, 8]);
 // F, número de dois ou mais dígitos e um sufixo opcional em minúscula: F02, F01a.
 const FEATURE_ID = /^F\d{2,}[a-z]?$/;
@@ -97,8 +99,14 @@ export function reject(
   if (options.spec && phase !== 7)
     throw new FlowError("spec-only-in-phase-7", { id: state.id, phase });
   const back: Phase = phase === 4 ? 3 : phase === 7 ? (options.spec ? 3 : 5) : 8;
-  const decision: Decision = { phase, decision: "reject", by, at, reason: trimmed };
+  const decision: Decision = { phase, decision: "reject", by, at, reason: capped(trimmed) };
   return decided(state, back, { ...decision, ...answered(request) });
+}
+
+// Conta ponto de código, para um emoji não se partir ao meio.
+function capped(reason: string): string {
+  const chars = [...reason];
+  return chars.length <= MAX_REASON ? reason : chars.slice(0, MAX_REASON - 1).join("") + "…";
 }
 
 // O pedido da fase atual: sem ele, nada se decide (ADR-0031, regra 6).
