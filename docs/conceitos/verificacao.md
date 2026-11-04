@@ -13,6 +13,8 @@
 ## O verificador
 
 - Um verificador separado, que não implementou o código, roda os cenários contra o sistema real.
+- Ele também lê os testes automáticos dos cenários e confere que cada um testa todas as partes do resultado
+  esperado; um teste que passaria com o comportamento errado é achado da verificação.
 - Ele é chamado por um comando só.
 
 ## Os quatro vereditos
@@ -27,6 +29,8 @@
 ## O laço de correção
 
 - Em "falhou", o agente que implementou corrige, e o verificador roda os cenários de novo, com um limite de tentativas.
+- Achados fora dos cenários seguem a mesma regra: defeito (contradiz a spec) é corrigido; observação (a spec não diz
+  nada) tem no máximo duas rodadas de correção, e o que sobrar vai para a `verification.md`, para a revisão.
 - Em "bloqueado", o agente chama a pessoa.
 
 ## Provas em texto
@@ -47,3 +51,8 @@ Cenário aprovado vira teste de regressão e passa a rodar sempre.
 
 Cada passo da implementação começa com um teste que falha: a prova do vermelho.
 Só depois vem o código que faz o teste passar.
+
+## Histórico
+
+- 2026-11-03: depois da entrega da F01a, o verificador passou a ler os testes dos cenários, e as observações
+  ganharam um limite de rodadas ([relato](../pesquisa/relatos/2026-11-03-fase-5-f01a.md)).

@@ -57,6 +57,10 @@ Cada requisito é uma frase com um gatilho e uma resposta, numa das cinco formas
   ([verificação](../conceitos/verificacao.md)).
 - Os cenários cobrem os comportamentos principais; o resto dos requisitos é coberto pelos testes do plano. Todo
   requisito aparece num cenário ou num passo do plano.
+- Para cada dado que a funcionalidade grava, a spec diz o que acontece quando ele não pode ser lido ou gravado (pasta
+  sem permissão, arquivo que é pasta, disco cheio).
+- Quando duas condições de erro podem acontecer juntas (fase errada e autor ausente, por exemplo), um cenário ou
+  requisito diz qual erro vence.
 - Cenário aprovado vira teste de regressão.
 
 ### As outras seções
@@ -74,6 +78,10 @@ Cada requisito é uma frase com um gatilho e uma resposta, numa das cinco formas
   requisitos que atende e os arquivos que toca.
 - Passo grande se quebra em dois.
 - O plano é do agente e pode mudar na implementação; o que muda o comportamento volta para a spec.
+- O primeiro passo que tem saída para a pessoa roda a entrada real (o comando, a página, a API), e não só os testes:
+  o executor de testes pode aceitar o que o ambiente real recusa.
+- O passo dos cenários não tem vermelho natural, porque testa o que os passos anteriores fizeram. Ele prova que os
+  cenários pegam defeito com uma mutação de propósito no código, desfeita em seguida.
 
 ## Tamanho
 
@@ -98,3 +106,6 @@ A spec, com os cenários, só vale depois do "sim" da pessoa, na aprovação da 
 - 2026-11-03: os cenários passaram para dentro do `spec.md` (ADR-0026).
 - 2026-11-03: o roteiro passou de `docs/produto/` para `docs/metodo/`, os arquivos a `plan.md` e `verification.md`, e
   "portão" a "aprovação" (ADR-0027).
+- 2026-11-03: depois da entrega da F01a, entraram os erros de leitura e gravação, o cenário de dois erros juntos, a
+  entrada real no plano e a mutação no passo dos cenários
+  ([relato](../pesquisa/relatos/2026-11-03-fase-5-f01a.md)).
