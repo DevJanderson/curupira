@@ -161,7 +161,7 @@ test("a decisão com o pedido e a decisão sem ele, de antes da F01c, são váli
   for (const fields of [
     {},
     { requestedAt: AT, hash: "abc" },
-    { requestedAt: AT, hash: "a", path: "s" },
+    { requestedAt: AT, hash: "a", path: "docs/specs/F01a-x/spec.md" },
   ]) {
     writeFileSync(join(dir, "F01a.json"), decisionWith(fields));
     expect(readState(root, "F01a")!.decisions[0]).toMatchObject(fields);

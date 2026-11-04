@@ -226,3 +226,69 @@ test("request precisa de um ID", () => {
   expect(cli("request").code).toBe(1);
   expect(cli("request").err).toMatch(/request <ID>/);
 });
+
+test("uma pasta da spec que é link simbólico é recusada, mesmo com o spec.md comum dentro", () => {
+  const outside = join(repo, "..", "fora");
+  mkdirSync(outside);
+  writeFileSync(join(outside, "spec.md"), "# fora\n");
+  execFileSync("rm", ["-r", join(repo, SPEC, "..")]);
+  symlinkSync(outside, join(repo, SPEC, ".."));
+  at(4);
+  let result = cli("request", "F09");
+  expect(result.code).toBe(1);
+  expect(result.err).toContain(join("docs", "specs", "F09-exemplo"));
+  expect(state().request).toBeUndefined();
+
+  execFileSync("rm", ["-r", join(repo, "docs", "specs")]);
+  mkdirSync(join(outside, "F09-exemplo"));
+  writeFileSync(join(outside, "F09-exemplo", "spec.md"), "# fora\n");
+  symlinkSync(outside, join(repo, "docs", "specs"));
+  result = cli("request", "F09");
+  expect(result.code).toBe(1);
+  expect(state().request).toBeUndefined();
+});
+
+test("um arquivo solto com o começo do ID não conta como pasta de spec", () => {
+  write(join("docs", "specs", "F09-notas.md"), "# notas\n");
+  at(4);
+  expect(cli("request", "F09").code).toBe(0);
+  expect(state().request.path).toBe(SPEC);
+});
+
+test("sem pasta de spec, a mensagem diz onde ela fica", () => {
+  at(4, "F10");
+  const result = cli("request", "F10");
+  expect(result.code).toBe(1);
+  expect(result.err).toContain(join("docs", "specs", "F10-"));
+});
+
+test("uma saída grande do git status não vira falta de commit", () => {
+  at(7);
+  const dir = join(repo, "muitos");
+  mkdirSync(dir);
+  for (let i = 0; i < 30000; i++)
+    writeFileSync(join(dir, `arquivo-com-um-nome-comprido-${i}.txt`), "");
+  const result = cli("request", "F09");
+  expect(result.code).toBe(1);
+  expect(result.err).toContain("muitos");
+});
+
+test("um pedido com o caminho fora do lugar, sem caminho na fase 4, com caminho na 7 ou com hora solta é inválido", () => {
+  const cases = [
+    { phase: 4, at: NOW, hash: "a", path: join("..", "fora.md") },
+    { phase: 4, at: NOW, hash: "a", path: "/etc/spec.md" },
+    { phase: 4, at: NOW, hash: "a" },
+    { phase: 7, at: NOW, hash: "a", path: SPEC },
+    { phase: 4, at: "1", hash: "a", path: SPEC },
+  ];
+  at(4);
+  for (const request of cases) {
+    writeFileSync(
+      stateFile(repo, "F09"),
+      JSON.stringify({ id: "F09", phase: request.phase, decisions: [], request }),
+    );
+    const result = cli("status");
+    expect(result.code).toBe(1);
+    expect(result.err).toMatch(/pedido/);
+  }
+});

@@ -497,3 +497,28 @@ test("o conteúdo mudado vem antes da sessão", () => {
   expect(result.err).toContain("request F01a");
   expect(result.err).not.toContain("sessão");
 });
+
+test("na fase 4, uma segunda pasta de spec que aparece depois do pedido faz o approve recusar", () => {
+  atPhase(4);
+  ask("F01a");
+  const copy = join(repo, "docs", "specs", "F01a-copia");
+  mkdirSync(copy);
+  writeFileSync(join(copy, "spec.md"), "# outra spec\n");
+  say("sim");
+  const result = cli("approve", "F01a");
+  expect(result.code).toBe(1);
+  expect(result.err).toContain("request F01a");
+  expect(state("F01a").phase).toBe(4);
+});
+
+test("um commit novo e uma mudança sem commit têm mensagens diferentes", () => {
+  atPhase(7);
+  ask("F01a");
+  writeFileSync(join(repo, "codigo.ts"), "novo\n");
+  say("sim");
+  expect(cli("approve", "F01a").err).toMatch(/sem commit.*codigo\.ts/);
+  git("add", "codigo.ts");
+  git("commit", "-qm", "novo");
+  say("sim");
+  expect(cli("approve", "F01a").err).toContain(`commit ${git("rev-parse", "--short=12", "HEAD")}`);
+});

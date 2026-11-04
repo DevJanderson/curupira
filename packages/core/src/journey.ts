@@ -58,7 +58,7 @@ export function open(id: string): FeatureState {
 export function requestApproval(
   state: FeatureState,
   at: string,
-  target: { hash: string; path?: string },
+  target: Pick<Request, "hash" | "path">,
 ): FeatureState {
   const phase = approvalPhase(state);
   return { ...state, request: { phase, at, ...target } };
@@ -103,10 +103,26 @@ export function reject(
   return decided(state, back, { ...decision, ...answered(request) });
 }
 
-// Conta ponto de código, para um emoji não se partir ao meio.
+// Conta ponto de código, mas corta só entre grafemas: um emoji de vários pontos, como uma bandeira, e uma letra com
+// acento à parte não se partem; se o último não couber inteiro, sai todo.
 function capped(reason: string): string {
-  const chars = [...reason];
-  return chars.length <= MAX_REASON ? reason : chars.slice(0, MAX_REASON - 1).join("") + "…";
+  if (codePoints(reason) <= MAX_REASON) return reason;
+  let kept = "";
+  let count = 0;
+  for (const { segment } of new Intl.Segmenter(undefined, { granularity: "grapheme" }).segment(
+    reason,
+  )) {
+    count += codePoints(segment);
+    if (count > MAX_REASON - 1) break;
+    kept += segment;
+  }
+  return kept + "…";
+}
+
+function codePoints(text: string): number {
+  let count = 0;
+  for (const _ of text) count++;
+  return count;
 }
 
 // O pedido da fase atual: sem ele, nada se decide (ADR-0031, regra 6).

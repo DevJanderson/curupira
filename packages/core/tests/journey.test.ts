@@ -183,7 +183,14 @@ describe("o teto do motivo", () => {
     expect(reason("🙂".repeat(280))).toBe("🙂".repeat(280));
     const cut = reason("a".repeat(278) + "🙂🙂🙂");
     expect(cut).toBe("a".repeat(278) + "🙂…");
-    expect([...cut]).toHaveLength(280);
+    expect(Array.from(cut)).toHaveLength(280);
+  });
+
+  test("o corte não parte um emoji de vários pontos de código nem uma letra com acento à parte", () => {
+    expect(reason("a".repeat(278) + "🇧🇷x")).toBe("a".repeat(278) + "…");
+    expect(reason("a".repeat(277) + "👨‍👩‍👧")).toBe("a".repeat(277) + "…");
+    expect(reason("a".repeat(278) + "q\u0301x")).toBe("a".repeat(278) + "…");
+    expect(reason("a".repeat(276) + "🇧🇷xyz")).toBe("a".repeat(276) + "🇧🇷x…");
   });
 
   test("os espaços das pontas saem antes da contagem", () => {

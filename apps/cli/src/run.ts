@@ -4,9 +4,9 @@ import {
   answerAfter,
   approvalPhase,
   approvalTarget,
-  checkUnchanged,
   approvalText,
   approve,
+  checkUnchanged,
   currentRequest,
   deleteAnswer,
   FlowError,
@@ -112,7 +112,7 @@ export function run(args: string[], io: Io): number {
     if (!current) throw new FlowError("not-found", { id });
     if (command === "request") {
       const phase = approvalPhase(current);
-      const target = approvalTarget(root, id, phase);
+      const target = approvalTarget(root, id, phase, io.env);
       // Uma leitura só do relógio, para a mensagem dizer a hora que ficou gravada.
       const at = io.now();
       writeState(root, requestApproval(current, at, target));
@@ -136,7 +136,7 @@ export function run(args: string[], io: Io): number {
     // autor. Um "não" ao que a pessoa viu continua valendo, mesmo que o conteúdo tenha mudado.
     const from = approvalPhase(current);
     const request = currentRequest(current);
-    if (command === "approve") checkUnchanged(root, id, request);
+    if (command === "approve") checkUnchanged(root, id, request, io.env);
     const session = io.agent.session(io.env);
     if (session === undefined) throw new FlowError("no-session");
     const answer = answerAfter(readAnswer(root, session, new Date(io.now())), request, id);
