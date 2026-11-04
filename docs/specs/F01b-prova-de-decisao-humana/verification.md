@@ -66,3 +66,8 @@ Pontos em que a spec é silenciosa, que ficaram como estão (o limite de rodadas
 - "não F02, motivo" recusa a F01a e grava "F02, motivo" como motivo; o "sim F02", ao contrário, não aprova a F01a.
 - Na recusa, a decisão grava só o motivo, e não o texto digitado inteiro (compatível com a seção Dados pessoais).
 - Uma resposta com `at` inválido ou no futuro aprova, e a limpeza não a apaga; só acontece mexendo no arquivo à mão.
+
+## Histórico
+
+- 2026-11-03: aprovada na fase 7 com "sim", por Janderson, no PR
+  [DevJanderson/curupira#2](https://github.com/DevJanderson/curupira/pull/2), no commit `b1d06db`, com a CI passando.
