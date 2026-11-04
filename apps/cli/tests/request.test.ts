@@ -94,7 +94,7 @@ test("nas fases 7 e 8, grava o commit", () => {
     const result = cli("request", "F09");
     expect(result.code).toBe(0);
     expect(state().request).toEqual({ phase, at: NOW, hash: git("rev-parse", "HEAD") });
-    expect(result.out).toContain(git("rev-parse", "--short", "HEAD"));
+    expect(result.out).toContain(`commit ${git("rev-parse", "--short=12", "HEAD")}.`);
   }
 });
 
@@ -207,7 +207,7 @@ test("num repositório sem commit, o pedido das fases 7 e 8 é recusado", () => 
   at(7);
   const result = cli("request", "F09");
   expect(result.code).toBe(1);
-  expect(result.err).toMatch(/commit/);
+  expect(result.err).toContain("Não foi possível ler o commit");
   expect(state().request).toBeUndefined();
 });
 
@@ -280,6 +280,7 @@ test("um pedido com o caminho fora do lugar, sem caminho na fase 4, com caminho 
     { phase: 4, at: NOW, hash: "a" },
     { phase: 7, at: NOW, hash: "a", path: SPEC },
     { phase: 4, at: "1", hash: "a", path: SPEC },
+    { phase: 4, at: NOW, hash: "a", path: 123 },
   ];
   at(4);
   for (const request of cases) {
@@ -291,4 +292,64 @@ test("um pedido com o caminho fora do lugar, sem caminho na fase 4, com caminho 
     expect(result.code).toBe(1);
     expect(result.err).toMatch(/pedido/);
   }
+});
+
+test("a pasta de outra funcionalidade cujo ID começa igual não conta: F09 não pega F09a", () => {
+  write(join("docs", "specs", "F09a-outra", "spec.md"), "# F09a\n");
+  at(4);
+  expect(cli("request", "F09").code).toBe(0);
+  expect(state().request.path).toBe(SPEC);
+  execFileSync("rm", ["-r", join(repo, SPEC, "..")]);
+  const result = cli("request", "F09");
+  expect(result.code).toBe(1);
+  expect(result.err).not.toContain("F09a");
+});
+
+test("num repositório recém-criado, sem commit nem arquivos, o pedido da fase 7 diz que falta o commit", () => {
+  execFileSync("rm", ["-rf", join(repo, ".git"), join(repo, "docs")]);
+  git("init", "-q");
+  at(7);
+  const result = cli("request", "F09");
+  expect(result.code).toBe(1);
+  expect(result.err).toContain("Não foi possível ler o commit");
+});
+
+test("um git status que falha dá um erro tratado, sem gravar", () => {
+  at(7);
+  writeFileSync(join(repo, ".git", "index"), "corrompido");
+  const result = cli("request", "F09");
+  expect(result.code).toBe(1);
+  expect(result.err).toContain("Não foi possível ler o commit");
+  expect(state().request).toBeUndefined();
+});
+
+test("um arquivo novo numa pasta nova é citado pelo caminho inteiro", () => {
+  at(7);
+  write(join("src", "novo", "a.ts"), "novo\n");
+  expect(cli("request", "F09").err).toContain(join("src", "novo", "a.ts"));
+});
+
+test("uma pasta docs/specs que não pode ser lida não vira spec ausente", () => {
+  execFileSync("rm", ["-r", join(repo, "docs", "specs")]);
+  writeFileSync(join(repo, "docs", "specs"), "não é pasta");
+  at(4);
+  const result = cli("request", "F09");
+  expect(result.code).toBe(1);
+  expect(result.err).toContain("Não foi possível ler");
+});
+
+test("a mensagem do pedido traz a mesma hora que ficou gravada", () => {
+  at(4);
+  let tick = 0;
+  const out: string[] = [];
+  run(["request", "F09"], {
+    cwd: repo,
+    env,
+    agent: { session: agentSession, readPrompt: readPromptHook, answerHook },
+    stdin: () => "",
+    now: () => new Date(Date.parse(NOW) + tick++ * 1000).toISOString(),
+    out: (line) => out.push(line),
+    err: () => {},
+  });
+  expect(out.join("\n")).toContain(state().request.at);
 });

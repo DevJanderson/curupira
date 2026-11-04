@@ -1,11 +1,13 @@
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import {
+  chmodSync,
   existsSync,
   mkdirSync,
   mkdtempSync,
   readFileSync,
   realpathSync,
+  symlinkSync,
   writeFileSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
@@ -521,4 +523,46 @@ test("um commit novo e uma mudança sem commit têm mensagens diferentes", () =>
   git("commit", "-qm", "novo");
   say("sim");
   expect(cli("approve", "F01a").err).toContain(`commit ${git("rev-parse", "--short=12", "HEAD")}`);
+});
+
+test("um spec.md que virou pasta ou link depois do pedido conta como mudado", () => {
+  atPhase(4);
+  for (const change of ["pasta", "link"]) {
+    ask("F01a");
+    const file = join(repo, SPEC);
+    execFileSync("rm", ["-rf", file]);
+    if (change === "pasta") mkdirSync(file);
+    else {
+      writeFileSync(join(repo, "fora.md"), "# spec\n");
+      symlinkSync(join(repo, "fora.md"), file);
+    }
+    say("sim");
+    const result = cli("approve", "F01a");
+    expect(result.code).toBe(1);
+    expect(result.err).toContain("pedido novo");
+    execFileSync("rm", ["-rf", file]);
+    writeFileSync(file, "# spec\n");
+  }
+});
+
+test("um spec.md ilegível depois do pedido é recusado como erro de leitura, sem aprovar", () => {
+  atPhase(4);
+  ask("F01a");
+  chmodSync(join(repo, SPEC), 0o000);
+  say("sim");
+  try {
+    const result = cli("approve", "F01a");
+    expect(result.code).toBe(1);
+    expect(result.err).toContain(SPEC);
+  } finally {
+    chmodSync(join(repo, SPEC), 0o644);
+  }
+  expect(state("F01a").phase).toBe(4);
+});
+
+test("a resposta e o pedido se comparam pelo instante, e não pelo texto da hora", () => {
+  atPhase(4);
+  ask("F01a", "2026-11-03T20:00:00Z");
+  say("sim", SESSION, "2026-11-03T20:00:00.500Z");
+  expect(cliWith("", ["approve", "F01a"], "2026-11-03T20:01:00.000Z").code).toBe(0);
 });
