@@ -1,6 +1,6 @@
 # F01a: Estado e comandos
 
-- **Status:** rascunho, de volta à fase 3 (nomes em inglês, ADR-0027)
+- **Status:** aprovada na fase 4
 - **Data:** 2026-11-03
 
 ## Objetivo
@@ -108,3 +108,4 @@ público, o nome fica visível, e a documentação avisa.
 
 - 2026-11-03: aprovada na fase 4 com "sim", por Janderson; voltou à fase 3 no mesmo dia, porque os nomes dos
   comandos, das opções e do caminho do estado passaram para o inglês (ADR-0027). O comportamento não mudou.
+- 2026-11-03: aprovada de novo na fase 4 com "sim", por Janderson, com os nomes em inglês.

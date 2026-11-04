@@ -19,3 +19,4 @@ numa linha nova.
 | 2026-11-03 | 12    | Idioma e vocabulário da ferramenta: interface em inglês, texto no idioma do projeto, "portão" vira aprovação e checagem (ADR-0027)             |
 | 2026-11-03 | 13    | Renomeação pelo ADR-0027: `docs/product/`, roteiros em `docs/metodo/`, `plan.md`, "portão" virou aprovação ou checagem; F01a de volta à fase 3 |
 | 2026-11-03 | 14    | Combinado: todo o conteúdo das skills e dos subagentes em inglês, inclusive descrição, exemplos e modelos (ADR-0027)                           |
+| 2026-11-03 | 15    | Aprovação da fase 4 da F01a de novo com "sim", com os nomes em inglês; F01b segue na fase 3                                                    |
