@@ -15,38 +15,39 @@ CLI confere a proposta, mostra o resumo e só grava o perfil com o "sim" digitad
 - **R1.** QUANDO o agente roda `curupira init` com uma proposta de perfil válida na entrada padrão, O SISTEMA DEVE
   guardar a proposta em `.curupira/local/`, no lugar de uma proposta anterior, mostrar o resumo dela e dizer que o
   perfil espera a aprovação da pessoa, sem gravar o perfil.
-- **R2.** SE a proposta não for um JSON válido, faltar um campo obrigatório, um campo tiver o tipo errado, o idioma
-  não tiver catálogo de mensagens ou um limite não for um inteiro positivo, ENTÃO O SISTEMA DEVE recusar, dizer qual
-  campo e por quê, e não gravar nada.
+- **R2.** SE a proposta não for um JSON válido, faltar um campo obrigatório, um campo tiver o tipo errado ou um
+  texto vazio, o idioma não tiver catálogo de mensagens ou um limite não for um inteiro positivo, ENTÃO O SISTEMA
+  DEVE recusar, dizer qual campo e por quê, e não gravar nada.
 - **R3.** QUANDO o agente roda `curupira approve profile` com uma proposta guardada e um "sim" puro digitado, O
-  SISTEMA DEVE gravar o perfil em `.curupira/profile.json`, com a proposta, o id do projeto, a versão do Curupira e a
-  decisão (quem, quando e o texto), e apagar a proposta e a resposta usada.
+  SISTEMA DEVE gravar o perfil em `.curupira/profile.json`, com a proposta, o id do projeto, a versão da CLI que
+  aprovou e a decisão (quem, quando e o texto), e apagar a proposta e a resposta usada.
 - **R4.** QUANDO o agente roda `curupira reject profile` com uma proposta guardada e um "não, <motivo>" digitado, O
-  SISTEMA DEVE apagar a proposta e a resposta usada, mostrar o motivo e não mudar o perfil.
-- **R5.** SE não houver proposta guardada, ENTÃO `approve profile` e `reject profile` DEVEM recusar e dizer para o
-  agente propor com `curupira init`. A regra da resposta digitada é a da
-  [F01b](../F01b-prova-de-decisao-humana/spec.md), e o erro da proposta ausente vence os dela.
-- **R6.** QUANDO o projeto já tem perfil e uma proposta nova é aprovada, O SISTEMA DEVE trocar o perfil, manter o id
-  do projeto e acrescentar a decisão às anteriores.
+  SISTEMA DEVE apagar a proposta e a resposta usada, mostrar o motivo e não mudar o perfil. [A ESCLARECER: a recusa
+  deixa rastro? Ver a pergunta da fase 3, que junta os achados K5 e N1 do contraditório.]
+- **R5.** SE não houver proposta guardada, ou ela estiver ilegível ou inválida, ENTÃO `approve profile` e
+  `reject profile` DEVEM recusar e dizer para o agente propor com `curupira init`. Na ordem dos erros das aprovações
+  das funcionalidades (a fase, a sessão, a resposta digitada e o autor), a proposta toma o lugar da fase.
+- **R6.** QUANDO o projeto já tem perfil e uma proposta nova é aprovada, O SISTEMA DEVE trocar o perfil e a versão,
+  manter o id do projeto e acrescentar a decisão às anteriores.
 - **R7.** SE o projeto não tiver perfil aprovado, ENTÃO `curupira open <ID>` DEVE recusar e dizer para adotar o
   projeto com `curupira init`.
 - **R8.** QUANDO o agente roda `curupira status`, O SISTEMA DEVE mostrar, antes das funcionalidades, se o projeto
-  está sem perfil, com uma proposta esperando aprovação ou adotado.
-- **R9.** SE `.curupira/profile.json` ou a proposta não puderem ser lidos ou gravados, ou o perfil estiver inválido,
-  ENTÃO O SISTEMA DEVE dizer qual arquivo e o problema, como no estado da F01a, e não mudar nada.
+  tem perfil aprovado e se há uma proposta esperando aprovação.
+- **R9.** SE `.curupira/profile.json` ou a proposta guardada não puderem ser lidos ou gravados, ou estiverem
+  inválidos, ENTÃO O SISTEMA DEVE dizer qual arquivo e o problema, como no estado da F01a, e não mudar nada.
 
 ## A proposta
 
 A proposta é um JSON, com chaves em inglês
 ([ADR-0027](../../decisoes/0027-idioma-e-vocabulario-da-ferramenta.md)):
 
-| Campo          | Tipo                        | O que é                                                                |
-| -------------- | --------------------------- | ---------------------------------------------------------------------- |
-| `language`     | texto                       | o idioma do texto para a pessoa; só `pt-BR` tem catálogo por enquanto  |
-| `stack`        | lista de textos, não vazia  | linguagens, frameworks e ferramentas do projeto                        |
-| `commands`     | objeto de nome para comando | os comandos que o projeto já usa, como `test` e `lint`; pode ser vazio |
-| `personalData` | objeto                      | `present` (sim ou não) e `laws` (lista das leis que valem)             |
-| `limits`       | objeto                      | `requirements` e `scenarios` por funcionalidade, inteiros positivos    |
+| Campo          | Tipo                        | O que é                                                                                          |
+| -------------- | --------------------------- | ------------------------------------------------------------------------------------------------ |
+| `language`     | texto                       | o idioma do texto para a pessoa; só `pt-BR` tem catálogo por enquanto                            |
+| `stack`        | lista de textos, não vazia  | linguagens, frameworks e ferramentas do projeto; nenhum texto vazio                              |
+| `commands`     | objeto de nome para comando | os comandos que o projeto já usa, como `test` e `lint`; pode ser vazio, mas nenhum comando vazio |
+| `personalData` | objeto                      | `present` (sim ou não) e `laws` (lista das leis que valem, sem texto vazio)                      |
+| `limits`       | objeto                      | `requirements` e `scenarios` por funcionalidade, inteiros positivos                              |
 
 O id do projeto e a versão do Curupira não vêm na proposta: a CLI os põe na aprovação.
 
@@ -109,7 +110,14 @@ F01b.
 - O bloco no `AGENTS.md`, as skills e os subagentes no `.claude/` (F03) e os hooks propostos na adoção (F05).
 - A pasta dos artefatos configurável no perfil ([ADR-0023](../../decisoes/0023-estado-artefatos-e-dados-locais.md)):
   entra com a primeira peça que lê os artefatos.
-- Um catálogo de mensagens em outro idioma além do pt-BR.
+- Um catálogo de mensagens em outro idioma além do pt-BR, e com ele as respostas desse idioma, como "yes" e "no"
+  ([F01b](../F01b-prova-de-decisao-humana/spec.md)): enquanto só há o pt-BR, o `language` é conferido e gravado, e
+  as respostas continuam "sim" e "não".
+- O aviso de que a CLI instalada tem outra versão que a do perfil
+  ([ADR-0024](../../decisoes/0024-o-que-fica-na-maquina-e-no-projeto.md)): vem com os arquivos do adaptador, na F03.
+- A arquitetura e o ambiente de verificação, que a [jornada](../../conceitos/jornada.md) põe na fase 1: as
+  [funcionalidades](../../product/features.md) e o [PRD](../../product/prd.md) não os põem no perfil, e eles entram
+  com a peça que os usar.
 - A tela inicial com o mascote ([ADR-0029](../../decisoes/0029-mascote-no-terminal.md)).
 
 ## Dados pessoais
@@ -120,8 +128,6 @@ do Git. O campo `personalData` diz se o projeto trata dados pessoais, mas não g
 
 ## Decisões
 
-- **Quem lê o projeto é o agente**, e a CLI só confere e grava ([funcionalidades](../../product/features.md)): o
-  Curupira não depende de stack ([PRD](../../product/prd.md), Usuários).
 - **O perfil é JSON, em `.curupira/profile.json`**, porque a CLI e as checagens o leem; a pessoa vê o resumo no
   cartão de decisão ([ADR-0028](../../decisoes/0028-cartao-de-decisao.md)). A [jornada](../../conceitos/jornada.md)
   troca `profile.md` por `profile.json`.
@@ -129,16 +135,25 @@ do Git. O campo `personalData` diz se o projeto trata dados pessoais, mas não g
   começa depois da fase 1 do projeto. No piloto, o projeto é adotado logo depois do merge da F02.
 - **A recusa só apaga a proposta:** o motivo aparece na conversa e no relato, mas não vai para o Git, porque ainda
   não há perfil onde gravar.
-- **A aprovação da fase 1 usa os comandos da F01a**, com `profile` no lugar do ID da funcionalidade, e a regra da
-  resposta digitada da F01b.
-- **Limites provisórios**: 10 requisitos e 5 cenários, do [roteiro da spec](../../metodo/roteiro-spec.md#tamanho),
-  até a [Q03](../../product/open-questions.md) fixar os números.
-- **O `.gitignore` do projeto não muda:** a pasta `.curupira/local/` já se ignora sozinha desde a F01b. O
-  [ADR-0023](../../decisoes/0023-estado-artefatos-e-dados-locais.md) ganha uma linha no histórico.
+- **A aprovação da fase 1 usa os comandos da F01a**, com `profile` no lugar do ID da funcionalidade.
+- **O `.gitignore` do projeto não muda:** toda gravação em `.curupira/local/`, e não só a do hook da F01b, cria
+  antes o `.gitignore` de dentro da pasta. O [ADR-0023](../../decisoes/0023-estado-artefatos-e-dados-locais.md)
+  ganha uma linha no histórico.
 - **O id do projeto é um UUID aleatório**, criado na primeira aprovação
   ([ADR-0024](../../decisoes/0024-o-que-fica-na-maquina-e-no-projeto.md), regra 3).
+
+## Riscos aceitos
+
+- **Um "sim" digitado antes do `init` aprova a proposta que vier depois.** A resposta guardada não sabe a que pedido
+  respondeu, como em toda aprovação desde a [F01b](../F01b-prova-de-decisao-humana/spec.md), e a prova pela conversa
+  não é uma garantia formal ([ADR-0025](../../decisoes/0025-a-pessoa-decide-pela-conversa.md)). Por que aceitar: o
+  "sim" ficou só para as aprovações, e "segue" continua os passos
+  ([ADR-0030](../../decisoes/0030-como-o-agente-fala-com-a-pessoa.md)); amarrar a resposta ao pedido vale para todas
+  as aprovações e pede uma peça própria.
 
 ## Histórico
 
 - 2026-11-04: recusada na aprovação da fase 4, porque a fase 3 ficou com decisões em aberto e sem contraditório;
   voltou à fase 3.
+- 2026-11-04: contraditório da fase 3, com 12 lacunas e 5 excessos; os destinos estão no
+  [relato](../../pesquisa/relatos/2026-11-04-fase-3-f02.md).

@@ -15,9 +15,10 @@ Cada passo começa por um teste que falha (a prova do vermelho). Depende da F01a
 ## 1. O perfil no núcleo
 
 - **Teste primeiro:** validar a proposta, com os exemplos da spec (idioma que vale e que não vale, limite 0, campo
-  faltando, tipo errado), e dizer o campo de cada erro; guardar e ler a proposta em `.curupira/local/`; gravar e ler
-  o perfil em `.curupira/profile.json`; perfil ilegível ou inválido gera o erro com o arquivo. Numa pasta
-  temporária. Um teste confere que a proposta fica dentro de `.curupira/local/` e o perfil fora dela.
+  faltando, tipo errado, texto vazio), e dizer o campo de cada erro; guardar e ler a proposta em `.curupira/local/`,
+  conferindo-a de novo na leitura; gravar e ler o perfil em `.curupira/profile.json`; perfil ou proposta ilegível,
+  inválido ou que é uma pasta gera o erro com o arquivo. Numa pasta temporária. Num repositório Git sem nenhuma
+  resposta guardada, `git check-ignore` confirma que a proposta fica fora do Git e o perfil dentro.
 - **O que muda:** `packages/core/src/profile.ts` e as exportações do núcleo.
 - **Requisitos:** R2, R9.
 
@@ -32,16 +33,18 @@ Cada passo começa por um teste que falha (a prova do vermelho). Depende da F01a
 ## 3. Aprovar e recusar o perfil
 
 - **Teste primeiro:** `approve profile` com "sim" grava o perfil com o id (UUID), a versão do pacote da CLI e a
-  decisão, e apaga a proposta e a resposta; uma segunda aprovação mantém o id e soma a decisão; `reject profile` com
-  "não, <motivo>" apaga a proposta e mostra o motivo; sem proposta, os dois recusam antes de olhar a resposta.
+  decisão, e apaga a proposta e a resposta; uma segunda aprovação mantém o id, troca a versão e soma a decisão;
+  a resposta é apagada antes de gravar o perfil, e a proposta depois, para uma falha ao apagar não deixar a mesma
+  resposta aprovar duas vezes; `reject profile` com "não, <motivo>" apaga a proposta e mostra o motivo; sem
+  proposta, os dois recusam antes de olhar a resposta.
 - **O que muda:** `apps/cli/src/run.ts`, o catálogo e o núcleo, se a decisão do perfil pedir um tipo próprio.
 - **Requisitos:** R3, R4, R5, R6.
 
 ## 4. O `open` barrado e o `status`
 
-- **Teste primeiro:** `open` sem perfil recusa e não grava estado; `status` mostra "sem perfil", "proposta esperando
-  aprovação" ou "adotado" antes das funcionalidades. Os testes da F01a e da F01b passam a criar um perfil no ponto
-  de partida.
+- **Teste primeiro:** `open` sem perfil recusa e não grava estado; `status` mostra, antes das funcionalidades, se há
+  perfil aprovado e se há proposta esperando, os dois juntos quando for o caso. Os testes da F01a e da F01b passam a
+  criar um perfil no ponto de partida.
 - **O que muda:** `apps/cli/src/run.ts`, o catálogo e os testes existentes.
 - **Requisitos:** R7, R8.
 
@@ -55,5 +58,7 @@ Cada passo começa por um teste que falha (a prova do vermelho). Depende da F01a
 ## 6. Documentação
 
 - **Teste primeiro:** não se aplica.
-- **O que muda:** a [jornada](../../conceitos/jornada.md) troca `profile.md` por `profile.json`, e o
+- **O que muda:** a [jornada](../../conceitos/jornada.md) troca `profile.md` por `profile.json`; ela e o
+  [humano e agente](../../conceitos/humano-e-agente.md) passam a dizer que a arquitetura, o ambiente de verificação,
+  as checagens e os hooks vêm com as peças que os usam; o
   [ADR-0023](../../decisoes/0023-estado-artefatos-e-dados-locais.md) ganha a linha do `.gitignore` no histórico.
