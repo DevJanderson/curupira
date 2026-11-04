@@ -152,6 +152,27 @@ O que decorre:
 - A arquitetura e o ambiente de verificação, que a jornada põe na fase 1, entram como partes da ficha quando houver
   a peça que os usa; qual é essa peça fica para o ADR da linha.
 
+### Nó 3: onde ficam as decisões do projeto (2026-11-04)
+
+**Decisão da pessoa:** "a", um estado do projeto em `.curupira/state/project.json`, com as decisões das fases 1 e
+2, como o estado de uma funcionalidade. O perfil e o PRD ficam só com o conteúdo. A pessoa pediu cuidado com o
+tamanho: um arquivo único que cresce pode encher o contexto do agente e bagunçar o fluxo.
+
+A conta: uma aprovação ocupa cerca de 120 bytes e uma recusa com motivo de 280 caracteres, cerca de 400. Um projeto
+com 40 decisões nas fases 1 e 2 dá uns 10 KB, ou 2.600 tokens se alguém ler o arquivo inteiro; com 100, uns 25 KB.
+O risco não é o número de decisões, é o texto sem teto: a segunda recusa da F02 gravou como motivo a mensagem
+inteira da pessoa, e o `F02.json` já tem 1,1 KB com duas decisões.
+
+O que decorre:
+
+- **O agente não lê os arquivos de estado; lê pela CLI.** O `status` mostra só o estado atual (a fase de cada etapa
+  e o que espera decisão), e o tamanho do arquivo não entra no contexto. As skills da F03 trazem essa regra.
+- **Cada decisão tem teto de texto.** O motivo de uma recusa e a resposta gravada ficam com até 280 caracteres, e o
+  que passar disso fica na conversa. Vale para todas as aprovações, inclusive as das funcionalidades.
+- **O histórico inteiro continua no Git.** Cada gravação do estado entra num commit; se um dia o arquivo crescer
+  demais, ele pode guardar só as decisões desde a última aprovação de cada fase, sem perder nada.
+- **A medição acompanha o tamanho:** a F12 mede o tamanho dos arquivos de estado junto com o resto.
+
 ## Números
 
 | Medida                                   | Valor                                       |
