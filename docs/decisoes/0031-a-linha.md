@@ -96,9 +96,10 @@ funcionalidade volta à 5, ou à 3 se a mudança alterar a spec.
   e F02. A F08 entra na F01c, porque o hash passa a valer para toda aprovação; a F09 perde a branch, e a F12, o "depois
   do merge".
 - O [ADR-0009](0009-instalacao-por-curl.md) deixa de ser adiado e muda: a instalação é um script baixado por `curl` do
-  repositório no GitHub, que confere o Node e o Git, baixa o Curupira para a máquina, instala as dependências e põe o
-  comando `curupira` no caminho. Não há npm: publicar no npm, reservar o nome e o binário por sistema ficam fora até a
-  pessoa decidir.
+  repositório no GitHub, pelo endereço do próprio GitHub (`raw.githubusercontent.com`), sem domínio próprio. O script
+  confere o Node e o Git, baixa o Curupira do GitHub para a máquina, instala as dependências e põe o comando `curupira`
+  no caminho. Não há npm nem domínio: publicar no npm, reservar o nome, ter um domínio e o binário por sistema ficam
+  fora até a pessoa decidir.
 - A F02 volta à fase 3 com a linha nova: a entrega da proposta deixa de se chamar `init`, e a decisão vai para o
   `project.json`.
 - Ajusta outros ADRs, com uma linha no histórico de cada um:
