@@ -21,3 +21,5 @@ Não registradas.
 ## Consequências
 
 - O [AGENTS.md](../../AGENTS.md) resume essas regras para os agentes.
+- O que a ferramenta mostra e grava no projeto de quem a usa segue o
+  [ADR-0027](0027-idioma-e-vocabulario-da-ferramenta.md): interface em inglês e texto no idioma do projeto.
