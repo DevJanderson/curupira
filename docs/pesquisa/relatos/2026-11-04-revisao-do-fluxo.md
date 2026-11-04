@@ -197,8 +197,10 @@ o `init`.
 
 O que decorre:
 
-- **A instalação sai do repositório:** o pacote da CLI ganha o comando `curupira`, e a pessoa o instala na máquina
-  com o pnpm. A instalação por `curl`, do [ADR-0009](../../decisoes/0009-instalacao-por-curl.md), continua adiada.
+- **A instalação é um script baixado por `curl` do repositório no GitHub, sem npm.** A primeira versão deste nó punha
+  a instalação pelo pnpm e deixava o `curl` adiado. A pessoa corrigiu na aprovação do ADR-0031: não há como publicar
+  no npm agora, e isso está fora do escopo até ela decidir; a instalação é o script `curl`, e depois dele vem o
+  resto. O [ADR-0009](../../decisoes/0009-instalacao-por-curl.md) deixa de ser adiado.
 - **O `init` é o da decisão do nó 1:** a pessoa o roda, ele liga o hook das respostas, põe `.curupira/local/` no
   `.gitignore` e não grava decisão. Rodar de novo não estraga nada, e é o mesmo passo para quem clona.
 - **O hook chama `curupira hook answer`**, e não mais o caminho do arquivo dentro deste repositório; as mensagens

@@ -45,3 +45,4 @@ numa linha nova.
 | 2026-11-04 | 38    | Nó 4 da revisão do fluxo: a branch nasce no `open`, um PR por funcionalidade, e o "sim" da fase 8 grava a entrega esperando o merge                  |
 | 2026-11-04 | 39    | Nó 5 da revisão do fluxo: a peça "Instalar e preparar" entra antes da F02, com o comando `curupira` instalado pelo pnpm e o `init`                   |
 | 2026-11-04 | 40    | ADR-0031 (a linha) proposto, com a jornada dentro, nove regras e as peças F00 e F01c; contraditório em duas rodadas, 28 achados                      |
+| 2026-11-04 | 41    | Correção do ADR-0031 e do nó 5: a F00 instala por um script `curl` a partir do GitHub, sem npm; o ADR-0009 deixa de ser adiado                       |

@@ -37,17 +37,17 @@ A linha mora neste ADR. A jornada passa a apontar para cá, e o ADR-0015 é subs
 
 ★ marca uma aprovação.
 
-| #   | Etapa               | Pessoa                                                        | Agente e CLI                                                                                                | Fica registrado                                                                     | Peças               |
-| --- | ------------------- | ------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ------------------- |
-| 0   | Instalar e preparar | instala o Curupira, uma vez por máquina; roda `curupira init` | —                                                                                                           | o hook das respostas e a linha do `.gitignore`; nenhuma decisão                     | F00, F03            |
-| 1 ★ | Adotar o projeto    | pede a adoção; confere o cartão; digita "sim" ou "não"        | lê o projeto e propõe a ficha do projeto (o perfil), que cresce com as peças                                | `.curupira/profile.json` (o conteúdo) e a decisão em `.curupira/state/project.json` | F02, F03, F04a, F05 |
-| 2 ★ | Produto (PRD)       | responde à entrevista; digita "sim" ou "não"                  | conduz a entrevista ([roteiro do PRD](../metodo/roteiro-prd.md)) e divide em funcionalidades                | `docs/product/` e a decisão no `project.json`                                       | F06                 |
-| 3   | Especificar         | responde até 5 perguntas                                      | `open` cria o estado e a branch; spec, plano e contraditório ([roteiro da spec](../metodo/roteiro-spec.md)) | `docs/specs/<ID>-<nome>/spec.md` e `plan.md`; `.curupira/state/<ID>.json`           | F01a, F01c, F07     |
-| 4 ★ | Aprovar a spec      | confere o cartão; digita "sim" ou "não"                       | pede a aprovação e mostra o cartão ([ADR-0028](0028-cartao-de-decisao.md))                                  | a decisão, com a hora do pedido e o hash do `spec.md`                               | F01b, F01c          |
-| 5   | Implementar         | acompanha, se quiser                                          | testes primeiro, passo a passo, com as checagens a cada passo                                               | código e testes na branch                                                           | F04a, F09           |
-| 6   | Verificar           | só é chamada se o veredito for "bloqueado"                    | o verificador separado roda os cenários; o agente corrige até passar, com limite                            | `verification.md`                                                                   | F10                 |
-| 7 ★ | Revisar             | lê o PR e o cartão; digita "sim" ou "não"                     | revisão em eixos, um deles com outro olhar ([roteiro da entrega](../metodo/roteiro-entrega.md)); abre o PR  | a decisão, com a hora do pedido e o commit revisado                                 | F11                 |
-| 8 ★ | Entregar            | escolhe as melhorias; digita "sim"; faz o merge               | atualiza docs; cenários viram testes; mede; propõe o que entra e o que sai do método                        | "entregue" e a medição, na branch                                                   | F01c, F12, F13      |
+| #   | Etapa               | Pessoa                                                                            | Agente e CLI                                                                                                | Fica registrado                                                                     | Peças               |
+| --- | ------------------- | --------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ------------------- |
+| 0   | Instalar e preparar | instala o Curupira com o script `curl`, uma vez por máquina; roda `curupira init` | —                                                                                                           | o hook das respostas e a linha do `.gitignore`; nenhuma decisão                     | F00, F03            |
+| 1 ★ | Adotar o projeto    | pede a adoção; confere o cartão; digita "sim" ou "não"                            | lê o projeto e propõe a ficha do projeto (o perfil), que cresce com as peças                                | `.curupira/profile.json` (o conteúdo) e a decisão em `.curupira/state/project.json` | F02, F03, F04a, F05 |
+| 2 ★ | Produto (PRD)       | responde à entrevista; digita "sim" ou "não"                                      | conduz a entrevista ([roteiro do PRD](../metodo/roteiro-prd.md)) e divide em funcionalidades                | `docs/product/` e a decisão no `project.json`                                       | F06                 |
+| 3   | Especificar         | responde até 5 perguntas                                                          | `open` cria o estado e a branch; spec, plano e contraditório ([roteiro da spec](../metodo/roteiro-spec.md)) | `docs/specs/<ID>-<nome>/spec.md` e `plan.md`; `.curupira/state/<ID>.json`           | F01a, F01c, F07     |
+| 4 ★ | Aprovar a spec      | confere o cartão; digita "sim" ou "não"                                           | pede a aprovação e mostra o cartão ([ADR-0028](0028-cartao-de-decisao.md))                                  | a decisão, com a hora do pedido e o hash do `spec.md`                               | F01b, F01c          |
+| 5   | Implementar         | acompanha, se quiser                                                              | testes primeiro, passo a passo, com as checagens a cada passo                                               | código e testes na branch                                                           | F04a, F09           |
+| 6   | Verificar           | só é chamada se o veredito for "bloqueado"                                        | o verificador separado roda os cenários; o agente corrige até passar, com limite                            | `verification.md`                                                                   | F10                 |
+| 7 ★ | Revisar             | lê o PR e o cartão; digita "sim" ou "não"                                         | revisão em eixos, um deles com outro olhar ([roteiro da entrega](../metodo/roteiro-entrega.md)); abre o PR  | a decisão, com a hora do pedido e o commit revisado                                 | F11                 |
+| 8 ★ | Entregar            | escolhe as melhorias; digita "sim"; faz o merge                                   | atualiza docs; cenários viram testes; mede; propõe o que entra e o que sai do método                        | "entregue" e a medição, na branch                                                   | F01c, F12, F13      |
 
 Quem clona um projeto que já adotou o Curupira faz só a fase 0. Se a pessoa pede mudanças na fase 7, a
 funcionalidade volta à 5, ou à 3 se a mudança alterar a spec.
@@ -90,12 +90,15 @@ funcionalidade volta à 5, ou à 3 se a mudança alterar a spec.
 
 - A linha tem uma fonte só. O ADR-0015 passa a "substituída por ADR-0031", e a [jornada](../conceitos/jornada.md)
   vira um ponteiro para cá.
-- Duas peças novas entram na lista de funcionalidades, que se reordena pela linha: a **F00 Instalar e preparar** (a
-  fase 0, com o comando `curupira` instalado do repositório pelo pnpm; a instalação por `curl` do
-  [ADR-0009](0009-instalacao-por-curl.md) continua adiada) e a **F01c A linha no estado** (as regras 3 a 7 e a
-  conferência do hash da regra 8 na CLI, com o estado da F01a e da F01b montado a partir dos relatos). A ordem começa
-  por F00, F01c e F02. A F08 entra na F01c, porque o hash passa a valer para toda aprovação; a F09 perde a branch, e
-  a F12, o "depois do merge".
+- Duas peças novas entram na lista de funcionalidades, que se reordena pela linha: a **F00 Instalar e preparar** (a fase
+  0, com o script de instalação por `curl` e o `init`) e a **F01c A linha no estado** (as regras 3 a 7 e a conferência
+  do hash da regra 8 na CLI, com o estado da F01a e da F01b montado a partir dos relatos). A ordem começa por F00, F01c
+  e F02. A F08 entra na F01c, porque o hash passa a valer para toda aprovação; a F09 perde a branch, e a F12, o "depois
+  do merge".
+- O [ADR-0009](0009-instalacao-por-curl.md) deixa de ser adiado e muda: a instalação é um script baixado por `curl` do
+  repositório no GitHub, que confere o Node e o Git, baixa o Curupira para a máquina, instala as dependências e põe o
+  comando `curupira` no caminho. Não há npm: publicar no npm, reservar o nome e o binário por sistema ficam fora até a
+  pessoa decidir.
 - A F02 volta à fase 3 com a linha nova: a entrega da proposta deixa de se chamar `init`, e a decisão vai para o
   `project.json`.
 - Ajusta outros ADRs, com uma linha no histórico de cada um:
@@ -114,7 +117,8 @@ funcionalidade volta à 5, ou à 3 se a mudança alterar a spec.
   - o [roteiro da entrega](../metodo/roteiro-entrega.md): na v1, o outro olhar é outro modelo do mesmo agente
     ([ADR-0005](0005-so-claude-code-na-v1.md)); a duração vai até o "sim" da 8, e os defeitos depois do merge se
     contam na F13; o relato por funcionalidade é do repositório-piloto;
-  - o [PRD](../product/prd.md), que ganha a F00 e a F01c e se aprova de novo, porque a F00 não é divisão de uma peça.
+  - o [PRD](../product/prd.md), que ganha a F00 e a F01c, tira a instalação de "Fica para depois" e se aprova de
+    novo, porque a F00 não é divisão de uma peça.
 - Depois da F00, da F01c e da F02, o próprio Curupira se adota pela linha.
 - Fica mais difícil mudar o método só num roteiro: toda mudança que toca uma etapa passa por esta tabela.
 
