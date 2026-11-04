@@ -65,3 +65,8 @@ Pontos em que a spec é silenciosa, que ficaram como estão:
 - Chaves a mais no arquivo de estado são mantidas sem aviso.
 - Um arquivo de estado só de leitura (444), numa pasta que aceita escrita, é substituído pela gravação atômica.
 - O `status` mostra a aprovação pela fase; quem aprovou e quando ficam no arquivo de estado.
+
+## Histórico
+
+- 2026-11-03: aprovada na fase 7 com "sim", por Janderson, no PR
+  [DevJanderson/curupira#1](https://github.com/DevJanderson/curupira/pull/1), no commit `db841f8`, com a CI passando.
