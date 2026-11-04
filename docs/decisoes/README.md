@@ -34,3 +34,4 @@ Cada decisão de arquitetura nova ou mudada vira um ADR aqui, antes do código. 
 | [0028](0028-cartao-de-decisao.md)                             | O cartão de decisão                                 | aceita   |
 | [0029](0029-mascote-no-terminal.md)                           | O mascote no terminal                               | aceita   |
 | [0030](0030-como-o-agente-fala-com-a-pessoa.md)               | Como o agente fala com a pessoa                     | aceita   |
+| [0031](0031-a-linha.md)                                       | A linha                                             | proposta |

@@ -44,3 +44,4 @@ numa linha nova.
 | 2026-11-04 | 37    | Nó 3 da revisão do fluxo: estado do projeto em `project.json`, com teto de texto por decisão e leitura só pela CLI                                   |
 | 2026-11-04 | 38    | Nó 4 da revisão do fluxo: a branch nasce no `open`, um PR por funcionalidade, e o "sim" da fase 8 grava a entrega esperando o merge                  |
 | 2026-11-04 | 39    | Nó 5 da revisão do fluxo: a peça "Instalar e preparar" entra antes da F02, com o comando `curupira` instalado pelo pnpm e o `init`                   |
+| 2026-11-04 | 40    | ADR-0031 (a linha) proposto, com a jornada dentro, nove regras e as peças F00 e F01c; contraditório em duas rodadas, 28 achados                      |

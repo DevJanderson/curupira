@@ -209,6 +209,43 @@ O que decorre:
   `.claude/settings.json` dá lugar ao que o `init` grava.
 - A F02 deixa de depender de um passo à mão: ela começa num projeto já preparado.
 
+## O contraditório do ADR da linha
+
+O [ADR-0031](../../decisoes/0031-a-linha.md) passou por duas rodadas. A Completude rodou em outro modelo (Sonnet), e a
+Necessidade, no mesmo modelo que escreveu o ADR. Na segunda rodada, que olhou só o que mudou, o agente deu o destino
+de cada achado sem uma Necessidade separada.
+
+| ID  | Achado                                                                       | Destino                                                                |
+| --- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| K1  | o "sim" não fica preso ao conteúdo aprovado; só o `spec.md` tinha hash       | incorporado: o pedido guarda o hash, e a aprovação o confere (regra 6) |
+| K2  | mais de um pedido aberto ao mesmo tempo                                      | spec da F01c                                                           |
+| K3  | "esperando merge" nunca vira "entregue"; a medição não alcança o merge       | incorporado: lido do Git (regra 5); a medição no roteiro da entrega    |
+| K4  | o que a fase 8 muda no PR não é revisado                                     | risco aceito, com o "sim" da 8 preso ao commit                         |
+| K5  | fases 1 e 2 sem PR, base nem nome de branch                                  | incorporado: quem abre o PR; o resto nas specs da F01c, F02 e F06      |
+| K6  | o `init` mexe em arquivos versionados sem "sim"; a instrução em dois lugares | recusado: decisão do nó 1; a mescla do `settings.json` na spec da F00  |
+| K7  | escrita concorrente no `project.json`                                        | recusado: as fases 1 e 2 andam uma por vez (regra 4)                   |
+| K8  | cada checagem no cartão contra o limite de 3 pontos 👀                       | spec da F04a: as checagens são o que se decide, e não pontos 👀        |
+| K9  | comandos e regras sem peça                                                   | cada um na spec da sua peça; a leitura de outras branches saiu         |
+| K10 | a F01c grande demais                                                         | recusado: a divisão se faz na fase 3 da peça                           |
+| K11 | o código atual não aceita `project.json`, fases 1 e 2 nem o teto             | specs da F01c e da F00                                                 |
+| K12 | o teto não diz se recusa ou corta                                            | spec da F01c                                                           |
+| K13 | documentos contraditos fora das consequências                                | incorporado: um item com os quatro documentos                          |
+| K14 | regras que só existem no papel                                               | risco aceito até a F03 e a F05; a regra 6 reescrita                    |
+| K15 | fase 6 sem saída; modo leve, painel e versão fora da linha                   | spec da F10; o resto recusado, pela regra 9                            |
+| K16 | o hash só tinha alvo na fase 4                                               | incorporado: o alvo de cada aprovação (regra 6)                        |
+| K17 | nenhuma peça dona do hash fora da fase 4                                     | incorporado: a F08 entra na F01c                                       |
+| K18 | "uma etapa por vez" ambíguo; aprovado em qual branch                         | incorporado: fases 1 e 2 uma por vez; aprovado na `main`               |
+| K19 | a instrução no `init` e na ficha                                             | incorporado: as skills no `init`, a instrução na ficha                 |
+| K20 | "esperando merge" só visível na branch                                       | incorporado: a regra 5 diz; risco aceito até o painel                  |
+| N1  | a regra do método repetia a tabela e o ADR-0005                              | incorporado: a regra saiu, o conteúdo foi para os roteiros             |
+| N2  | as peças novas detalhadas como spec                                          | incorporado: uma frase nas consequências                               |
+| N3  | o `init` descrito três vezes                                                 | incorporado: só na regra 1                                             |
+| N4  | `status` lendo outras branches, sem dono                                     | incorporado: saiu                                                      |
+| N5  | juntar os ADRs como consequência                                             | incorporado: saiu; é o próximo passo do caminho                        |
+| N6  | o segundo projeto repetia o PRD                                              | incorporado: saiu                                                      |
+| N7  | a regra da tabela dita três vezes                                            | incorporado: só na regra 9                                             |
+| N8  | quem age dito duas vezes                                                     | incorporado: só na regra 1                                             |
+
 ## Números
 
 | Medida                                   | Valor                                       |
