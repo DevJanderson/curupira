@@ -19,15 +19,15 @@ Cada passo começa por um teste que falha (a prova do vermelho). Depende da F01a
 
 ## 3. A regra nos comandos
 
-- **Teste primeiro:** `aprovar` e `recusar` com e sem resposta que os sustente.
-- **O que muda:** os comandos da F01a, em `apps/cli`, e o `curupira hook resposta`.
+- **Teste primeiro:** `approve` e `reject` com e sem resposta que os sustente.
+- **O que muda:** os comandos da F01a, em `apps/cli`, e o `curupira hook answer`.
 - **Requisitos:** R2, R3, R5.
 
 ## 4. O hook no repositório-piloto
 
 - **Teste primeiro:** não se aplica; é configuração.
 - **O que muda:** a entrada `UserPromptSubmit` no `.claude/settings.json` do repositório, chamando
-  `curupira hook resposta`.
+  `curupira hook answer`.
 - **Requisitos:** R1.
 
 ## 5. Os cenários como testes de regressão
