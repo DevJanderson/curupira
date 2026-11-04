@@ -13,14 +13,16 @@ Cada passo começa por um teste que falha (a prova do vermelho). Depende da F01a
 ## 2. A entrada do hook do Claude Code
 
 - **Teste primeiro:** um JSON de exemplo do hook `UserPromptSubmit` vira uma resposta com o texto e a sessão; um JSON
-  inválido gera erro claro.
+  inválido gera erro claro; a sessão do agente sai da variável de ambiente, e sem ela não há sessão. Antes do teste,
+  conferir na documentação do Claude Code o nome da variável.
 - **O que muda:** o adaptador do Claude Code, num pacote próprio em `packages/`.
 - **Requisitos:** R1.
 
 ## 3. A regra nos comandos
 
-- **Teste primeiro:** `approve` e `reject` com e sem resposta que os sustente.
-- **O que muda:** os comandos da F01a, em `apps/cli`, e o `curupira hook answer`.
+- **Teste primeiro:** `approve` e `reject` com e sem resposta que os sustente; "Sim" e "sim." valem; "sim" com outra
+  frase e "não" sem motivo não valem.
+- **O que muda:** os comandos da F01a, em `apps/cli` (o `reject` perde o `--reason`), e o `curupira hook answer`.
 - **Requisitos:** R2, R3, R5.
 
 ## 4. O hook no repositório-piloto
@@ -32,6 +34,6 @@ Cada passo começa por um teste que falha (a prova do vermelho). Depende da F01a
 
 ## 5. Os cenários como testes de regressão
 
-- **Teste primeiro:** C1 a C4, cada um num repositório Git descartável.
+- **Teste primeiro:** C1 a C5, cada um num repositório Git descartável.
 - **O que muda:** `apps/cli/tests/`.
 - **Requisitos:** os que os cenários cobrem.
