@@ -139,7 +139,8 @@ Na ordem da [linha](../decisoes/0031-a-linha.md); o detalhe está em [funcionali
 - **F01a Estado e comandos:** estado versionado no Git e registro de cada decisão pela CLI.
 - **F01b Prova de decisão humana:** a CLI só registra uma aprovação ou recusa com a resposta que a pessoa digitou.
 - **F00 Instalar e preparar:** o script de instalação por `curl`, a partir do GitHub, e o `init`.
-- **F01c A linha no estado:** a branch desde o `open`, o pedido com hash em toda aprovação e as decisões do projeto.
+- **F01c Pedido e teto:** o pedido com hash em toda aprovação e o teto de texto por decisão.
+- **F01d Branch e projeto:** a branch desde o `open`, o "esperando merge" e as decisões do projeto.
 - **F02 Adotar o projeto:** a ficha do projeto, proposta pelo agente e aprovada pela pessoa.
 - **F03 Instrução mínima e adaptador:** a instrução do agente e as skills por estação, para o Claude Code.
 - **F04a Checagens básicas:** lint, tipos, testes e segredos.
@@ -162,7 +163,8 @@ Na ordem da [linha](../decisoes/0031-a-linha.md); o detalhe está em [funcionali
 A F01 foi dividida em F01a e F01b na fase 3 dela
 ([ADR-0025](../decisoes/0025-a-pessoa-decide-pela-conversa.md)). A lista cresce por divisão sem reabrir o PRD, e a
 aprovação continua valendo. A F00 e a F01c não são divisão: entraram com a linha
-([ADR-0031](../decisoes/0031-a-linha.md)), e a F08 entrou na F01c; por isso, o PRD se aprova de novo.
+([ADR-0031](../decisoes/0031-a-linha.md)), e a F08 entrou na F01c; por isso, o PRD se aprova de novo. A F01c se
+dividiu em F01c e F01d na fase 3 dela, sem reabrir o PRD.
 
 O vocabulário segue o [ADR-0027](../decisoes/0027-idioma-e-vocabulario-da-ferramenta.md): "portão" virou
 "aprovação" ou "checagem", sem mudar o conteúdo aprovado.
