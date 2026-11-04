@@ -49,3 +49,4 @@ numa linha nova.
 | 2026-11-04 | 42    | ADR-0031: a instalação usa só o GitHub, pelo endereço dele, sem domínio próprio                                                                                                                    |
 | 2026-11-04 | 43    | ADR-0031 aceito com "sim": ADR-0015 substituído, ADR-0009 aceito, ADRs 0023 a 0026, jornada, roteiros e humano e agente ajustados; funcionalidades na ordem da linha; PRD esperando nova aprovação |
 | 2026-11-04 | 44    | PRD aprovado de novo com "sim", com a F00 e a F01c na ordem da linha; a decisão fica no PRD até a F01c criar o `project.json`                                                                      |
+| 2026-11-04 | 45    | F00 aberta na fase 3 numa branch da `main`; spec e plano, contraditório em duas rodadas com 22 achados, nenhuma pergunta                                                                           |
