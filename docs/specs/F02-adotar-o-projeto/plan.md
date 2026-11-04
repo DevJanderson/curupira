@@ -61,7 +61,7 @@ Cada passo começa por um teste que falha (a prova do vermelho). Depende da F01a
 ## 6. Documentação
 
 - **Teste primeiro:** não se aplica.
-- **O que muda:** a [jornada](../../conceitos/jornada.md) troca `profile.md` por `profile.json`; ela e o
+- **O que muda:** a [jornada](../../decisoes/0031-a-linha.md) troca `profile.md` por `profile.json`; ela e o
   [humano e agente](../../conceitos/humano-e-agente.md) passam a dizer que a arquitetura, o ambiente de verificação,
   as checagens e os hooks vêm com as peças que os usam, e o humano e agente, que a recusa da fase 1 fica gravada; o
   [ADR-0023](../../decisoes/0023-estado-artefatos-e-dados-locais.md) ganha a linha do `.gitignore` no histórico.

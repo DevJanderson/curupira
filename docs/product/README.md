@@ -1,6 +1,6 @@
 # Produto
 
-O PRD do Curupira foi escrito na fase 2 da [jornada](../conceitos/jornada.md), por entrevista, seguindo o
+O PRD do Curupira foi escrito na fase 2 da [jornada](../decisoes/0031-a-linha.md), por entrevista, seguindo o
 [roteiro do PRD](../metodo/roteiro-prd.md):
 
 - [PRD](prd.md);

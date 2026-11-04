@@ -13,7 +13,7 @@ Não registradas.
 
 ## Decisão
 
-A [jornada](../conceitos/jornada.md) de 9 fases e 5 aprovações é a espinha do método. Ela foi validada como ponto de
+A [jornada](0031-a-linha.md) de 9 fases e 5 aprovações é a espinha do método. Ela foi validada como ponto de
 partida.
 
 ## Consequências

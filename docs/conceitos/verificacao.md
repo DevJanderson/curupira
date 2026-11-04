@@ -1,8 +1,5 @@
 # Verificação
 
-> **Status:** proposta. O fluxo descrito aqui é o do
-> ADR-0010 (no [registro de decisões](../decisoes/README.md)), que ainda não foi aceito.
-
 ## Cenários
 
 - Cada funcionalidade tem poucos cenários. Cada cenário tem um ponto de partida, uma ação e um resultado esperado, e

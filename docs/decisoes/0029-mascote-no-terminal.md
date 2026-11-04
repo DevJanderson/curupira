@@ -1,6 +1,6 @@
 # ADR-0029: O mascote no terminal
 
-- **Status:** aceita
+- **Status:** adiada, pelo [ADR-0032](0032-parar-a-recursao.md): nenhuma peça o constrói
 - **Data:** 2026-11-04
 
 ## Contexto

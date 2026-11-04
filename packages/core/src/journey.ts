@@ -1,6 +1,6 @@
 import { FlowError } from "./errors.ts";
 
-// As fases de cada funcionalidade na jornada (docs/conceitos/jornada.md); as 1 e 2 são do projeto.
+// As fases de cada funcionalidade na jornada (docs/decisoes/0031-a-linha.md); as 1 e 2 são do projeto.
 export const FEATURE_PHASES = [3, 4, 5, 6, 7, 8] as const;
 export type Phase = (typeof FEATURE_PHASES)[number];
 // Depois do "sim" da fase 8, a funcionalidade está entregue e sai da jornada.

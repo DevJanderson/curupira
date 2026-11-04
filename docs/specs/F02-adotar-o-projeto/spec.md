@@ -8,7 +8,7 @@
 Dar ao projeto um perfil aprovado pela pessoa: o idioma, a stack, os comandos, se há dados pessoais e que leis valem,
 e os limites de tamanho. O agente lê o projeto e propõe o perfil ([funcionalidades](../../product/features.md)); a
 CLI confere a proposta, mostra o resumo e só grava o perfil com o "sim" digitado pela pessoa, na aprovação da fase 1
-([jornada](../../conceitos/jornada.md), [ADR-0025](../../decisoes/0025-a-pessoa-decide-pela-conversa.md)).
+([jornada](../../decisoes/0031-a-linha.md), [ADR-0025](../../decisoes/0025-a-pessoa-decide-pela-conversa.md)).
 
 ## Requisitos
 
@@ -119,7 +119,7 @@ F01b.
   as respostas continuam "sim" e "não".
 - O aviso de que a CLI instalada tem outra versão que a do perfil
   ([ADR-0024](../../decisoes/0024-o-que-fica-na-maquina-e-no-projeto.md)): vem com os arquivos do adaptador, na F03.
-- A arquitetura e o ambiente de verificação, que a [jornada](../../conceitos/jornada.md) põe na fase 1: as
+- A arquitetura e o ambiente de verificação, que a [jornada](../../decisoes/0031-a-linha.md) põe na fase 1: as
   [funcionalidades](../../product/features.md) e o [PRD](../../product/prd.md) não os põem no perfil, e eles entram
   com a peça que os usar.
 - A tela inicial com o mascote ([ADR-0029](../../decisoes/0029-mascote-no-terminal.md)).
@@ -134,7 +134,7 @@ nenhum.
 ## Decisões
 
 - **O perfil é JSON, em `.curupira/profile.json`**, porque a CLI e as checagens o leem; a pessoa vê o resumo no
-  cartão de decisão ([ADR-0028](../../decisoes/0028-cartao-de-decisao.md)). A [jornada](../../conceitos/jornada.md)
+  cartão de decisão ([ADR-0028](../../decisoes/0028-cartao-de-decisao.md)). A [jornada](../../decisoes/0031-a-linha.md)
   troca `profile.md` por `profile.json`.
 - **Sem perfil, o `open` é barrado** (pergunta 1, respondida com "barrar"): a fase 3 de uma funcionalidade só
   começa depois da fase 1 do projeto. No piloto, o projeto é adotado logo depois do merge da F02.
