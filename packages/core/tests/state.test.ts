@@ -11,6 +11,7 @@ import {
   readState,
   stateFile,
   writeState,
+  type FeatureState,
 } from "../src/index.ts";
 
 const AT = "2026-11-03T20:00:00.000Z";
@@ -43,11 +44,16 @@ test("sem estado, a leitura não acha nada", () => {
   expect(readAllStates(root)).toEqual([]);
 });
 
+// Uma funcionalidade na fase pedida, com o pedido dela (F01c).
+function asked(state: FeatureState, phase: 4 | 7 | 8): FeatureState {
+  return { ...state, phase, request: { phase, at: AT, hash: "abc123" } };
+}
+
 test("uma decisão nova entra no fim, sem mudar as anteriores", () => {
-  const approved = approve({ ...open("F01a"), phase: 4 }, "Ana", AT);
+  const approved = approve(asked(open("F01a"), 4), "Ana", AT);
   writeState(root, approved);
   const before = readFileSync(stateFile(root, "F01a"), "utf8");
-  writeState(root, approve({ ...readState(root, "F01a")!, phase: 7 }, "Bia", AT));
+  writeState(root, approve(asked(readState(root, "F01a")!, 7), "Bia", AT));
   const after = readState(root, "F01a")!;
   expect(after.decisions).toHaveLength(2);
   expect(after.decisions[0]).toEqual(JSON.parse(before).decisions[0]);
@@ -81,6 +87,22 @@ test("um arquivo inválido gera erro com o nome do arquivo e o problema", () => 
       '{"id":"F01a","phase":5,"decisions":[{"phase":4,"decision":"maybe","by":"Ana","at":"x"}]}',
       "decisions",
     ],
+    [decisionWith({ requestedAt: "ontem" }), "decisions"],
+    [decisionWith({ hash: "" }), "decisions"],
+    [decisionWith({ path: 4 }), "decisions"],
+    [
+      '{"id":"F01a","phase":4,"decisions":[],"request":{"phase":5,"at":"' + AT + '","hash":"a"}}',
+      "request",
+    ],
+    [
+      '{"id":"F01a","phase":4,"decisions":[],"request":{"phase":4,"at":"ontem","hash":"a"}}',
+      "request",
+    ],
+    [
+      '{"id":"F01a","phase":4,"decisions":[],"request":{"phase":4,"at":"' + AT + '","hash":""}}',
+      "request",
+    ],
+    ['{"id":"F01a","phase":4,"decisions":[],"request":"sim"}', "request"],
   ];
   for (const [content, problem] of cases) {
     writeFileSync(join(dir, "F01a.json"), content);
@@ -126,4 +148,31 @@ test("uma pasta de estado que não pode ser lida não vira funcionalidade inexis
     code: "unreadable-file",
     params: { file: join(DATA_DIR, "state") },
   });
+});
+
+function decisionWith(fields: Record<string, unknown>): string {
+  const decision = { phase: 4, decision: "approve", by: "Ana", at: AT, ...fields };
+  return JSON.stringify({ id: "F01a", phase: 5, decisions: [decision] });
+}
+
+test("a decisão com o pedido e a decisão sem ele, de antes da F01c, são válidas", () => {
+  const dir = join(root, DATA_DIR, "state");
+  mkdirSync(dir, { recursive: true });
+  for (const fields of [
+    {},
+    { requestedAt: AT, hash: "abc" },
+    { requestedAt: AT, hash: "a", path: "docs/specs/F01a-x/spec.md" },
+  ]) {
+    writeFileSync(join(dir, "F01a.json"), decisionWith(fields));
+    expect(readState(root, "F01a")!.decisions[0]).toMatchObject(fields);
+  }
+});
+
+test("um estado de antes da F01c, com decisões sem pedido e um motivo longo, é válido como está", () => {
+  const dir = join(root, DATA_DIR, "state");
+  mkdirSync(dir, { recursive: true });
+  const reason = "falta um cenário. ".repeat(40).trim();
+  const old = { phase: 4, decision: "reject", by: "Ana", at: AT, reason };
+  writeFileSync(join(dir, "F02.json"), JSON.stringify({ id: "F02", phase: 3, decisions: [old] }));
+  expect(readState(root, "F02")!.decisions[0]!.reason).toBe(reason);
 });

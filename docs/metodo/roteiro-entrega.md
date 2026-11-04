@@ -16,8 +16,9 @@ A revisão roda em eixos (spec, segurança, testes, padrões), cada um num subag
 - **O eixo que muda o código de propósito roda à parte.** As mutações do eixo de testes acontecem numa cópia de
   trabalho só dele, para os outros eixos, que rodam ao mesmo tempo, não lerem o código no meio de uma mutação.
 - A revisão diz qual olhar foi usado e quantos defeitos ele achou que os outros eixos não acharam.
-- O pedido de aprovação da fase 7 é um cartão de decisão; a CLI grava a hora do pedido, e a medição tira dela o
-  tempo até a resposta.
+- O pedido de aprovação das fases 7 e 8 segue esta ordem: o commit de tudo, `curupira request <ID>`, que grava a hora
+  e o commit, e só então o cartão de decisão. Entre o pedido e a resposta, nenhum commit: um commit novo faz o
+  `approve` recusar, e é preciso um pedido novo. A medição tira da hora do pedido o tempo até a resposta.
 
 ## Fase 8: entrega
 

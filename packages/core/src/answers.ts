@@ -3,6 +3,7 @@ import { join } from "node:path";
 import { DATA_DIR } from "./brand.ts";
 import { FlowError } from "./errors.ts";
 import { isMissing, writeFileAtomic } from "./files.ts";
+import type { Request } from "./journey.ts";
 
 // A última mensagem digitada em cada sessão, que sustenta uma aprovação ou recusa (ADR-0025).
 // Fica fora do Git e só guarda o texto quando ele pode ser uma decisão (ADR-0026).
@@ -38,6 +39,17 @@ export function recordAnswer(root: string, session: string, prompt: string, at: 
 export function readAnswer(root: string, session: string, now?: Date): Answer | undefined {
   const answer = parseAnswer(answerFile(root, session));
   if (answer && now && !isRecent(Date.parse(answer.at), now)) return undefined;
+  return answer;
+}
+
+// A resposta só sustenta a decisão se veio depois do pedido (ADR-0031, regra 6); a mesma hora não basta.
+export function answerAfter(
+  answer: Answer | undefined,
+  request: Request,
+  id: string,
+): Answer | undefined {
+  if (answer && !(Date.parse(answer.at) > Date.parse(request.at)))
+    throw new FlowError("answer-before-request", { id });
   return answer;
 }
 

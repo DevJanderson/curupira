@@ -1,8 +1,9 @@
 import { readdirSync, readFileSync, statSync } from "node:fs";
-import { join } from "node:path";
+import { join, sep } from "node:path";
 import { DATA_DIR } from "./brand.ts";
 import { FlowError } from "./errors.ts";
 import { isMissing, writeFileAtomic } from "./files.ts";
+import { SPECS_DIR } from "./target.ts";
 import { FEATURE_PHASES, hasApproval, isFeatureId, type FeatureState } from "./journey.ts";
 
 // Um arquivo por funcionalidade, para duas branches não escreverem no mesmo arquivo (ADR-0023, ADR-0026).
@@ -66,23 +67,62 @@ function load(file: string, id: string): FeatureState {
     throw invalid("phase");
   if (!Array.isArray(data.decisions) || !data.decisions.every(isDecision))
     throw invalid("decisions");
+  if (data.request !== undefined && !isRequest(data.request)) throw invalid("request");
   return data as unknown as FeatureState;
 }
 
 function isDecision(value: unknown): boolean {
   if (!isRecord(value)) return false;
-  const { phase, decision, by, at, reason, answer } = value;
+  const { phase, decision, by, at, reason, answer, requestedAt, hash, path } = value;
   return (
     FEATURE_PHASES.includes(phase as never) &&
     hasApproval(phase as never) &&
     (decision === "approve" || (decision === "reject" && typeof reason === "string")) &&
     typeof by === "string" &&
     by.trim() !== "" &&
-    typeof at === "string" &&
-    !Number.isNaN(Date.parse(at)) &&
+    isDate(at) &&
     (reason === undefined || typeof reason === "string") &&
-    (answer === undefined || typeof answer === "string")
+    (answer === undefined || typeof answer === "string") &&
+    (requestedAt === undefined || isInstant(requestedAt)) &&
+    (hash === undefined || isHash(hash)) &&
+    (path === undefined || isSpecPath(path))
   );
+}
+
+function isRequest(value: unknown): boolean {
+  if (!isRecord(value)) return false;
+  const { phase, at, hash, path } = value;
+  return (
+    FEATURE_PHASES.includes(phase as never) &&
+    hasApproval(phase as never) &&
+    isInstant(at) &&
+    isHash(hash) &&
+    // O caminho do spec.md vai só no pedido da fase 4, que confere o arquivo; os das fases 7 e 8 conferem o commit.
+    (phase === 4 ? isSpecPath(path) : path === undefined)
+  );
+}
+
+// As decisões de antes da F01c guardam a hora como o Date.parse a lê; as horas do pedido são sempre ISO, em UTC.
+const INSTANT = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?Z$/;
+// docs/specs/<pasta>/spec.md, relativo e sem subir de pasta.
+const SPEC_PATH = new RegExp(
+  `^${[...SPECS_DIR.split(sep), "[^/\\\\]+", "spec\\.md"].join("[/\\\\]")}$`,
+);
+
+function isInstant(value: unknown): boolean {
+  return isDate(value) && INSTANT.test(value as string);
+}
+
+function isSpecPath(value: unknown): boolean {
+  return typeof value === "string" && SPEC_PATH.test(value) && !value.split(/[/\\]/).includes("..");
+}
+
+function isDate(value: unknown): boolean {
+  return typeof value === "string" && !Number.isNaN(Date.parse(value));
+}
+
+function isHash(value: unknown): boolean {
+  return typeof value === "string" && value !== "";
 }
 
 export function isRecord(value: unknown): value is Record<string, unknown> {

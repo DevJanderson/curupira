@@ -1,9 +1,13 @@
 import { parseArgs } from "node:util";
 import {
   advance,
+  answerAfter,
   approvalPhase,
+  approvalTarget,
   approvalText,
   approve,
+  checkUnchanged,
+  currentRequest,
   deleteAnswer,
   FlowError,
   gitAuthor,
@@ -21,6 +25,7 @@ import {
   recordAnswer,
   reject,
   rejectionReason,
+  requestApproval,
   writeState,
   type FeatureState,
   type ProjectFile,
@@ -53,6 +58,7 @@ const COMMANDS: Record<string, { argument: boolean; options: string[] }> = {
   open: { argument: true, options: [] },
   status: { argument: false, options: [] },
   advance: { argument: true, options: [] },
+  request: { argument: true, options: [] },
   approve: { argument: true, options: [] },
   reject: { argument: true, options: ["spec"] },
   hook: { argument: true, options: [] },
@@ -104,17 +110,36 @@ export function run(args: string[], io: Io): number {
     }
     const current = readState(root, id);
     if (!current) throw new FlowError("not-found", { id });
+    if (command === "request") {
+      const phase = approvalPhase(current);
+      const target = approvalTarget(root, id, phase, io.env);
+      // Uma leitura só do relógio, para a mensagem dizer a hora que ficou gravada.
+      const at = io.now();
+      writeState(root, requestApproval(current, at, target));
+      const params = {
+        id,
+        phase,
+        at,
+        hash: target.hash.slice(0, 12),
+        file: target.path ?? "",
+      };
+      io.out(message(target.path === undefined ? "requested-commit" : "requested-spec", params));
+      return 0;
+    }
     if (command === "advance") {
       const next = advance(current);
       writeState(root, next);
       io.out(message("advanced", { id, phase: next.phase }));
       return 0;
     }
-    // Qual erro vence: a fase, depois a sessão, a resposta digitada e, por último, o autor.
+    // Qual erro vence: a fase, o pedido, o conteúdo (só no approve), a sessão, a resposta digitada e, por último, o
+    // autor. Um "não" ao que a pessoa viu continua valendo, mesmo que o conteúdo tenha mudado.
     const from = approvalPhase(current);
+    const request = currentRequest(current);
+    if (command === "approve") checkUnchanged(root, id, request, io.env);
     const session = io.agent.session(io.env);
     if (session === undefined) throw new FlowError("no-session");
-    const answer = readAnswer(root, session, new Date(io.now()));
+    const answer = answerAfter(readAnswer(root, session, new Date(io.now())), request, id);
     const supporting =
       command === "approve" ? approvalText(answer, id) : rejectionReason(answer, id);
     const by = gitAuthor(root, io.env);

@@ -20,7 +20,18 @@ export type FlowErrorCode =
   | "reject-needs-answer"
   | "invalid-hook-input"
   | "invalid-settings"
-  | "symlink";
+  | "symlink"
+  | "spec-not-found"
+  | "spec-ambiguous"
+  | "spec-not-file"
+  | "no-commit"
+  | "uncommitted-changes"
+  | "no-request"
+  | "answer-before-request"
+  | "changed-spec"
+  | "changed-commit"
+  | "changed-uncommitted"
+  | "no-spec-dir";
 
 export class FlowError extends Error {
   readonly code: FlowErrorCode;
