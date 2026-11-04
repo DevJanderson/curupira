@@ -48,3 +48,4 @@ numa linha nova.
 | 2026-11-04 | 41    | Correção do ADR-0031 e do nó 5: a F00 instala por um script `curl` a partir do GitHub, sem npm; o ADR-0009 deixa de ser adiado                                                                     |
 | 2026-11-04 | 42    | ADR-0031: a instalação usa só o GitHub, pelo endereço dele, sem domínio próprio                                                                                                                    |
 | 2026-11-04 | 43    | ADR-0031 aceito com "sim": ADR-0015 substituído, ADR-0009 aceito, ADRs 0023 a 0026, jornada, roteiros e humano e agente ajustados; funcionalidades na ordem da linha; PRD esperando nova aprovação |
+| 2026-11-04 | 44    | PRD aprovado de novo com "sim", com a F00 e a F01c na ordem da linha; a decisão fica no PRD até a F01c criar o `project.json`                                                                      |

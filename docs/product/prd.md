@@ -1,7 +1,7 @@
 # PRD do Curupira
 
-- **Status:** aprovado na fase 2, em 2026-11-03; a mudança do [ADR-0031](../decisoes/0031-a-linha.md), de
-  2026-11-04, espera a aprovação
+- **Status:** aprovado na fase 2, em 2026-11-03; a mudança do [ADR-0031](../decisoes/0031-a-linha.md) foi aprovada
+  em 2026-11-04, com um "sim" digitado
 - **Aprovado por:** Janderson
 - **Data:** 2026-11-03
 
