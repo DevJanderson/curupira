@@ -113,11 +113,13 @@ export function run(args: string[], io: Io): number {
     if (command === "request") {
       const phase = approvalPhase(current);
       const target = approvalTarget(root, id, phase);
-      writeState(root, requestApproval(current, io.now(), target));
+      // Uma leitura só do relógio, para a mensagem dizer a hora que ficou gravada.
+      const at = io.now();
+      writeState(root, requestApproval(current, at, target));
       const params = {
         id,
         phase,
-        at: io.now(),
+        at,
         hash: target.hash.slice(0, 12),
         file: target.path ?? "",
       };

@@ -87,6 +87,7 @@ test('C1. O pedido e um "sim" depois dele aprovam', () => {
     hash,
   });
   expect(Date.parse(state.decisions.at(-1).requestedAt)).not.toBeNaN();
+  expect(state).not.toHaveProperty("request");
 });
 
 test("C2. Sem pedido, a aprovação é recusada", () => {
@@ -95,6 +96,7 @@ test("C2. Sem pedido, a aprovação é recusada", () => {
   const before = raw();
   const result = cli("approve", "F09");
   expect(result.code).not.toBe(0);
+  expect(result.err).toContain("pedido vem antes");
   expect(result.err).toContain("request F09");
   expect(raw()).toBe(before);
 });
