@@ -62,3 +62,4 @@ numa linha nova.
 | 2026-11-04 | 55    | F01d aberta numa branch da `main`, pelo comando instalado; spec e plano, contraditório em duas rodadas com 34 achados, sem divisão; pedido da fase 4                                                                 |
 | 2026-11-04 | 56    | Recusa da fase 4 da F01d para um parecer sobre o loop da F01: três causas, fontes externas, cinco mudanças propostas e a F01d estacionada como recomendação                                                          |
 | 2026-11-04 | 57    | ADR-0032 aceito com "aplique tudo": a spec em seis perguntas com prazo, contraditório de uma rodada, backlog; F01d, F13 e F18 para o backlog; F05 e F12 esperam; F14 sobe; roteiros podados; F01d e jornada apagadas |
+| 2026-11-04 | 58    | ADR-0033 (todo passo tem base) aceito; pesquisa do fluxo no GitHub com bases de engenharia e acadêmicas, fluxo proposto e cinco escolhas para a pessoa; fontes do ADR-0032 em `fontes.md`                            |
