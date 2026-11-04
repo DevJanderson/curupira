@@ -190,6 +190,25 @@ O que decorre:
 - Ver na `main` as funcionalidades em andamento em outras branches fica para o `status` e o painel, que podem ler o
   estado das branches pelo Git.
 
+### Nó 5: a instalação mínima (2026-11-04)
+
+**Decisão da pessoa:** "a". Uma peça nova, "Instalar e preparar", entra antes da F02 e traz a instalação mínima e
+o `init`.
+
+O que decorre:
+
+- **A instalação sai do repositório:** o pacote da CLI ganha o comando `curupira`, e a pessoa o instala na máquina
+  com o pnpm. A instalação por `curl`, do [ADR-0009](../../decisoes/0009-instalacao-por-curl.md), continua adiada.
+- **O `init` é o da decisão do nó 1:** a pessoa o roda, ele liga o hook das respostas, põe `.curupira/local/` no
+  `.gitignore` e não grava decisão. Rodar de novo não estraga nada, e é o mesmo passo para quem clona.
+- **O hook chama `curupira hook answer`**, e não mais o caminho do arquivo dentro deste repositório; as mensagens
+  da CLI passam a citar o comando que existe.
+- **Os arquivos do agente ficam com a F03.** O `init` desta peça cria só o que a F02 precisa; as skills e a
+  instrução entram no `init` quando a F03 chegar.
+- **O primeiro uso é aqui:** o próprio Curupira roda o `init` com o comando instalado, e o hook escrito à mão no
+  `.claude/settings.json` dá lugar ao que o `init` grava.
+- A F02 deixa de depender de um passo à mão: ela começa num projeto já preparado.
+
 ## Números
 
 | Medida                                   | Valor                                       |

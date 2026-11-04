@@ -43,3 +43,4 @@ numa linha nova.
 | 2026-11-04 | 36    | Nó 2 da revisão do fluxo: a adoção é uma ficha do projeto com um "sim" só, que cresce com as peças                                                   |
 | 2026-11-04 | 37    | Nó 3 da revisão do fluxo: estado do projeto em `project.json`, com teto de texto por decisão e leitura só pela CLI                                   |
 | 2026-11-04 | 38    | Nó 4 da revisão do fluxo: a branch nasce no `open`, um PR por funcionalidade, e o "sim" da fase 8 grava a entrega esperando o merge                  |
+| 2026-11-04 | 39    | Nó 5 da revisão do fluxo: a peça "Instalar e preparar" entra antes da F02, com o comando `curupira` instalado pelo pnpm e o `init`                   |
