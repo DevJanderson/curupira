@@ -1,6 +1,6 @@
 # ADR-0010: Fluxo de verificação inspirado no Ranger
 
-- **Status:** proposta
+- **Status:** aceita, pelo [ADR-0032](0032-parar-a-recursao.md)
 - **Data:** 2026-11-03
 
 ## Contexto

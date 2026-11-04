@@ -166,3 +166,27 @@ A recomendação do agente para cada item; a escolha é da pessoa.
 | D2  | `docs/conceitos/jornada.md`     | apagar: é só um ponteiro para o ADR-0031                              |
 | D3  | ADR-0029, o mascote             | adiado: está aceito e não há peça que o construa                      |
 | D4  | `docs/conceitos/verificacao.md` | tirar o aviso de "proposta" (ADR-0010), que já não vale: o fluxo roda |
+
+## A escolha e a pergunta sobre a spec
+
+A pessoa escolheu "aplique tudo" e perguntou por que a spec não especificou direito, se faltava uma estrutura que
+a spec tivesse de responder, e propôs um backlog: o fluxo vai até o fim, o que sobra fica guardado, e só depois se
+decide se entra.
+
+A resposta, pelos números das quatro peças entregues:
+
+- **A spec acertou o que construir.** Nenhuma peça fez a coisa errada depois do "sim" da fase 4. A verificação da
+  F01c não achou defeito; dos 15 da revisão, 12 eram de testes fracos, que nenhuma spec pega.
+- **O escopo mudou por fora da spec.** A F00, a F01c e a F01d vieram do ADR-0031, uma decisão nova do método, e não
+  de uma spec mal escrita. As duas recusas da F02 vieram de ADRs que se contradiziam.
+- **A spec ficou pesada porque lhe pedimos dois trabalhos.** Além de dizer o que construir, cada defeito que escapou
+  virou uma regra de "a spec deve prever X" (os dados gravados, os dados lidos, dois erros juntos, a mutação em todo
+  teste). Prever todo defeito não cabe na spec: cabe nos testes e na revisão.
+- **Faltava, sim, uma estrutura com fim.** A spec tinha seções, mas o critério de pronta era "sem lacuna", que nunca
+  chega. O [pitch do Shape Up](https://basecamp.com/shapeup/1.5-chapter-06) tem cinco ingredientes (problema,
+  apetite, solução, buracos e o que não entra), e o [INVEST](https://xp123.com/invest-in-good-stories-and-smart-tasks/)
+  (Bill Wake, 2003) lembra que uma boa história é negociável, e não um contrato explícito. Daí as seis perguntas.
+
+O [ADR-0032](../../decisoes/0032-parar-a-recursao.md) registra o que se aplicou: as seis perguntas, o prazo no lugar
+do limite de tamanho, o contraditório de uma rodada, o [backlog](../../product/backlog.md), as peças que saíram e
+esperam, os roteiros podados, a F01d e a jornada apagadas.

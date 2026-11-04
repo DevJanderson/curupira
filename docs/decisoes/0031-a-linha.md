@@ -13,7 +13,7 @@ chega à `main` (fase 8). O meio, das fases 3 a 7, anda, mas quase tudo à mão.
 As causas apontadas:
 
 - as funcionalidades foram cortadas por capacidade, e não pela linha;
-- a [jornada](../conceitos/jornada.md) deixou de ser a fonte única, porque os roteiros mudaram o método sem mudá-la,
+- a jornada deixou de ser a fonte única, porque os roteiros mudaram o método sem mudá-la,
   apesar da regra do [ADR-0015](0015-jornada-de-9-fases-e-5-aprovacoes.md);
 - o contraditório olha só a peça;
 - a linha nunca rodou de ponta a ponta.
@@ -83,13 +83,13 @@ funcionalidade volta à 5, ou à 3 se a mudança alterar a spec.
 8. **A máquina confere o que pode.** O `advance` da fase 3 recusa uma spec com marca `[A ESCLARECER]` aberta, e a
    aprovação recusa um conteúdo que mudou depois do pedido. O hash fica na decisão, como pede a regra 2 do
    [ADR-0023](0023-estado-artefatos-e-dados-locais.md).
-9. **Toda spec diz qual linha desta tabela ela muda** e a atualiza no mesmo PR, com uma linha no histórico deste ADR. A
-   Completude confere a peça contra a linha: quem roda cada comando, o que vem antes e o que vem depois.
+9. _Retirada pelo [ADR-0032](0032-parar-a-recursao.md)._ Ela pedia que toda spec dissesse qual linha desta tabela
+   muda e escrevesse no histórico deste ADR.
 
 ## Consequências
 
-- A linha tem uma fonte só. O ADR-0015 passa a "substituída por ADR-0031", e a [jornada](../conceitos/jornada.md)
-  vira um ponteiro para cá.
+- A linha tem uma fonte só. O ADR-0015 passa a "substituída por ADR-0031", e a jornada vira um ponteiro para cá
+  (apagado depois, pelo [ADR-0032](0032-parar-a-recursao.md)).
 - Duas peças novas entram na lista de funcionalidades, que se reordena pela linha: a **F00 Instalar e preparar** (a fase
   0, com o script de instalação por `curl` e o `init`) e a **F01c A linha no estado** (as regras 3 a 7 e a conferência
   do hash da regra 8 na CLI, com o estado da F01a e da F01b montado a partir dos relatos). A ordem começa por F00, F01c
@@ -148,3 +148,6 @@ funcionalidade volta à 5, ou à 3 se a mudança alterar a spec.
   a citar a F01c; na linha 8, fica registrada também a decisão, com a hora do pedido e o commit.
 - 2026-11-04: na revisão da F01c, a regra 7 passou a falar só do motivo, como decidiu a spec da F01c: a resposta de
   uma aprovação é um "sim" puro. As Consequências ficam como foram aceitas; a divisão da F01c está no histórico acima.
+- 2026-11-04: pelo [ADR-0032](0032-parar-a-recursao.md), a regra 9 sai, e as regras 3 a 5 seguem como prática do
+  agente, à mão, sem peça que as imponha: a F01d saiu da fila para o backlog. Onde a tabela cita a F01d, a branch e o
+  "esperando merge" ficam com o agente; as decisões das fases 1 e 2 seguem no PRD.

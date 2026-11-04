@@ -140,31 +140,30 @@ Na ordem da [linha](../decisoes/0031-a-linha.md); o detalhe está em [funcionali
 - **F01b Prova de decisão humana:** a CLI só registra uma aprovação ou recusa com a resposta que a pessoa digitou.
 - **F00 Instalar e preparar:** o script de instalação por `curl`, a partir do GitHub, e o `init`.
 - **F01c Pedido e teto:** o pedido com hash em toda aprovação e o teto de texto por decisão.
-- **F01d Branch e projeto:** a branch desde o `open`, o "esperando merge" e as decisões do projeto.
 - **F02 Adotar o projeto:** a ficha do projeto, proposta pelo agente e aprovada pela pessoa.
 - **F03 Instrução mínima e adaptador:** a instrução do agente e as skills por estação, para o Claude Code.
 - **F04a Checagens básicas:** lint, tipos, testes e segredos.
-- **F05 Hooks do ciclo de vida:** barram ações fora do fluxo.
 - **F06 Entrevista do PRD:** o PRD, as perguntas em aberto e a lista de funcionalidades.
 - **F07 Spec e cenários:** a spec ancorada, os cenários e o plano.
 - **F09 Implementar com testes primeiro:** prova do vermelho e checagens a cada passo.
 - **F10 Verificador separado:** os cenários conferidos contra o sistema real.
-- **F11 Revisão em eixos e PR:** a revisão em que só defeitos bloqueiam, e o PR aberto.
-- **F12 Entrega e medição:** a entrega registrada e os números da funcionalidade.
-- **F13 Retrospectiva e lições:** as melhorias do método e as lições dos defeitos.
-- **F04b Checagens extras:** duplicação, código morto, complexidade, dependências e segurança.
 - **F14 Modo leve:** mudanças pequenas e bugs com checagens e verificação.
+- **F11 Revisão em eixos e PR:** a revisão em que só defeitos bloqueiam, e o PR aberto.
+- **F04b Checagens extras:** duplicação, código morto, complexidade, dependências e segurança.
 - **F15 Painel, andamento:** a fase, as decisões pendentes e a documentação.
 - **F16 Painel, decidir:** as aprovações pelo painel, gravadas pela CLI.
 - **F17 Contexto em camadas:** contratos dos subagentes e teto de contexto por papel.
 - **F19 Evals das skills:** o comportamento do agente provado em projetos descartáveis.
-- **F18 Comando de renomear:** a troca do nome a partir da constante.
+- **F05 Hooks do ciclo de vida** e **F12 Entrega e medição:** esperam
+  ([ADR-0032](../decisoes/0032-parar-a-recursao.md)).
 
 A F01 foi dividida em F01a e F01b na fase 3 dela
 ([ADR-0025](../decisoes/0025-a-pessoa-decide-pela-conversa.md)). A lista cresce por divisão sem reabrir o PRD, e a
 aprovação continua valendo. A F00 e a F01c não são divisão: entraram com a linha
 ([ADR-0031](../decisoes/0031-a-linha.md)), e a F08 entrou na F01c; por isso, o PRD se aprova de novo. A F01c se
-dividiu em F01c e F01d na fase 3 dela, sem reabrir o PRD.
+dividiu em F01c e F01d na fase 3 dela, sem reabrir o PRD. Pelo
+[ADR-0032](../decisoes/0032-parar-a-recursao.md), a F01d, a F13 e a F18 saíram para o [backlog](backlog.md), a F05 e
+a F12 esperam, e a F14 subiu; a pessoa aprovou a mudança com "aplique tudo", sem nova aprovação do PRD.
 
 O vocabulário segue o [ADR-0027](../decisoes/0027-idioma-e-vocabulario-da-ferramenta.md): "portão" virou
 "aprovação" ou "checagem", sem mudar o conteúdo aprovado.

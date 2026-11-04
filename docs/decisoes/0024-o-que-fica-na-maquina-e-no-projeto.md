@@ -5,7 +5,7 @@
 
 ## Contexto
 
-O Curupira é instalado uma vez por máquina (fase 0 da [jornada](../conceitos/jornada.md)) e adotado em vários
+O Curupira é instalado uma vez por máquina (fase 0 da [jornada](0031-a-linha.md)) e adotado em vários
 projetos. É preciso decidir o que mora na máquina, o que mora em cada projeto e, no projeto, o que vai para o Git,
 sem perder informação e sem espalhar arquivos sem dono pelo computador. O
 [ADR-0023](0023-estado-artefatos-e-dados-locais.md) já separou, dentro do projeto, o estado, os artefatos e os dados

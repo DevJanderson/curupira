@@ -5,7 +5,7 @@
 
 ## Objetivo
 
-Uma CLI que guarda, versionado no Git, em que fase da [jornada](../../conceitos/jornada.md) cada funcionalidade
+Uma CLI que guarda, versionado no Git, em que fase da [jornada](../../decisoes/0031-a-linha.md) cada funcionalidade
 está, registra cada aprovação e recusa (quem e quando) e mostra o que espera decisão. A pessoa decide pela conversa,
 e quem roda a CLI é o agente ([ADR-0025](../../decisoes/0025-a-pessoa-decide-pela-conversa.md)). A CLI é o único
 escritor do estado ([ADR-0011](../../decisoes/0011-painel-aceita-decisoes-humanas.md)) e não deixa uma fase começar

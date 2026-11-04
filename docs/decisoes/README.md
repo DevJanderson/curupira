@@ -13,7 +13,7 @@ Cada decisão de arquitetura nova ou mudada vira um ADR aqui, antes do código. 
 | [0007](0007-escopo-da-v1-tudo.md)                             | Escopo da v1: tudo                                  | aceita               |
 | [0008](0008-nome-provisorio-e-troca-facil.md)                 | Nome provisório e troca fácil                       | aceita               |
 | [0009](0009-instalacao-por-curl.md)                           | Instalação por curl                                 | aceita               |
-| [0010](0010-fluxo-de-verificacao-inspirado-no-ranger.md)      | Fluxo de verificação inspirado no Ranger            | proposta             |
+| [0010](0010-fluxo-de-verificacao-inspirado-no-ranger.md)      | Fluxo de verificação inspirado no Ranger            | aceita               |
 | [0011](0011-painel-aceita-decisoes-humanas.md)                | O painel aceita decisões humanas                    | aceita               |
 | [0012](0012-documentacao-em-markdown-no-painel.md)            | Documentação em Markdown dentro do painel           | aceita               |
 | [0013](0013-painel-em-vue-3-e-shadcn-vue.md)                  | Interface do painel em Vue 3 + shadcn-vue           | aceita               |
@@ -32,6 +32,7 @@ Cada decisão de arquitetura nova ou mudada vira um ADR aqui, antes do código. 
 | [0026](0026-o-que-o-curupira-grava-nao-cresce-com-o-tempo.md) | O que o Curupira grava não cresce com o tempo       | aceita               |
 | [0027](0027-idioma-e-vocabulario-da-ferramenta.md)            | Idioma e vocabulário da ferramenta                  | aceita               |
 | [0028](0028-cartao-de-decisao.md)                             | O cartão de decisão                                 | aceita               |
-| [0029](0029-mascote-no-terminal.md)                           | O mascote no terminal                               | aceita               |
+| [0029](0029-mascote-no-terminal.md)                           | O mascote no terminal                               | adiada               |
 | [0030](0030-como-o-agente-fala-com-a-pessoa.md)               | Como o agente fala com a pessoa                     | aceita               |
 | [0031](0031-a-linha.md)                                       | A linha                                             | aceita               |
+| [0032](0032-parar-a-recursao.md)                              | Parar a recursão                                    | aceita               |

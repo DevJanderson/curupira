@@ -39,7 +39,7 @@ O meio da linha, das fases 3 a 7, anda; as duas pontas não.
 ### 1. Quem toca a CLI
 
 - O [ADR-0025](../../decisoes/0025-a-pessoa-decide-pela-conversa.md) diz que só o agente roda a CLI e recusou a
-  pessoa rodando-a em outro terminal; a [jornada](../../conceitos/jornada.md) põe a pessoa rodando `curupira init`, e
+  pessoa rodando-a em outro terminal; a jornada (então em `docs/conceitos/`) põe a pessoa rodando `curupira init`, e
   o [ADR-0029](../../decisoes/0029-mascote-no-terminal.md) desenha uma tela de terminal para a pessoa.
 - O `init` tem quatro sentidos: a pessoa começa a adoção (jornada), quem clona refaz as skills (ADR-0024, linha
   108), o agente entrega a proposta (spec da F02) e a tela com o mascote (ADR-0029).

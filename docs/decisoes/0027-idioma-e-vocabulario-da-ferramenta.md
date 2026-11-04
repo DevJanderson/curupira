@@ -13,7 +13,7 @@ Curupira ser usado fora do Brasil, a interface precisa ser a mesma em toda parte
 
 O termo "portão" nomeava duas coisas diferentes:
 
-- a decisão da pessoa entre fases (os 5 portões da [jornada](../conceitos/jornada.md));
+- a decisão da pessoa entre fases (os 5 portões da [jornada](0031-a-linha.md));
 - a checagem automática do código (a F04a, "Portões básicos", e os "portões locais" da fase 5).
 
 Ele veio do inglês _gate_, que também tem os dois sentidos: o ponto de decisão entre etapas do Stage-Gate
