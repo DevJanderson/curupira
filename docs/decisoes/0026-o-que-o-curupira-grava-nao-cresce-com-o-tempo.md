@@ -14,7 +14,7 @@ Medido em 2026-11-03, nas duas primeiras specs escritas à mão (F01a e F01b): 6
 
 Até aqui, cada funcionalidade deixava 6 arquivos no Git: o estado e a medição em `.curupira/`
 ([ADR-0023](0023-estado-artefatos-e-dados-locais.md), [ADR-0024](0024-o-que-fica-na-maquina-e-no-projeto.md)), e
-spec, cenários, plano e verificação em `docs/specs/<ID>-<nome>/`. A [Q09](../produto/perguntas-em-aberto.md), sobre
+spec, cenários, plano e verificação em `docs/specs/<ID>-<nome>/`. A [Q09](../product/open-questions.md), sobre
 conflito do estado entre branches, continuava aberta.
 
 O que cresce com o número de funcionalidades cresce junto com o produto, como o próprio código. O que cresce com o
@@ -31,16 +31,16 @@ tempo (uma entrada por decisão, sessão, rodada ou evento) se multiplica sem li
 
 1. **No Git, só arquivos do projeto ou de uma funcionalidade.** Nada ganha um arquivo por decisão, sessão, rodada ou
    evento; o que acontece com o tempo vira uma entrada dentro do arquivo da funcionalidade.
-2. **Um arquivo de estado por funcionalidade, com a medição dentro**: `.curupira/estado/<ID>.json` guarda a fase, as
+2. **Um arquivo de estado por funcionalidade, com a medição dentro**: `.curupira/state/<ID>.json` guarda a fase, as
    decisões e a medição. A medição guarda totais, não uma entrada por sessão; o formato fica para a F12. A pasta
    `.curupira/medicao/` deixa de existir.
-3. **Um arquivo de spec por portão**, em `docs/specs/<ID>-<nome>/`:
+3. **Um arquivo de spec por aprovação**, em `docs/specs/<ID>-<nome>/`:
 
-   | Arquivo          | O que guarda                                      | Portão |
-   | ---------------- | ------------------------------------------------- | ------ |
-   | `spec.md`        | objetivo, requisitos, cenários, decisões e o mais | fase 4 |
-   | `plano.md`       | os passos da implementação                        | nenhum |
-   | `verificacao.md` | o veredito e o resumo da prova de cada cenário    | fase 7 |
+   | Arquivo           | O que guarda                                      | Aprovação |
+   | ----------------- | ------------------------------------------------- | --------- |
+   | `spec.md`         | objetivo, requisitos, cenários, decisões e o mais | fase 4    |
+   | `plan.md`         | os passos da implementação                        | nenhum    |
+   | `verification.md` | o veredito e o resumo da prova de cada cenário    | fase 7    |
 
 4. **Dados locais só enquanto servem.** Em `.curupira/local/`, fora do Git, fica só o que ainda vai ser usado:
    - das mensagens digitadas, só a última de cada sessão, no lugar da anterior, e apagada quando sustenta uma decisão;
@@ -54,10 +54,15 @@ tempo (uma entrada por decisão, sessão, rodada ou evento) se multiplica sem li
 
 - Cada funcionalidade deixa 4 arquivos versionados: o estado, a spec, o plano e a verificação. O número de arquivos
   cresce com o número de funcionalidades, e nenhuma pasta cresce com o tempo.
-- O hash da aprovação no portão 4 (F08) cobre um arquivo só, o `spec.md`.
-- O `spec.md` fica maior; o limite de tamanho do [roteiro da spec](../produto/roteiro-spec.md) (10 requisitos e 5
+- O hash da aprovação na aprovação da fase 4 (F08) cobre um arquivo só, o `spec.md`.
+- O `spec.md` fica maior; o limite de tamanho do [roteiro da spec](../metodo/roteiro-spec.md) (10 requisitos e 5
   cenários, provisório) o mantém curto.
-- O arquivo de estado é escrito pela CLI nos portões e no fim de cada sessão, sempre na branch da funcionalidade.
+- O arquivo de estado é escrito pela CLI nas aprovações e no fim de cada sessão, sempre na branch da funcionalidade.
 - Guardar só a última mensagem de cada sessão também reduz os dados pessoais em `.curupira/local/`
   ([LGPD](../pesquisa/fontes.md#normas), art. 6º, III).
 - Ajusta o ADR-0023 (spec e cenários num arquivo só; a Q09 respondida) e a regra 8 do ADR-0024 (a medição no estado).
+
+## Histórico
+
+- 2026-11-03: o caminho do estado passou a `.curupira/state/`, os arquivos a `plan.md` e `verification.md`, e
+  "portão" a "aprovação" ([ADR-0027](0027-idioma-e-vocabulario-da-ferramenta.md)).

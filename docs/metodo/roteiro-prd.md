@@ -100,7 +100,7 @@ Revisão das perguntas registradas ao longo da entrevista, mais o que ainda não
 - a lista de funcionalidades;
 - as pendências de ADR.
 
-O PRD só vale depois do "sim" da pessoa, no portão da fase 2.
+O PRD só vale depois do "sim" da pessoa, na aprovação da fase 2.
 
 ## Histórico
 

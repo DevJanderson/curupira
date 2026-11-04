@@ -1,6 +1,6 @@
 # Curupira
 
-O Curupira é uma ferramenta (ainda a construir) que organiza o desenvolvimento de software como uma fábrica humano + IA: o humano decide em portões, o agente produz, e verificações automáticas garantem qualidade.
+O Curupira é uma ferramenta (ainda a construir) que organiza o desenvolvimento de software como uma fábrica humano + IA: o humano decide nas aprovações, o agente produz, e verificações automáticas garantem qualidade.
 
 ## Estado atual
 

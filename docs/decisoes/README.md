@@ -18,7 +18,7 @@ Cada decisão de arquitetura nova ou mudada vira um ADR aqui, antes do código. 
 | [0012](0012-documentacao-em-markdown-no-painel.md)            | Documentação em Markdown dentro do painel           | aceita   |
 | [0013](0013-painel-em-vue-3-e-shadcn-vue.md)                  | Interface do painel em Vue 3 + shadcn-vue           | aceita   |
 | [0014](0014-estrutura-e-convencoes-do-repositorio.md)         | Estrutura e convenções do repositório               | aceita   |
-| [0015](0015-jornada-de-9-fases-e-5-portoes.md)                | A jornada de 9 fases e 5 portões                    | aceita   |
+| [0015](0015-jornada-de-9-fases-e-5-aprovacoes.md)             | A jornada de 9 fases e 5 aprovações                 | aceita   |
 | [0016](0016-vite-plus-como-ferramental.md)                    | Vite+ como ferramental                              | aceita   |
 | [0017](0017-node-24.md)                                       | Node 24                                             | aceita   |
 | [0018](0018-licenca-agpl-3-0.md)                              | Licença AGPL-3.0                                    | aceita   |

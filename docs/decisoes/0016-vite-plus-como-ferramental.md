@@ -19,4 +19,4 @@ tarefas (Vite Task) e empacotamento (`vp pack`).
 
 ## Consequências
 
-- O `vp run ready` é o portão local e da CI.
+- O `vp run ready` é a checagem local e da CI.

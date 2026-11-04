@@ -15,7 +15,7 @@ Ela será exibida dentro do painel do Curupira ([ADR-0012](decisoes/0012-documen
   [mapa do conhecimento](metodo/mapa-do-conhecimento.md).
 - **Pesquisa**: [ferramentas estudadas](pesquisa/ferramentas-estudadas.md), [fontes](pesquisa/fontes.md) e
   [registro da pesquisa](pesquisa/registro.md).
-- **Produto**: [o PRD](produto/prd.md), [funcionalidades](produto/funcionalidades.md),
-  [perguntas em aberto](produto/perguntas-em-aberto.md), [roteiro do PRD](produto/roteiro-prd.md) e
-  [roteiro da spec](produto/roteiro-spec.md).
+- **Produto**: [o PRD](product/prd.md), [funcionalidades](product/features.md),
+  [perguntas em aberto](product/open-questions.md), [roteiro do PRD](metodo/roteiro-prd.md) e
+  [roteiro da spec](metodo/roteiro-spec.md).
 - **Decisões**: [registro de decisões](decisoes/README.md).

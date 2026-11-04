@@ -11,7 +11,7 @@ o produto.
 | 4. Especificação                         | Que formato de especificação o agente segue com fidelidade?  | Spec → plano → tarefas, EARS, critérios de aceite, contratos de API               |
 | 5. Engenharia de contexto                | Como entregar ao agente o conhecimento certo, na hora certa? | AGENTS.md, skills, memória, context rot, compactação, subagentes, cache de prompt |
 | 6. Qualidade e testes                    | Como garantir que o código gerado está correto?              | TDD, testes de propriedade, testes de mutação, análise estática                   |
-| 7. Portões e automação                   | O que barra automaticamente o que está fora do padrão?       | Hooks, pré-commit, CI, checagem de arquitetura                                    |
+| 7. Checagens e automação                 | O que barra automaticamente o que está fora do padrão?       | Hooks, pré-commit, CI, checagem de arquitetura                                    |
 | 8. Papel humano                          | Onde o humano decide, revisa e aprova?                       | Human-in-the-loop, níveis de autonomia, responsabilidade                          |
 | 9. Governança, segurança e riscos        | Quais riscos o agente introduz e como contê-los?             | OWASP para LLM, dependências, segredos, licenças, rastreabilidade                 |
 | 10. Métricas e avaliação                 | Como provar que a fábrica funciona?                          | DORA, SPACE, defeitos, retrabalho, tempo, custo                                   |

@@ -1,6 +1,6 @@
 # PRD do Curupira
 
-- **Status:** aprovado no portão da fase 2, em 2026-11-03
+- **Status:** aprovado na fase 2, em 2026-11-03
 - **Aprovado por:** Janderson
 - **Data:** 2026-11-03
 
@@ -24,7 +24,7 @@ O problema aparece em toda sessão de trabalho. O desafio é estruturar sem pesa
   usa agente de código todo dia; no horizonte, equipes pequenas (2 a 5 pessoas, cada uma com o seu agente, no mesmo
   repositório).
 - **Perfis:** back-end, front-end, UX e análise. O Curupira não depende de stack: o que muda fica no perfil do
-  projeto. UX e análise participam dos portões, não só do código; na v1, é a mesma pessoa trocando de papel.
+  projeto. UX e análise participam das aprovações, não só do código; na v1, é a mesma pessoa trocando de papel.
 - **Quando:** em toda mudança. As pequenas vão pelo modo leve.
 - **Como:** a conversa com o agente é a interface principal. O painel complementa, para ver o andamento e, se a
   pessoa preferir, decidir. Nos dois casos, a decisão grava pela CLI.
@@ -38,11 +38,11 @@ O problema aparece em toda sessão de trabalho. O desafio é estruturar sem pesa
 ## Objetivo e métricas de sucesso
 
 Desenvolver com agente passa a produzir software com qualidade e consistência verificáveis, de forma repetível entre
-projetos. A pessoa decide nos portões, com visão clara, em vez de revisar cada falha. O processo melhora a cada
+projetos. A pessoa decide nas aprovações, com visão clara, em vez de revisar cada falha. O processo melhora a cada
 funcionalidade: a retrospectiva propõe melhorias, e os defeitos que escapam viram lições para as próximas specs.
 
 **Princípio:** o Curupira segue um método de produção, como uma linha de produção enxuta (Lean), mas o método fica
-embutido na ferramenta, não no contexto do agente. O que pode ser checado vira máquina: hooks, testes, portões e CLI.
+embutido na ferramenta, não no contexto do agente. O que pode ser checado vira máquina: hooks, testes, checagens e CLI.
 O agente recebe só a instrução curta da estação em que está. A pessoa vê o método pelo painel e pela documentação.
 
 | Métrica                                     | Meta                                                        |
@@ -61,9 +61,9 @@ Para a pesquisa, o resultado é evidência medida a favor ou contra cada hipóte
 
 ### Entra na v1
 
-- A jornada de 9 fases e 5 portões, com cada decisão registrada pela CLI.
+- A jornada de 9 fases e 5 aprovações, com cada decisão registrada pela CLI.
 - Adoção do projeto: perfil (comandos, stack, dados pessoais e leis que valem, limites de tamanho), instrução mínima
-  do agente e portões automáticos de qualidade e segurança (lint, tipos, testes, segredos, código duplicado, código
+  do agente e checagens automáticas de qualidade e segurança (lint, tipos, testes, segredos, código duplicado, código
   morto, complexidade, dependências vulneráveis e análise de segurança do código), cada um confirmado pela pessoa.
 - Entrevista do PRD, spec ancorada com poucos cenários e aprovação com impressão digital.
 - Testes antes do código, com a prova do vermelho como evidência.
@@ -71,10 +71,10 @@ Para a pesquisa, o resultado é evidência medida a favor ou contra cada hipóte
   testes; interface contra design fica em aberto.
 - Revisão em eixos, PR aberto pelo agente e merge sempre humano.
 - Medição e retrospectiva com lições.
-- Peças pequenas como portão checado por máquina: os limites de tamanho ficam no perfil, com um padrão provisório
+- Peças pequenas como checagem feita por máquina: os limites de tamanho ficam no perfil, com um padrão provisório
   revisto pela medição. A fase 2 propõe dividir o que passa do limite, a fase 3 recusa spec acima dele, a fase 4
   mostra o tamanho ao aprovar e a fase 5 quebra o passo grande.
-- Modo leve para mudanças pequenas: pula o PRD e a spec completa, mas passa pelos portões e pela verificação. Inclui o
+- Modo leve para mudanças pequenas: pula o PRD e a spec completa, mas passa pelas checagens e pela verificação. Inclui o
   caminho de bug: comportamento atual, esperado e o que não pode mudar, que vira teste de regressão.
 - Spec de interface que aceita como entrada link do Figma, imagens ou outra ferramenta de design.
 - Ajuda a cumprir a LGPD: o perfil pergunta se há dados pessoais e quais leis valem; a spec marca os campos com dados
@@ -83,8 +83,8 @@ Para a pesquisa, o resultado é evidência medida a favor ou contra cada hipóte
 - Camadas de contexto, contratos dos subagentes e teto de contexto por papel.
 - Hooks do ciclo de vida, inclusive antes da compactação.
 - Painel com o andamento, as decisões e a documentação.
-- Núcleo independente de agente e de modelo (CLI, estado, portões, verificação, medição e modelos dos artefatos), com
-  o adaptador do Claude Code (skills, hooks e subagentes).
+- Núcleo independente de agente e de modelo (CLI, estado, aprovações, checagens, verificação, medição e modelos dos
+  artefatos), com o adaptador do Claude Code (skills, hooks e subagentes).
 - Evals das skills, fora da CI.
 - Comando de renomear ([ADR-0008](../decisoes/0008-nome-provisorio-e-troca-facil.md)).
 
@@ -123,7 +123,7 @@ Para a pesquisa, o resultado é evidência medida a favor ou contra cada hipóte
 - **Dados pessoais:** a medição guarda só números (tokens, custo, cache e tempo, por fase e por papel), nunca o texto
   das conversas nem o código, pelo princípio da necessidade ([LGPD](../pesquisa/fontes.md#normas), Lei nº
   13.709/2018, art. 6º, III) e pela privacidade desde a concepção (art. 46, § 2º). A retrospectiva aponta onde está a
-  prova, sem copiá-la. Quem aprovou cada portão é registrado pelo nome de autor do Git; num repositório público, esse
+  prova, sem copiá-la. Quem fez cada aprovação é registrado pelo nome de autor do Git; num repositório público, esse
   nome fica visível, e a documentação avisa.
 - **Prazo:** sem data. Marcos, nesta ordem: fases 1 a 4 funcionando com a ferramenta; a primeira funcionalidade do
   Curupira entregue pela jornada completa, com verificação e medição; o Curupira usado num segundo projeto real
@@ -132,25 +132,25 @@ Para a pesquisa, o resultado é evidência medida a favor ou contra cada hipóte
 
 ## Funcionalidades
 
-Em ordem de valor; o detalhe está em [funcionalidades.md](funcionalidades.md), e as dúvidas em
-[perguntas-em-aberto.md](perguntas-em-aberto.md).
+Em ordem de valor; o detalhe está em [funcionalidades](features.md), e as dúvidas em
+[perguntas em aberto](open-questions.md).
 
 - **F01a Estado e comandos:** estado versionado no Git e registro de cada decisão pela CLI.
-- **F01b Prova de decisão humana:** a CLI só aprova ou recusa um portão com a resposta que a pessoa digitou.
+- **F01b Prova de decisão humana:** a CLI só registra uma aprovação ou recusa com a resposta que a pessoa digitou.
 - **F02 Adotar o projeto:** o perfil do projeto, proposto pelo agente e confirmado pela pessoa.
 - **F03 Instrução mínima e adaptador:** a instrução do agente e as skills por estação, para o Claude Code.
-- **F04a Portões básicos:** lint, tipos, testes e segredos.
-- **F04b Portões extras:** duplicação, código morto, complexidade, dependências e segurança.
+- **F04a Checagens básicas:** lint, tipos, testes e segredos.
+- **F04b Checagens extras:** duplicação, código morto, complexidade, dependências e segurança.
 - **F05 Hooks do ciclo de vida:** barram ações fora do fluxo.
 - **F06 Entrevista do PRD:** o PRD, as perguntas em aberto e a lista de funcionalidades.
 - **F07 Spec e cenários:** a spec ancorada, os cenários e o plano.
 - **F08 Aprovação com impressão digital:** a spec aprovada e protegida contra mudança silenciosa.
-- **F09 Implementar com testes primeiro:** branch, prova do vermelho e portões a cada passo.
+- **F09 Implementar com testes primeiro:** branch, prova do vermelho e checagens a cada passo.
 - **F10 Verificador separado:** os cenários conferidos contra o sistema real.
 - **F11 Revisão em eixos e PR:** a revisão em que só defeitos bloqueiam, e o PR aberto.
 - **F12 Entrega e medição:** a entrega registrada e os números da funcionalidade.
 - **F13 Retrospectiva e lições:** as melhorias do método e as lições dos defeitos.
-- **F14 Modo leve:** mudanças pequenas e bugs com portões e verificação.
+- **F14 Modo leve:** mudanças pequenas e bugs com checagens e verificação.
 - **F15 Painel, andamento:** a fase, as decisões pendentes e a documentação.
 - **F16 Painel, decidir:** as aprovações pelo painel, gravadas pela CLI.
 - **F17 Contexto em camadas:** contratos dos subagentes e teto de contexto por papel.
@@ -161,9 +161,12 @@ A F01 foi dividida em F01a e F01b na fase 3 dela
 ([ADR-0025](../decisoes/0025-a-pessoa-decide-pela-conversa.md)). A lista cresce por divisão sem reabrir o PRD, e a
 aprovação continua valendo.
 
+O vocabulário segue o [ADR-0027](../decisoes/0027-idioma-e-vocabulario-da-ferramenta.md): "portão" virou
+"aprovação" ou "checagem", sem mudar o conteúdo aprovado.
+
 ## Referências
 
-- [Roteiro do PRD](roteiro-prd.md), [método](../metodo/README.md), [hipóteses](../metodo/hipoteses.md),
+- [Roteiro do PRD](../metodo/roteiro-prd.md), [método](../metodo/README.md), [hipóteses](../metodo/hipoteses.md),
   [jornada](../conceitos/jornada.md), [humano e agente](../conceitos/humano-e-agente.md) e
   [ferramentas estudadas](../pesquisa/ferramentas-estudadas.md).
 - ADRs 0002 a 0020, no [registro de decisões](../decisoes/README.md).
@@ -179,4 +182,4 @@ Resolvidas:
 - [ADR-0020](../decisoes/0020-uso-de-referencias-de-terceiros.md), item 7: referências estudadas só em
   `docs/pesquisa/` e nos ADRs; dependências e plataformas que o Curupira usa podem ser citadas onde for necessário.
 
-Ainda pendente: uma ferramenta por portão extra da F04b, quando essa peça chegar.
+Ainda pendente: uma ferramenta por checagem extra da F04b, quando essa peça chegar.

@@ -66,7 +66,7 @@ nome ([ADR-0008](0008-nome-provisorio-e-troca-facil.md)), e uma variável de amb
 
 | Onde                                              | Git | O que guarda                                                                         |
 | ------------------------------------------------- | --- | ------------------------------------------------------------------------------------ |
-| `docs/produto/` e `docs/specs/<ID>-<nome>/`       | sim | os artefatos (ADR-0023), inclusive a `verificacao.md` de cada funcionalidade         |
+| `docs/product/` e `docs/specs/<ID>-<nome>/`       | sim | os artefatos (ADR-0023), inclusive a `verification.md` de cada funcionalidade        |
 | `.curupira/`                                      | sim | o perfil, o estado com a medição, o id do projeto e a versão do Curupira que ele usa |
 | `.curupira/local/`                                | não | provas brutas, rodadas, eventos dos hooks para o painel e temporários                |
 | `.claude/skills/cr-*/` e `.claude/agents/cr-*.md` | não | as skills e os subagentes, postos pela CLI na versão do projeto                      |
@@ -93,7 +93,7 @@ Nomes e formatos dos arquivos dentro de `.curupira/` ficam para a F01.
 6. **Um painel por máquina**, com uma porta só; a pessoa escolhe o projeto nele. Cada CLI só escreve dentro do seu
    projeto.
 7. **Provas.** O veredito de cada cenário, com um resumo da prova (o que foi rodado e o que saiu de importante,
-   inclusive a prova do vermelho), vai para `docs/specs/<ID>-<nome>/verificacao.md`, no Git. A saída bruta fica em
+   inclusive a prova do vermelho), vai para `docs/specs/<ID>-<nome>/verification.md`, no Git. A saída bruta fica em
    `.curupira/local/`, fora do Git: é grande e pode ter dados pessoais do ambiente de teste
    ([LGPD](../pesquisa/fontes.md#normas), art. 6º, III).
 8. **Medição.** No fim de cada sessão, a CLI soma os números no arquivo de estado da funcionalidade
@@ -104,9 +104,9 @@ Nomes e formatos dos arquivos dentro de `.curupira/` ficam para a F01.
 ## Consequências
 
 - Gravar a medição a cada sessão protege os números da limpeza de 30 dias. A mudança de formato continua sendo um
-  risco, e a [Q10](../produto/perguntas-em-aberto.md) continua aberta para o teste com registro de exemplo.
-- Quem clona o projeto roda `curupira iniciar` para ter as skills e os subagentes. Sem o Curupira instalado, os
-  hooks falham com erro visível, sem falha silenciosa. Avançar fases exige a CLI, e os portões continuam valendo na
+  risco, e a [Q10](../product/open-questions.md) continua aberta para o teste com registro de exemplo.
+- Quem clona o projeto roda `curupira init` para ter as skills e os subagentes. Sem o Curupira instalado, os
+  hooks falham com erro visível, sem falha silenciosa. Avançar fases exige a CLI, e as checagens continuam valendo na
   CI.
 - Mudar uma skill no repositório-piloto e testar não exige reinstalar nada, e as evals (F19) copiam os arquivos para
   projetos descartáveis.
@@ -126,3 +126,5 @@ Nomes e formatos dos arquivos dentro de `.curupira/` ficam para a F01.
 - 2026-11-03: o prefixo dos arquivos do adaptador passou de `curupira-` para `cr-`, a abreviação do nome (ADR-0008).
 - 2026-11-03: a medição passou de `.curupira/medicao/` para o arquivo de estado de cada funcionalidade, para nenhuma
   pasta crescer com o tempo ([ADR-0026](0026-o-que-o-curupira-grava-nao-cresce-com-o-tempo.md)).
+- 2026-11-03: os nomes da interface passaram para o inglês (`docs/product/`, `verification.md`, `curupira init`), e
+  "portões" passou a "checagens" ([ADR-0027](0027-idioma-e-vocabulario-da-ferramenta.md)).

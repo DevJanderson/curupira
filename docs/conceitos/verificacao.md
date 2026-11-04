@@ -34,7 +34,7 @@
 Cada veredito vem com provas em texto: saída de testes, requisições e respostas reais à API e logs.
 
 - O veredito de cada cenário e um resumo da prova (o que foi rodado e o que saiu de importante, inclusive a prova do
-  vermelho) vão para `docs/specs/<ID>-<nome>/verificacao.md`, no Git, e passam pelo portão da fase 7.
+  vermelho) vão para `docs/specs/<ID>-<nome>/verification.md`, no Git, e passam pela aprovação da fase 7.
 - A saída bruta fica em `.curupira/local/`, fora do Git, até a funcionalidade terminar
   ([ADR-0024](../decisoes/0024-o-que-fica-na-maquina-e-no-projeto.md),
   [ADR-0026](../decisoes/0026-o-que-o-curupira-grava-nao-cresce-com-o-tempo.md)).

@@ -12,9 +12,9 @@ Num projeto que adota o Curupira convivem três tipos de arquivo, com donos, lei
   spec ancorada ([ADR-0002](0002-nivel-de-spec-driven-development.md)), vivem enquanto o código existir;
 - os dados de trabalho de cada máquina (provas da verificação, rodadas, temporários), que servem a uma rodada só.
 
-Três forças pesam. O desenho pronto para equipe ([PRD](../produto/prd.md)) pede o estado versionado no Git. Duas
+Três forças pesam. O desenho pronto para equipe ([PRD](../product/prd.md)) pede o estado versionado no Git. Duas
 funcionalidades em branches ao mesmo tempo não podem conflitar no estado
-([Q09](../produto/perguntas-em-aberto.md)). E o nome é provisório
+([Q09](../product/open-questions.md)). E o nome é provisório
 ([ADR-0008](0008-nome-provisorio-e-troca-facil.md)): o que ficar dentro de `.curupira/` muda de lugar quando o nome
 muda.
 
@@ -50,7 +50,7 @@ Três categorias, cada uma no seu lugar:
 2. **Caminho e hash juntos.** Para cada artefato aprovado, o estado guarda o caminho e o hash da aprovação. Se o
    artefato for movido ou renomeado, a ferramenta avisa, em vez de seguir em silêncio.
 3. **Uma pasta visível só: `docs/`.** No repositório-piloto e em qualquer outro projeto, os artefatos ficam em
-   `docs/produto/` (PRD, funcionalidades e perguntas em aberto) e em `docs/specs/<ID>-<nome>/` (a spec com os
+   `docs/product/` (PRD, funcionalidades e perguntas em aberto) e em `docs/specs/<ID>-<nome>/` (a spec com os
    cenários, o plano e a verificação de cada funcionalidade, por exemplo `docs/specs/F01a-estado-e-comandos/`). O
    perfil pode trocar a pasta, para o projeto que já usa `docs/` para outra coisa.
 
@@ -75,3 +75,5 @@ Três categorias, cada uma no seu lugar:
   ([ADR-0024](0024-o-que-fica-na-maquina-e-no-projeto.md)).
 - 2026-11-03: a spec e os cenários passaram a um arquivo só, a medição entrou no arquivo de estado de cada
   funcionalidade, e a Q09 ficou respondida na v1 ([ADR-0026](0026-o-que-o-curupira-grava-nao-cresce-com-o-tempo.md)).
+- 2026-11-03: as pastas e os arquivos que a ferramenta cria passaram para o inglês: `docs/product/`, `plan.md` e
+  `verification.md` ([ADR-0027](0027-idioma-e-vocabulario-da-ferramenta.md)).

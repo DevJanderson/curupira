@@ -16,7 +16,7 @@ Spec-driven development tem graus diferentes de compromisso com a spec. É preci
 ## Decisão
 
 Spec-anchored: a spec evolui junto com o código. Spec-as-source fica de fora de propósito, como registra o
-[PRD](../produto/prd.md). Decidido na entrevista do PRD, em 2026-11-03.
+[PRD](../product/prd.md). Decidido na entrevista do PRD, em 2026-11-03.
 
 ## Consequências
 

@@ -7,7 +7,7 @@
 
 A pessoa trabalha na conversa com o agente, no terminal. Sair dela para rodar um comando em outro terminal quebra o
 fluxo. Ao mesmo tempo, a CLI é o único escritor do estado
-([ADR-0011](0011-painel-aceita-decisoes-humanas.md)) e precisa saber que uma decisão de portão veio da pessoa, e não
+([ADR-0011](0011-painel-aceita-decisoes-humanas.md)) e precisa saber que uma aprovação ou recusa veio da pessoa, e não
 do agente decidindo sozinho.
 
 Fatos da documentação do Claude Code:
@@ -36,14 +36,14 @@ digitada, um hook a registrava, e o comando de aprovar conferia o registro
 
 A pessoa decide pela conversa:
 
-| Quem   | Faz o quê                                                                                                 |
-| ------ | --------------------------------------------------------------------------------------------------------- |
-| Pessoa | pede pelas skills `/cr-…` (as de portão, só ela chama) e, nos portões, digita "sim" ou "não" com o motivo |
-| Agente | roda a CLI                                                                                                |
-| Hook   | registra cada resposta digitada, chamando `curupira hook resposta`, em `.curupira/local/`                 |
-| CLI    | grava o estado e só aceita aprovar ou recusar um portão se houver uma resposta digitada que a sustente    |
+| Quem   | Faz o quê                                                                                                       |
+| ------ | --------------------------------------------------------------------------------------------------------------- |
+| Pessoa | pede pelas skills `/cr-…` (as de aprovação, só ela chama) e, nas aprovações, digita "sim" ou "não" com o motivo |
+| Agente | roda a CLI                                                                                                      |
+| Hook   | registra cada resposta digitada, chamando `curupira hook answer`, em `.curupira/local/`                         |
+| CLI    | grava o estado e só aceita uma aprovação ou recusa se houver uma resposta digitada que a sustente               |
 
-Uma escolha clicada numa pergunta com opções não vale como decisão de portão, porque o hook não a vê. No painel, a
+Uma escolha clicada numa pergunta com opções não vale como aprovação ou recusa, porque o hook não a vê. No painel, a
 decisão passa pela mesma regra (F16).
 
 A regra da CLI vale para qualquer agente. Como capturar a resposta digitada é do adaptador de cada agente
@@ -57,3 +57,8 @@ A regra da CLI vale para qualquer agente. Como capturar a resposta digitada é d
 - A F01 se divide: a F01a guarda o estado e os comandos, e a F01b exige a resposta digitada. As skills ficam com a
   F03, e a ligação do hook, com a F05.
 - No repositório-piloto, até a F03 e a F05 existirem, a pessoa aprova com `!` na conversa.
+
+## Histórico
+
+- 2026-11-03: o hook passou a `curupira hook answer`, e "portão" passou a "aprovação"
+  ([ADR-0027](0027-idioma-e-vocabulario-da-ferramenta.md)).

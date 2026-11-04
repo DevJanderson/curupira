@@ -10,8 +10,9 @@ o que não cabe vira outra peça.
 
 O agente lê:
 
-- a linha da funcionalidade em [funcionalidades](funcionalidades.md) e o trecho do [PRD](prd.md) que trata dela;
-- as [perguntas em aberto](perguntas-em-aberto.md) ligadas a ela;
+- a linha da funcionalidade em [funcionalidades](../product/features.md) e o trecho do [PRD](../product/prd.md) que
+  trata dela;
+- as [perguntas em aberto](../product/open-questions.md) ligadas a ela;
 - os ADRs que ela toca;
 - as specs das funcionalidades de que ela depende;
 - o código que já existe na área.
@@ -20,14 +21,14 @@ O que já está decidido entra na spec com a referência e não vira pergunta.
 
 ## O que sai
 
-Dois arquivos em `docs/specs/<ID>-<nome>/`, um por portão
+Dois arquivos em `docs/specs/<ID>-<nome>/`, um por aprovação
 ([ADR-0026](../decisoes/0026-o-que-o-curupira-grava-nao-cresce-com-o-tempo.md)):
 
 - `spec.md`: objetivo, requisitos, cenários, fora do escopo, dados pessoais, decisões e o que falta esclarecer; passa
-  pelo portão da fase 4;
-- `plano.md`: os passos da implementação; não passa por portão.
+  pela aprovação da fase 4;
+- `plan.md`: os passos da implementação; não passa por aprovação.
 
-A `verificacao.md`, do portão da fase 7, vem depois, na verificação.
+A `verification.md`, da aprovação da fase 7, vem depois, na verificação.
 
 ## spec.md
 
@@ -67,7 +68,7 @@ Cada requisito é uma frase com um gatilho e uma resposta, numa das cinco formas
 - **A esclarecer:** cada dúvida fica marcada no ponto do texto como `[A ESCLARECER: …]`. A spec não vai para
   aprovação com marca aberta.
 
-## plano.md
+## plan.md
 
 - Passos pequenos, em ordem. Cada passo diz o teste que falha primeiro (a prova do vermelho), o que muda, os
   requisitos que atende e os arquivos que toca.
@@ -76,8 +77,8 @@ Cada requisito é uma frase com um gatilho e uma resposta, numa das cinco formas
 
 ## Tamanho
 
-Até a [Q03](perguntas-em-aberto.md) fixar os números, valem como provisórios: até 10 requisitos e até 5 cenários.
-Acima disso, o agente propõe dividir a peça com sufixo (F10a, F10b), em vez de levar uma spec grande ao portão.
+Até a [Q03](../product/open-questions.md) fixar os números, valem como provisórios: até 10 requisitos e até 5 cenários.
+Acima disso, o agente propõe dividir a peça com sufixo (F10a, F10b), em vez de levar uma spec grande à aprovação.
 
 ## As perguntas
 
@@ -87,11 +88,13 @@ Acima disso, o agente propõe dividir a peça com sufixo (F10a, F10b), em vez de
 - Cada resposta muda a spec na hora. Se uma resposta vier com variantes condicionais, o agente pergunta qual vale.
 - Se precisar de mais de 5, a peça é grande demais ou o PRD tem uma lacuna: o agente propõe dividir ou voltar ao PRD.
 
-## O portão
+## A aprovação
 
-A spec, com os cenários, só vale depois do "sim" da pessoa, no portão da fase 4. O plano não passa pelo portão.
+A spec, com os cenários, só vale depois do "sim" da pessoa, na aprovação da fase 4. O plano não passa pela aprovação.
 
 ## Histórico
 
 - 2026-11-03: primeira versão, para a fase 3 à mão da F01.
 - 2026-11-03: os cenários passaram para dentro do `spec.md` (ADR-0026).
+- 2026-11-03: o roteiro passou de `docs/produto/` para `docs/metodo/`, os arquivos a `plan.md` e `verification.md`, e
+  "portão" a "aprovação" (ADR-0027).

@@ -74,3 +74,13 @@ Exemplos da interface, para orientar as specs: `curupira init`, `curupira approv
 - A F02 ganha o idioma no perfil. A F04a e a F04b trocam "portões" por "checagens".
 - Os caminhos dos ADRs 0023, 0024 e 0026 mudam no passo da renomeação, com linha no histórico de cada um.
 - Complementa o ADR-0014, que continua valendo para este repositório.
+
+## Histórico
+
+- 2026-11-03: a renomeação foi feita no repositório-piloto:
+  - `docs/produto/` virou `docs/product/`, com `features.md` e `open-questions.md`; os roteiros do PRD e da spec
+    foram para `docs/metodo/`, porque são do método deste repositório, e não arquivos que a ferramenta cria;
+  - nas specs, `plano.md` virou `plan.md`, e o ADR-0015 mudou de nome;
+  - "portão" virou "aprovação" ou "checagem" em toda a documentação, menos no registro e nos relatos, que guardam o
+    que aconteceu, e na pesquisa;
+  - a spec da F01a voltou à fase 3 com os comandos `open`, `status`, `advance`, `approve` e `reject --reason`.
