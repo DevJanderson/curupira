@@ -78,8 +78,8 @@ funcionalidade volta à 5, ou à 3 se a mudança alterar a spec.
    commit da branch na 7 e na 8. A CLI só aceita uma resposta digitada depois do pedido, e a decisão vale para o
    conteúdo daquele hash. Isso impede que um "sim" antigo aprove o que veio depois, amarra o "sim" ao que a pessoa viu e
    dá o tempo até cada "sim" que a medição promete.
-7. **Cada decisão tem teto de texto.** O motivo e a resposta gravados ficam com até 280 caracteres; o que passar disso
-   fica na conversa. O agente lê o estado só pela CLI, e não os arquivos.
+7. **Cada decisão tem teto de texto.** O motivo de uma recusa fica gravado com até 280 caracteres; o que passar disso
+   fica na conversa. A resposta de uma aprovação é um "sim" puro e não precisa de teto. O agente lê o estado só pela CLI, e não os arquivos.
 8. **A máquina confere o que pode.** O `advance` da fase 3 recusa uma spec com marca `[A ESCLARECER]` aberta, e a
    aprovação recusa um conteúdo que mudou depois do pedido. O hash fica na decisão, como pede a regra 2 do
    [ADR-0023](0023-estado-artefatos-e-dados-locais.md).
@@ -146,3 +146,5 @@ funcionalidade volta à 5, ou à 3 se a mudança alterar a spec.
   hora e o hash do que se aprova; o `approve` e o `reject`, que só aceitam uma resposta posterior ao pedido; o
   `approve`, que recusa o conteúdo mudado; e o teto de 280 caracteres no motivo da recusa. Nas peças, a linha 7 passa
   a citar a F01c; na linha 8, fica registrada também a decisão, com a hora do pedido e o commit.
+- 2026-11-04: na revisão da F01c, a regra 7 passou a falar só do motivo, como decidiu a spec da F01c: a resposta de
+  uma aprovação é um "sim" puro. As Consequências ficam como foram aceitas; a divisão da F01c está no histórico acima.
