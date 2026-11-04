@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { readFileSync } from "node:fs";
 import { agentSession, readPromptHook } from "@curupira/claude-code";
 import { run } from "./run.ts";
