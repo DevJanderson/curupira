@@ -14,11 +14,13 @@ export type FlowErrorCode =
   | "invalid-state";
 
 export class FlowError extends Error {
-  constructor(
-    readonly code: FlowErrorCode,
-    readonly params: Readonly<Record<string, string | number>> = {},
-  ) {
+  readonly code: FlowErrorCode;
+  readonly params: Readonly<Record<string, string | number>>;
+
+  constructor(code: FlowErrorCode, params: Readonly<Record<string, string | number>> = {}) {
     super(code);
     this.name = "FlowError";
+    this.code = code;
+    this.params = params;
   }
 }
