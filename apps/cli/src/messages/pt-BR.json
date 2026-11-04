@@ -22,6 +22,8 @@
   "error.no-approval": "{id} está na fase {phase}, que não tem aprovação.",
   "error.no-request": "{id} está na fase {phase} sem pedido de aprovação. O pedido vem antes: rode {cli} request {id}, mostre o cartão e espere a resposta.",
   "error.answer-before-request": "A resposta digitada veio antes do pedido de {id}. A pessoa precisa responder de novo, depois de ver o cartão.",
+  "error.changed-spec": "{file} mudou ou saiu do lugar depois do pedido de {id}. É preciso um pedido novo: rode {cli} request {id}, mostre o cartão e espere outra resposta.",
+  "error.changed-commit": "A branch mudou depois do pedido de {id} ({file}). É preciso um pedido novo: faça o commit de tudo, rode {cli} request {id}, mostre o cartão e espere outra resposta.",
   "error.delivered": "{id} já foi entregue.",
   "error.missing-reason": "A recusa de {id} precisa de um motivo: digite \"não, <motivo>\" na conversa.",
   "error.spec-only-in-phase-7": "--spec só vale na recusa da fase 7; {id} está na fase {phase}.",

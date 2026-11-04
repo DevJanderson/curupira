@@ -5,7 +5,7 @@ import { join } from "node:path";
 import { DATA_DIR } from "./brand.ts";
 import { FlowError } from "./errors.ts";
 import { isMissing } from "./files.ts";
-import type { Phase } from "./journey.ts";
+import type { Phase, Request } from "./journey.ts";
 
 // O que se aprova em cada fase (ADR-0031, regra 6): o spec.md na fase 4, com o caminho (ADR-0023, regra 2), e o
 // commit da branch na 7 e na 8, porque a pessoa lê o PR.
@@ -22,6 +22,35 @@ export function approvalTarget(root: string, id: string, phase: Phase): Approval
     return { path, hash: fileHash(root, path) };
   }
   return { hash: cleanCommit(root) };
+}
+
+// O que se aprova não mudou desde o pedido (ADR-0031, regra 8): o mesmo spec.md, no mesmo caminho, ou o mesmo
+// commit, sem mudança fora da pasta de dados. Se mudou, a resposta foi para outra coisa, e é preciso um pedido novo.
+export function checkUnchanged(root: string, id: string, request: Request): void {
+  if (request.path !== undefined) {
+    if (specHash(root, request.path) !== request.hash)
+      throw new FlowError("changed-spec", { id, file: request.path });
+    return;
+  }
+  let head: string;
+  try {
+    head = cleanCommit(root);
+  } catch (error) {
+    if (error instanceof FlowError && error.code === "uncommitted-changes")
+      throw new FlowError("changed-commit", { id, file: error.params.file! });
+    throw error;
+  }
+  if (head !== request.hash) throw new FlowError("changed-commit", { id, file: head.slice(0, 12) });
+}
+
+// Um spec.md que sumiu ou deixou de ser arquivo comum conta como mudado.
+function specHash(root: string, path: string): string | undefined {
+  try {
+    return fileHash(root, path);
+  } catch (error) {
+    if (error instanceof FlowError && error.code !== "unreadable-file") return undefined;
+    throw error;
+  }
 }
 
 // A pasta da spec é docs/specs/<ID>-<nome>/: o hífen separa a F01 da F01a.

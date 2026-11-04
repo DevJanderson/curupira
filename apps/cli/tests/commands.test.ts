@@ -413,3 +413,87 @@ function sha256(file: string): string {
     .update(readFileSync(join(repo, file)))
     .digest("hex");
 }
+
+function git(...args: string[]): string {
+  return execFileSync("git", args, { cwd: repo, env, encoding: "utf8" }).trim();
+}
+
+function atPhase(phase: 4 | 7 | 8): void {
+  cli("open", "F01a");
+  writeFileSync(stateFile(repo, "F01a"), JSON.stringify({ id: "F01a", phase, decisions: [] }));
+}
+
+test("na fase 4, um spec.md mudado depois do pedido não é aprovado; um pedido novo e um sim novo aprovam", () => {
+  atPhase(4);
+  ask("F01a");
+  writeFileSync(join(repo, SPEC), "# spec, mudada\n");
+  say("sim");
+  const before = readFileSync(stateFile(repo, "F01a"), "utf8");
+  const result = cli("approve", "F01a");
+  expect(result.code).toBe(1);
+  expect(result.err).toContain(SPEC);
+  expect(result.err).toContain("request F01a");
+  expect(readFileSync(stateFile(repo, "F01a"), "utf8")).toBe(before);
+  ask("F01a");
+  say("sim");
+  expect(cli("approve", "F01a").code).toBe(0);
+  expect(state("F01a").decisions[0].hash).toBe(sha256(SPEC));
+});
+
+test("um spec.md apagado ou movido depois do pedido não é aprovado, e a mensagem diz o caminho", () => {
+  atPhase(4);
+  ask("F01a");
+  const moved = join(repo, "docs", "specs", "F01a-outro");
+  execFileSync("mv", [join(repo, SPEC, ".."), moved]);
+  say("sim");
+  let result = cli("approve", "F01a");
+  expect(result.code).toBe(1);
+  expect(result.err).toContain(SPEC);
+  expect(result.err).toContain("request F01a");
+  execFileSync("rm", ["-r", moved]);
+  say("sim");
+  result = cli("approve", "F01a");
+  expect(result.code).toBe(1);
+  expect(result.err).toContain(SPEC);
+  expect(state("F01a").phase).toBe(4);
+});
+
+test("nas fases 7 e 8, um commit novo ou uma mudança sem commit depois do pedido não são aprovados", () => {
+  for (const phase of [7, 8] as const) {
+    atPhase(phase);
+    ask("F01a");
+    writeFileSync(join(repo, "codigo.ts"), `fase ${phase}\n`);
+    say("sim");
+    const before = readFileSync(stateFile(repo, "F01a"), "utf8");
+    let result = cli("approve", "F01a");
+    expect(result.code).toBe(1);
+    expect(result.err).toContain("codigo.ts");
+    expect(result.err).toContain("request F01a");
+    git("add", "codigo.ts");
+    git("commit", "-qm", `fase ${phase}`);
+    say("sim");
+    result = cli("approve", "F01a");
+    expect(result.code).toBe(1);
+    expect(result.err).toContain("request F01a");
+    expect(readFileSync(stateFile(repo, "F01a"), "utf8")).toBe(before);
+  }
+});
+
+test("o reject não confere o conteúdo: um não ao que a pessoa viu continua valendo", () => {
+  atPhase(4);
+  ask("F01a");
+  writeFileSync(join(repo, SPEC), "# spec, mudada\n");
+  say("não, falta um cenário");
+  expect(cli("reject", "F01a").code).toBe(0);
+  expect(state("F01a").phase).toBe(3);
+});
+
+test("o conteúdo mudado vem antes da sessão", () => {
+  atPhase(4);
+  ask("F01a");
+  writeFileSync(join(repo, SPEC), "# spec, mudada\n");
+  delete env.CLAUDE_CODE_SESSION_ID;
+  const result = cli("approve", "F01a");
+  expect(result.err).toContain("request F01a");
+  expect(result.err).not.toContain("sessão");
+});

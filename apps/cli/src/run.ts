@@ -4,6 +4,7 @@ import {
   answerAfter,
   approvalPhase,
   approvalTarget,
+  checkUnchanged,
   approvalText,
   approve,
   currentRequest,
@@ -129,9 +130,11 @@ export function run(args: string[], io: Io): number {
       io.out(message("advanced", { id, phase: next.phase }));
       return 0;
     }
-    // Qual erro vence: a fase, o pedido, a sessão, a resposta digitada e, por último, o autor.
+    // Qual erro vence: a fase, o pedido, o conteúdo (só no approve), a sessão, a resposta digitada e, por último, o
+    // autor. Um "não" ao que a pessoa viu continua valendo, mesmo que o conteúdo tenha mudado.
     const from = approvalPhase(current);
     const request = currentRequest(current);
+    if (command === "approve") checkUnchanged(root, id, request);
     const session = io.agent.session(io.env);
     if (session === undefined) throw new FlowError("no-session");
     const answer = answerAfter(readAnswer(root, session, new Date(io.now())), request, id);
