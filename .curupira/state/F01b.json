@@ -1,0 +1,31 @@
+{
+  "id": "F01b",
+  "phase": "delivered",
+  "decisions": [
+    {
+      "phase": 4,
+      "decision": "approve",
+      "by": "Janderson Lira",
+      "at": "2026-11-04T00:17:00.000Z",
+      "answer": "sim",
+      "requestedAt": "2026-11-04T00:16:00.000Z",
+      "hash": "49691e69d2e1979daf558cb209cb3b2f0d965d0d05113b8337e0137235d1e188",
+      "path": "docs/specs/F01b-prova-de-decisao-humana/spec.md"
+    },
+    {
+      "phase": 7,
+      "decision": "approve",
+      "by": "Janderson Lira",
+      "at": "2026-11-04T01:31:00.000Z",
+      "answer": "sim",
+      "requestedAt": "2026-11-04T01:30:00.000Z",
+      "hash": "b1d06db2624fdb4fb53cf75d63b1491dcec459fe"
+    },
+    {
+      "phase": 8,
+      "decision": "approve",
+      "by": "Janderson Lira",
+      "at": "2026-11-04T01:33:13.000Z"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "F01a",
+  "phase": "delivered",
+  "decisions": [
+    {
+      "phase": 4,
+      "decision": "approve",
+      "by": "Janderson Lira",
+      "at": "2026-11-04T00:14:00.000Z",
+      "answer": "sim",
+      "hash": "5d1fa31a46db39c560844005c320a8665efaeb0df5c7b64523b946c44fa8eee4",
+      "path": "docs/specs/F01a-estado-e-comandos/spec.md"
+    },
+    {
+      "phase": 7,
+      "decision": "approve",
+      "by": "Janderson Lira",
+      "at": "2026-11-04T00:43:00.000Z",
+      "answer": "sim",
+      "requestedAt": "2026-11-04T00:43:00.000Z",
+      "hash": "db841f82667af16b698d72b964306ccc0f53618f"
+    },
+    {
+      "phase": 8,
+      "decision": "approve",
+      "by": "Janderson Lira",
+      "at": "2026-11-04T00:44:18.000Z"
+    }
+  ]
+}
