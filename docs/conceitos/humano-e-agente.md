@@ -21,6 +21,14 @@ As aprovações ficam nas fases 1, 2, 4, 7 e 8 da [linha](../decisoes/0031-a-lin
 | 7. Revisar          | Se a funcionalidade entregue está pronta para o merge                               | Volta à fase 5, ou à 3 se a mudança alterar a spec                      |
 | 8. Entregar         | Se a funcionalidade está entregue e quais melhorias entram no método                | A funcionalidade fica na fase 8; melhoria recusada não vira trabalho    |
 
+## O pedido vem antes da resposta
+
+Antes de mostrar o cartão de decisão ([ADR-0028](../decisoes/0028-cartao-de-decisao.md)), o agente faz o commit de
+tudo e roda `curupira request <ID>`, que grava a hora e o hash do que se aprova: o `spec.md` na fase 4 e o commit da
+branch nas fases 7 e 8. A CLI só aceita uma resposta digitada depois do pedido, e o `approve` recusa o que mudou desde
+ele. Por isso, entre o pedido e a resposta, o agente não faz commit nem muda a spec; se precisar mudar, faz um pedido
+novo e pede a resposta de novo. O motivo de uma recusa guarda até 280 caracteres; o resto fica na conversa.
+
 ## O humano revisa resultados, não cada falha
 
 A pessoa revisa resultados e decisões, não cada falha do caminho.

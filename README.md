@@ -24,7 +24,8 @@ less install.sh
 sh install.sh
 ```
 
-Rodar o script de novo atualiza para a versão atual da `main`. Se `~/.local/bin/` não estiver no seu `PATH`, o script
+Rodar o script de novo atualiza para a versão atual da `main`; quem instalou antes do comando `curupira request`
+precisa rodá-lo de novo para tê-lo. Se `~/.local/bin/` não estiver no seu `PATH`, o script
 diz a linha que você acrescenta ao arquivo do seu shell.
 
 ## Preparar um projeto

@@ -55,3 +55,4 @@ numa linha nova.
 | 2026-11-04 | 48    | F00 aprovada na fase 7 com "sim"; medição e propostas do método: entra o eixo de mutação à parte, sai o cartão sem outro modelo, cresce a regra dos dados gravados                                 |
 | 2026-11-04 | 49    | F00 entregue com "sim" na fase 8, gravado pelo `curupira` instalado; as três mudanças do método entraram; o merge do PR #4 é da pessoa                                                             |
 | 2026-11-04 | 50    | F01c aberta numa branch da `main`; dividida em F01c (pedido e teto) e F01d (branch e projeto) com "sim"; spec e plano, contraditório em duas rodadas com 26 achados, nenhuma pergunta              |
+| 2026-11-04 | 51    | F01c na fase 5: o `request`, o pedido exigido no `approve` e no `reject`, o conteúdo conferido, o teto do motivo, o estado da F01a e da F01b, e C1 a C5 provados por mutação; 166 testes           |
