@@ -17,7 +17,8 @@ export type FlowErrorCode =
   | "no-session"
   | "approve-needs-answer"
   | "plain-yes-only"
-  | "reject-needs-answer";
+  | "reject-needs-answer"
+  | "invalid-hook-input";
 
 export class FlowError extends Error {
   readonly code: FlowErrorCode;

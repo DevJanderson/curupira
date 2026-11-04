@@ -32,5 +32,6 @@
   "error.no-session": "Não foi possível identificar a sessão do agente. A decisão precisa vir de uma resposta digitada na conversa.",
   "error.approve-needs-answer": "Para aprovar {id}, a pessoa precisa digitar \"sim\" sozinho na conversa (ou \"sim {id}\").",
   "error.plain-yes-only": "O \"sim\" precisa vir sozinho na mensagem, sem outra frase. Peça para a pessoa digitar só \"sim\" para aprovar {id}.",
-  "error.reject-needs-answer": "Para recusar {id}, a pessoa precisa digitar \"não, <motivo>\" na conversa."
+  "error.reject-needs-answer": "Para recusar {id}, a pessoa precisa digitar \"não, <motivo>\" na conversa.",
+  "error.invalid-hook-input": "A entrada do hook não é o JSON esperado, com session_id e prompt."
 }
