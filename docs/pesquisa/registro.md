@@ -28,3 +28,4 @@ numa linha nova.
 | 2026-11-03 | 21    | Fase 8 da F01a: merge pela pessoa (`53e29e5`); 6 melhorias aceitas no roteiro da spec e na verificação                                         |
 | 2026-11-03 | 22    | Fase 5 à mão da F01b na branch `feat/F01b`: respostas, adaptador do Claude Code, regra nos comandos, hook e C1 a C5                            |
 | 2026-11-03 | 23    | Fase 6 à mão da F01b: C1 a C5 verificados em 2 rodadas, 2 defeitos do R2 e do R5 corrigidos, 4 observações para a revisão                      |
+| 2026-11-03 | 24    | Fase 7 à mão da F01b: 5 defeitos (4 de testes e a CLI importando o adaptador) corrigidos, PR #2 aberto                                         |
