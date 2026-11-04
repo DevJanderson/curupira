@@ -3,3 +3,4 @@ export * from "./brand.ts";
 export * from "./errors.ts";
 export * from "./journey.ts";
 export * from "./state.ts";
+export * from "./git-author.ts";
