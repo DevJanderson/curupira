@@ -1,4 +1,4 @@
-import { CLI_NAME, FlowError, type ProjectFile } from "@curupira/core";
+import { CLI_NAME, FlowError, isRecord, type ProjectFile } from "@curupira/core";
 
 // O adaptador do Claude Code (ADR-0021): só aqui o núcleo encontra o formato desse agente.
 // Referência: https://code.claude.com/docs/en/hooks e https://code.claude.com/docs/en/env-vars.
@@ -39,15 +39,15 @@ export const answerHook: ProjectFile = {
   update: (current) => {
     const settings = current === undefined ? {} : parseObject(current);
     const hooks = settings.hooks ?? {};
-    if (!isObject(hooks)) throw invalid("hooks");
+    if (!isRecord(hooks)) throw invalid("hooks");
     const entries = hooks.UserPromptSubmit ?? [];
     if (!Array.isArray(entries)) throw invalid("hooks");
     // Conta como ligado só uma entrada cujo comando é exatamente o do hook.
     const present = entries.some(
       (entry) =>
-        isObject(entry) &&
+        isRecord(entry) &&
         Array.isArray(entry.hooks) &&
-        entry.hooks.some((hook) => isObject(hook) && hook.command === ANSWER_COMMAND),
+        entry.hooks.some((hook) => isRecord(hook) && hook.command === ANSWER_COMMAND),
     );
     if (present) return undefined;
     const entry = { hooks: [{ type: "command", command: ANSWER_COMMAND }] };
@@ -63,12 +63,8 @@ function parseObject(content: string): Record<string, unknown> {
   } catch {
     throw invalid("json");
   }
-  if (!isObject(data)) throw invalid("object");
+  if (!isRecord(data)) throw invalid("object");
   return data;
-}
-
-function isObject(value: unknown): value is Record<string, unknown> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 function invalid(problem: string): FlowError {

@@ -36,11 +36,12 @@ curupira init
 ```
 
 O `init` liga no `.claude/settings.json` o hook que registra as suas respostas e põe `.curupira/local/` no
-`.gitignore`, sem mexer no resto dos dois arquivos. Rodar de novo não muda nada.
+`.gitignore`, sem mexer no resto dos dois arquivos; o `settings.json` volta gravado com dois espaços de recuo. Rodar
+de novo não muda nada. Se um dos dois for um link simbólico, o `init` recusa e não muda nada.
 
 ## Desinstalar
 
-Apague a pasta do Curupira e o comando:
+Apague a pasta do Curupira e o comando (com `XDG_DATA_HOME`, a pasta é `$XDG_DATA_HOME/curupira`):
 
 ```bash
 rm -rf ~/.local/share/curupira ~/.local/bin/curupira

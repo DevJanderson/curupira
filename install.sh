@@ -6,7 +6,8 @@
 # Para ler antes de rodar, baixe com `curl -fsSLO <o mesmo endereço>`, abra o arquivo e rode `sh install.sh`.
 # Rodar de novo troca a cópia pela versão atual do ramo padrão.
 
-# O nome é provisório (ADR-0008): no script, ele só está aqui, igual à constante BRAND.name do núcleo.
+# O nome é provisório (ADR-0008): no código do script, ele só está neste bloco, igual à constante BRAND do núcleo;
+# a variável da origem leva o nome em maiúsculas. O teste do script confere as duas coisas.
 NAME=curupira
 DISPLAY_NAME=Curupira
 # A origem do download; a variável a troca, para os testes e para quem tem uma cópia do repositório.
@@ -47,6 +48,14 @@ say() {
 
 exists() {
   [ -e "$1" ] || [ -L "$1" ]
+}
+
+# Na saída, a cópia nova que não entrou sai; se a troca parou entre os dois mv, a anterior volta ao lugar.
+cleanup() {
+  if [ -n "${swapping:-}" ] && ! exists "$target" && exists "$old"; then
+    mv "$old" "$target"
+  fi
+  rm -rf "$new"
 }
 
 check_tools() {
@@ -92,11 +101,16 @@ main() {
     if exists "$spare"; then fail "$MSG_IN_THE_WAY" "$spare"; fi
   done
 
-  # A cópia nova nasce ao lado e só entra no lugar da antiga no fim; se o script parar antes, ela sai.
-  trap 'rm -rf "$new"' EXIT
-  trap 'exit 1' INT TERM
+  # A pasta do comando tem de aceitar o link antes de a cópia mudar.
+  { mkdir -p "$bin_dir" 2>/dev/null && [ -w "$bin_dir" ]; } || fail "$MSG_UNWRITABLE" "$bin_dir"
   mkdir -p "$data_home" 2>/dev/null || fail "$MSG_UNWRITABLE" "$data_home"
-  git clone --quiet --depth 1 "$REPO" "$new" || fail "$MSG_DOWNLOAD" "$REPO"
+
+  # A cópia nova nasce numa pasta que só esta execução cria, e que serve de trava contra outra ao mesmo tempo.
+  # Ela só entra no lugar da antiga no fim; se o script parar antes, ela sai.
+  mkdir "$new" 2>/dev/null || fail "$MSG_IN_THE_WAY" "$new"
+  trap cleanup EXIT
+  trap 'exit 1' HUP INT TERM
+  git clone --quiet --depth 1 -- "$REPO" "$new" || fail "$MSG_DOWNLOAD" "$REPO"
   mkdir -p "$new/node_modules/@$NAME" || fail "$MSG_UNWRITABLE" "$new"
   for package in $PACKAGES; do
     ln -s "../../packages/$package" "$new/node_modules/@$NAME/$package" || fail "$MSG_UNWRITABLE" "$new"
@@ -104,18 +118,19 @@ main() {
   printf '%s\n' "$REPO" >"$new/$mark" || fail "$MSG_UNWRITABLE" "$new"
 
   if [ -d "$target" ]; then
+    swapping=1
     mv "$target" "$old" || fail "$MSG_SWAP" "$target"
     if ! mv "$new" "$target"; then
       mv "$old" "$target" || fail "$MSG_RESTORE" "$target" "$old"
       fail "$MSG_SWAP" "$target"
     fi
+    swapping=
     rm -rf "$old"
   else
     mv "$new" "$target" || fail "$MSG_SWAP" "$target"
   fi
 
   # O link aponta sempre para o mesmo caminho, então só nasce na primeira instalação.
-  mkdir -p "$bin_dir" 2>/dev/null || fail "$MSG_UNWRITABLE" "$bin_dir"
   if ! [ -L "$link" ]; then
     ln -s "$entry" "$link" || fail "$MSG_UNWRITABLE" "$link"
   fi

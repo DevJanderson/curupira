@@ -2,11 +2,15 @@ import { execFileSync } from "node:child_process";
 import {
   chmodSync,
   existsSync,
+  lstatSync,
   mkdirSync,
   mkdtempSync,
   readdirSync,
   readFileSync,
   realpathSync,
+  rmSync,
+  statSync,
+  symlinkSync,
   writeFileSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
@@ -237,6 +241,112 @@ test("com os dois arquivos com problema, o settings.json vence", () => {
   } finally {
     chmodSync(join(repo, ".gitignore"), 0o644);
   }
+});
+
+test("grava o settings.json com dois espaços e um fim de linha", () => {
+  init();
+  expect(read(SETTINGS)).toBe(
+    JSON.stringify(
+      { hooks: { UserPromptSubmit: [{ hooks: [{ type: "command", command: COMMAND }] }] } },
+      null,
+      2,
+    ) + "\n",
+  );
+});
+
+test("conta como ligado só o comando exato, mesmo numa entrada com outros hooks", () => {
+  for (const near of [`${COMMAND} --x`, `echo ${COMMAND}`]) {
+    write(
+      SETTINGS,
+      JSON.stringify({
+        hooks: { UserPromptSubmit: [{ hooks: [{ type: "command", command: near }] }] },
+      }),
+    );
+    init();
+    expect(answerCommands()).toEqual([near, COMMAND]);
+  }
+  const shared = {
+    hooks: {
+      UserPromptSubmit: [
+        {
+          hooks: [
+            { type: "command", command: "echo oi" },
+            { type: "command", command: COMMAND },
+          ],
+        },
+      ],
+    },
+  };
+  write(SETTINGS, JSON.stringify(shared));
+  const result = init();
+  expect(result.out).toMatch(/já estava pronto|\.gitignore/);
+  expect(settings()).toEqual(shared);
+});
+
+test("mantém o modo do arquivo que já existia", () => {
+  write(SETTINGS, "{}");
+  chmodSync(join(repo, SETTINGS), 0o600);
+  write(".gitignore", "dist/\n");
+  chmodSync(join(repo, ".gitignore"), 0o640);
+  expect(init().code).toBe(0);
+  expect(statSync(join(repo, SETTINGS)).mode & 0o777).toBe(0o600);
+  expect(statSync(join(repo, ".gitignore")).mode & 0o777).toBe(0o640);
+});
+
+test("com o .gitignore ilegível, diz que não conseguiu ler", () => {
+  write(".gitignore", "dist/\n");
+  chmodSync(join(repo, ".gitignore"), 0o000);
+  try {
+    const result = init();
+    expect(result.code).toBe(1);
+    expect(result.err).toMatch(/ler .gitignore/);
+  } finally {
+    chmodSync(join(repo, ".gitignore"), 0o644);
+  }
+});
+
+test("com a raiz sem escrita, recusa pelo .gitignore antes de gravar o settings.json", () => {
+  write(SETTINGS, "{}");
+  write(".gitignore", "dist/\n");
+  chmodSync(repo, 0o555);
+  try {
+    const result = init();
+    expect(result.code).toBe(1);
+    expect(result.err).toContain(".gitignore");
+    expect(read(SETTINGS)).toBe("{}");
+  } finally {
+    chmodSync(repo, 0o755);
+  }
+});
+
+test("um link simbólico no caminho é recusado, sem gravar fora do projeto nem trocar o link", () => {
+  const outside = join(base, "fora");
+  mkdirSync(outside);
+  writeFileSync(join(outside, "settings.json"), '{"a":1}');
+  writeFileSync(join(outside, "ignore"), "dist/\n");
+
+  symlinkSync(outside, join(repo, ".claude"));
+  let result = init();
+  expect(result.code).toBe(1);
+  expect(result.err).toContain(".claude");
+  expect(readFileSync(join(outside, "settings.json"), "utf8")).toBe('{"a":1}');
+  rmSync(join(repo, ".claude"));
+
+  mkdirSync(join(repo, ".claude"));
+  symlinkSync(join(outside, "settings.json"), join(repo, SETTINGS));
+  result = init();
+  expect(result.code).toBe(1);
+  expect(result.err).toContain(SETTINGS);
+  expect(lstatSync(join(repo, SETTINGS)).isSymbolicLink()).toBe(true);
+  expect(readFileSync(join(outside, "settings.json"), "utf8")).toBe('{"a":1}');
+  rmSync(join(repo, SETTINGS));
+
+  symlinkSync(join(outside, "ignore"), join(repo, ".gitignore"));
+  result = init();
+  expect(result.code).toBe(1);
+  expect(result.err).toContain(".gitignore");
+  expect(lstatSync(join(repo, ".gitignore")).isSymbolicLink()).toBe(true);
+  expect(existsSync(join(repo, SETTINGS))).toBe(false);
 });
 
 test("init não aceita argumento nem opção", () => {

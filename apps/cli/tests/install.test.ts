@@ -2,12 +2,14 @@ import { execFileSync, spawnSync } from "node:child_process";
 import {
   existsSync,
   lstatSync,
+  chmodSync,
   mkdirSync,
   mkdtempSync,
   readdirSync,
   readFileSync,
   readlinkSync,
   realpathSync,
+  rmSync,
   symlinkSync,
   writeFileSync,
 } from "node:fs";
@@ -139,12 +141,87 @@ test("um caminho de reserva ocupado não é tocado, e a cópia anterior fica", (
   writeFileSync(reserve, "no caminho");
   const result = install();
   expect(result.code).not.toBe(0);
-  expect(result.err).toContain(reserve);
+  expect(result.err).toContain(`${reserve} está no caminho`);
   expect(existsSync(join(dataDir(), "sobra"))).toBe(true);
   expect(readFileSync(reserve, "utf8")).toBe("no caminho");
   expect(readdirSync(join(home, ".local/share")).sort()).toEqual(
     [BRAND.name, `.${BRAND.name}-old`].sort(),
   );
+});
+
+test("um arquivo da pessoa no nome da cópia nova não é tocado", () => {
+  const spare = join(home, ".local/share", `.${BRAND.name}-new`);
+  mkdirSync(dirname(spare), { recursive: true });
+  writeFileSync(spare, "da pessoa");
+  const result = install();
+  expect(result.code).not.toBe(0);
+  expect(result.err).toContain(`${spare} está no caminho`);
+  expect(readFileSync(spare, "utf8")).toBe("da pessoa");
+  expect(existsSync(dataDir())).toBe(false);
+});
+
+test("se outra instalação cria a cópia nova logo depois da conferência, ela não é apagada", () => {
+  // A pasta da cópia nova nasce entre a conferência e o mkdir que a cria.
+  const spare = join(home, ".local/share", `.${BRAND.name}-new`);
+  const real = which("mkdir");
+  const mkdir = `case "$1" in */.${BRAND.name}-new) ${real} -p "$1/de-outra" ;; esac\nexec ${real} "$@"`;
+  const result = install({ tools: TOOLS.filter((tool) => tool !== "mkdir"), fake: { mkdir } });
+  expect(result.code).not.toBe(0);
+  expect(result.err).toContain(spare);
+  expect(existsSync(join(spare, "de-outra"))).toBe(true);
+  expect(existsSync(dataDir())).toBe(false);
+});
+
+test("com uma falha ao pôr a primeira cópia no lugar, não deixa nada e diz qual caminho", () => {
+  const mv = `case "$1" in */.${BRAND.name}-new) exit 1 ;; esac\nexec ${which("mv")} "$@"`;
+  const result = install({ tools: TOOLS.filter((tool) => tool !== "mv"), fake: { mv } });
+  expect(result.code).not.toBe(0);
+  expect(result.err).toContain(dataDir());
+  expect(readdirSync(join(home, ".local/share"))).toEqual([]);
+  expect(existsSync(command())).toBe(false);
+});
+
+test("se a pasta do comando não pode ser gravada, não instala a cópia e diz qual caminho", () => {
+  const bin = join(home, ".local/bin");
+  mkdirSync(join(home, ".local"), { recursive: true });
+  writeFileSync(bin, "um arquivo");
+  let result = install();
+  expect(result.code).not.toBe(0);
+  expect(result.err).toContain(bin);
+  expect(existsSync(dataDir())).toBe(false);
+
+  rmSync(bin);
+  mkdirSync(bin, { mode: 0o555 });
+  try {
+    result = install();
+    expect(result.code).not.toBe(0);
+    expect(result.err).toContain(bin);
+    expect(existsSync(dataDir())).toBe(false);
+  } finally {
+    chmodSync(bin, 0o755);
+  }
+});
+
+test("um sinal no meio da troca devolve a cópia anterior", () => {
+  install();
+  writeFileSync(join(dataDir(), "sobra"), "");
+  // Um mv que, depois de levar a cópia antiga para a reserva, manda TERM ao script.
+  const mv = `${which("mv")} "$@" || exit 1\ncase "$2" in */.${BRAND.name}-old) kill -TERM $PPID ;; esac`;
+  const result = install({ tools: TOOLS.filter((tool) => tool !== "mv"), fake: { mv } });
+  expect(result.code).not.toBe(0);
+  expect(existsSync(join(dataDir(), "sobra"))).toBe(true);
+  expect(readdirSync(join(home, ".local/share"))).toEqual([BRAND.name]);
+  expect(existsSync(command())).toBe(true);
+});
+
+test("com uma versão do Node que não dá para ler, para sem mudar nada", () => {
+  const tools = TOOLS.filter((tool) => tool !== "node");
+  for (const version of ["v24", "", "24.x.1"]) {
+    const result = install({ tools, fake: { node: `echo "${version}"` } });
+    expect(result.code).not.toBe(0);
+    expect(result.err).toMatch(/24\.11/);
+    expect(listHome()).toEqual([]);
+  }
 });
 
 test("uma pasta sem a marca da instalação não é tocada", () => {

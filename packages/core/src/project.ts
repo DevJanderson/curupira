@@ -1,5 +1,5 @@
-import { accessSync, constants, readFileSync, statSync } from "node:fs";
-import { dirname, join } from "node:path";
+import { accessSync, constants, lstatSync, readFileSync, statSync } from "node:fs";
+import { dirname, join, sep } from "node:path";
 import { DATA_DIR } from "./brand.ts";
 import { FlowError } from "./errors.ts";
 import { isMissing, writeFileAtomic } from "./files.ts";
@@ -31,20 +31,38 @@ export const ignoreLocalData: ProjectFile = {
 // Lê e confere todos antes de gravar o primeiro, na ordem da lista, para uma recusa não deixar nada pela
 // metade (R8). Devolve os arquivos que mudaram.
 export function prepareProject(root: string, files: ProjectFile[]): ProjectFile[] {
-  const changes = files.flatMap((project) => {
-    const path = join(root, project.file);
-    const content = project.update(readOptional(path, project.file));
+  const changes = files.flatMap((file) => {
+    const path = join(root, file.file);
+    refuseLinks(root, file.file);
+    const current = readOptional(path, file.file);
+    const content = file.update(current?.content);
     if (content === undefined) return [];
-    checkWritable(path, project.file);
-    return [{ project, path, content }];
+    checkWritable(path, file.file);
+    return [{ file, path, content, mode: current?.mode }];
   });
-  for (const { project, path, content } of changes) writeFileAtomic(path, content, project.file);
-  return changes.map(({ project }) => project);
+  for (const { file, path, content, mode } of changes)
+    writeFileAtomic(path, content, file.file, mode);
+  return changes.map(({ file }) => file);
 }
 
-function readOptional(path: string, shown: string): string | undefined {
+// Um link no caminho levaria a gravação para fora do projeto, ou seria trocado por uma cópia do arquivo de fora.
+function refuseLinks(root: string, file: string): void {
+  const parts = file.split(sep);
+  for (let end = 1; end <= parts.length; end++) {
+    const shown = parts.slice(0, end).join(sep);
+    let link = false;
+    try {
+      link = lstatSync(join(root, shown)).isSymbolicLink();
+    } catch {
+      return;
+    }
+    if (link) throw new FlowError("symlink", { file: shown });
+  }
+}
+
+function readOptional(path: string, shown: string): { content: string; mode: number } | undefined {
   try {
-    return readFileSync(path, "utf8");
+    return { content: readFileSync(path, "utf8"), mode: statSync(path).mode & 0o7777 };
   } catch (error) {
     if (isMissing(error)) return undefined;
     throw new FlowError("unreadable-file", { file: shown });
