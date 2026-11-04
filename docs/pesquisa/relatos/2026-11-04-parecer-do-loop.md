@@ -105,3 +105,64 @@ A branch à mão não deu problema em nenhuma entrega; a F01d previne um erro qu
 
 Se a pessoa aceitar a direção: um ADR com as cinco mudanças, os roteiros podados por ele, e o próximo trabalho
 passa a ser o primeiro fio do produto, decidido na conversa de organização que a pessoa pediu antes da F02.
+
+## A recursão e onde cortá-la
+
+A pessoa não aprovou a direção e pediu para resolver a recursão já, escolhendo o que fica, o que sai e o que
+espera.
+
+O ciclo tem cinco passos, e o terceiro é o que fecha o laço:
+
+1. uma entrega ensina algo;
+2. o que ela ensina vira regra do método;
+3. como o Curupira **é** o método, a regra vira uma peça nova da ferramenta, para impô-la;
+4. a peça nova passa pelo método inteiro, com o contraditório, que acha mais coisas;
+5. volta ao 1.
+
+Dois cortes desfazem o laço:
+
+- **Entre 2 e 3:** regra nova do método é texto num roteiro, nunca peça nova da ferramenta. A ferramenta impõe só o
+  que já existe (o estado, a prova do "sim", o pedido com o hash) até um fio do produto rodar de ponta a ponta.
+- **Entre 4 e 5:** o contraditório para numa rodada, com corte do que é detalhe.
+
+## O que fica, o que sai, o que espera
+
+A recomendação do agente para cada item; a escolha é da pessoa.
+
+### As peças
+
+| #   | Peça                              | Recomendação  | Por quê                                                                        |
+| --- | --------------------------------- | ------------- | ------------------------------------------------------------------------------ |
+| P1  | F01d Branch e projeto             | sai           | a branch à mão nunca falhou; a spec fica no Git, e volta se a F02 pedir        |
+| P2  | F05 Hooks que barram              | espera        | é o passo 3 do laço: impor regra; só depois do fio do produto, e só o que doer |
+| P3  | F13 Retrospectiva e lições        | sai           | é o passo 2 do laço automatizado; a retrospectiva fica como texto curto        |
+| P4  | F12 Entrega e medição             | espera        | a medição à mão basta enquanto só há um projeto                                |
+| P5  | F08 Aprovação com impressão       | sai da tabela | já entrou na F01c                                                              |
+| P6  | F18 Comando de renomear           | sai           | a constante do nome (ADR-0008) já deixa a troca barata                         |
+| P7  | F14 Modo leve                     | sobe          | é o caminho rápido que o Spec Kit e o Kiro adotaram; serve até para o método   |
+| P8  | F15, F16, F17, F19, F04b          | espera        | já estão no fim da fila; nada muda                                             |
+| P9  | F02, F03, F04a, F06, F07, F09–F11 | fica          | é o produto; a ordem sai da conversa de organização                            |
+
+### As regras do método
+
+| #   | Regra hoje                                                                                                                   | Recomendação                                                                              |
+| --- | ---------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| R1  | contraditório com dois subagentes e até duas rodadas, todo achado com destino                                                | um subagente, uma rodada; só entra o que muda o que a pessoa vê ou impede a implementação |
+| R2  | acima de 10 requisitos, a peça se divide                                                                                     | sai; no lugar, um prazo por peça, e o que não cabe sai do escopo                          |
+| R3  | toda spec trata link, outro dono, concorrência, interrupção e nome cru de cada dado                                          | sai da spec; vira lista de conferência do eixo de segurança na fase 7                     |
+| R4  | quando dois erros acontecem juntos, a spec diz qual vence                                                                    | sai da spec; o teste do plano decide                                                      |
+| R5  | toda spec diz qual linha do ADR-0031 muda e escreve no histórico dele (regra 9)                                              | sai: é uma spec mudando o método a cada peça                                              |
+| R6  | todo teste escrito depois do código passa por uma mutação de propósito                                                       | só no passo dos cenários                                                                  |
+| R7  | a tabela de medição com 9 linhas                                                                                             | 4 linhas: duração, defeitos por fase, tempo até o "sim", regras que entraram e saíram     |
+| R8  | na fase 8, as melhorias que a funcionalidade mostrou                                                                         | no máximo uma, e só entra se outra sai                                                    |
+| R9  | um relato por fase                                                                                                           | um relato por funcionalidade, curto                                                       |
+| R10 | pedido e hash antes da aprovação, cartão de decisão, verificador separado, revisão em eixos, teste antes do código, registro | fica: já existe, custa pouco e achou defeitos reais                                       |
+
+### Os documentos
+
+| #   | Documento                       | Recomendação                                                          |
+| --- | ------------------------------- | --------------------------------------------------------------------- |
+| D1  | a spec e o plano da F01d        | apagar da branch; ficam no histórico do Git                           |
+| D2  | `docs/conceitos/jornada.md`     | apagar: é só um ponteiro para o ADR-0031                              |
+| D3  | ADR-0029, o mascote             | adiado: está aceito e não há peça que o construa                      |
+| D4  | `docs/conceitos/verificacao.md` | tirar o aviso de "proposta" (ADR-0010), que já não vale: o fluxo roda |
