@@ -31,3 +31,5 @@ Cada decisão de arquitetura nova ou mudada vira um ADR aqui, antes do código. 
 | [0025](0025-a-pessoa-decide-pela-conversa.md)                 | A pessoa decide pela conversa                       | aceita   |
 | [0026](0026-o-que-o-curupira-grava-nao-cresce-com-o-tempo.md) | O que o Curupira grava não cresce com o tempo       | aceita   |
 | [0027](0027-idioma-e-vocabulario-da-ferramenta.md)            | Idioma e vocabulário da ferramenta                  | aceita   |
+| [0028](0028-cartao-de-decisao.md)                             | O cartão de decisão                                 | aceita   |
+| [0029](0029-mascote-no-terminal.md)                           | O mascote no terminal                               | aceita   |
