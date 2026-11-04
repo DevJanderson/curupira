@@ -15,6 +15,7 @@ import { beforeEach, expect, test } from "vite-plus/test";
 // Os cenários da spec da F01a (docs/specs/F01a-estado-e-comandos/spec.md), contra a CLI real,
 // cada um num repositório Git descartável, com o nome de autor configurado.
 const MAIN = resolve(import.meta.dirname, "../src/main.ts");
+const SESSION = "sessao-de-teste";
 let repo: string;
 let env: NodeJS.ProcessEnv;
 
@@ -22,7 +23,12 @@ beforeEach(() => {
   const base = realpathSync(mkdtempSync(join(tmpdir(), "scenario-")));
   const emptyConfig = join(base, "gitconfig");
   writeFileSync(emptyConfig, "");
-  env = { ...process.env, GIT_CONFIG_GLOBAL: emptyConfig, GIT_CONFIG_NOSYSTEM: "1" };
+  env = {
+    ...process.env,
+    GIT_CONFIG_GLOBAL: emptyConfig,
+    GIT_CONFIG_NOSYSTEM: "1",
+    CLAUDE_CODE_SESSION_ID: SESSION,
+  };
   repo = join(base, "repo");
   mkdirSync(repo);
   git("init", "-q", "-b", "main");
@@ -34,6 +40,13 @@ function git(...args: string[]): string {
   return execFileSync("git", args, { cwd: repo, env, encoding: "utf8" });
 }
 
+// Com a F01b, cada decisão precisa de uma resposta digitada, que entra pelo hook como o Claude Code a entregaria.
+function say(prompt: string): void {
+  const input = JSON.stringify({ session_id: SESSION, prompt });
+  const result = spawnSync(process.execPath, [MAIN, "hook", "answer"], { cwd: repo, env, input });
+  expect(result.status).toBe(0);
+}
+
 function cli(...args: string[]) {
   const result = spawnSync(process.execPath, [MAIN, ...args], { cwd: repo, env, encoding: "utf8" });
   return { code: result.status, out: result.stdout, err: result.stderr };
@@ -42,8 +55,10 @@ function cli(...args: string[]) {
 function at(id: string, phase: number): void {
   cli("open", id);
   for (let current = 3; current < phase; current++) {
-    if (current === 4) cli("approve", id);
-    else cli("advance", id);
+    if (current === 4) {
+      say("sim");
+      cli("approve", id);
+    } else cli("advance", id);
   }
 }
 
@@ -73,9 +88,11 @@ test("C1. O estado mostra a fase e o que espera decisão", () => {
 test("C2. Aprovar registra quem e quando", () => {
   // Uma recusa anterior, para conferir que ela não muda com a decisão nova.
   at("F01a", 4);
-  cli("reject", "F01a", "--reason", "falta um cenário");
+  say("não, falta um cenário");
+  cli("reject", "F01a");
   cli("advance", "F01a");
   at("F02", 3);
+  say("sim");
   const before = snapshot();
   const earlier = state("F01a").decisions;
   const result = cli("approve", "F01a");
@@ -102,7 +119,8 @@ test("C3. Aprovar fora da fase com aprovação é recusado", () => {
 
 test("C4. Recusar na fase 7 volta à implementação", () => {
   at("F01a", 7);
-  const result = cli("reject", "F01a", "--reason", "faltou tratar o erro de rede");
+  say("não, faltou tratar o erro de rede");
+  const result = cli("reject", "F01a");
   expect(result.code).toBe(0);
   const f01a = state("F01a");
   expect(f01a.phase).toBe(5);
@@ -121,10 +139,12 @@ test("C5. Duas funcionalidades em branches não conflitam", () => {
   git("add", "-A");
   git("commit", "-q", "-m", "base");
   git("switch", "-q", "-c", "a");
+  say("sim");
   cli("approve", "F01a");
   git("commit", "-q", "-am", "aprova F01a");
   git("switch", "-q", "main");
   git("switch", "-q", "-c", "b");
+  say("sim");
   cli("approve", "F02");
   git("commit", "-q", "-am", "aprova F02");
   git("merge", "-q", "--no-edit", "a");

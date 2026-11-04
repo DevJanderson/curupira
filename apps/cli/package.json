@@ -9,6 +9,7 @@
     "check": "vp check"
   },
   "dependencies": {
+    "@curupira/claude-code": "workspace:*",
     "@curupira/core": "workspace:*"
   },
   "devDependencies": {

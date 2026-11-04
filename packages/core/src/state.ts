@@ -1,15 +1,8 @@
-import {
-  mkdirSync,
-  readdirSync,
-  readFileSync,
-  renameSync,
-  rmSync,
-  statSync,
-  writeFileSync,
-} from "node:fs";
+import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { DATA_DIR } from "./brand.ts";
 import { FlowError } from "./errors.ts";
+import { isMissing, writeFileAtomic } from "./files.ts";
 import { FEATURE_PHASES, hasApproval, isFeatureId, type FeatureState } from "./journey.ts";
 
 // Um arquivo por funcionalidade, para duas branches não escreverem no mesmo arquivo (ADR-0023, ADR-0026).
@@ -26,7 +19,7 @@ export function readState(root: string, id: string): FeatureState | undefined {
   } catch (error) {
     // Só "não existe" vira funcionalidade fora da jornada; não conseguir ler é outro erro.
     if (isMissing(error)) return undefined;
-    throw new FlowError("unreadable-state", { file: join(STATE_DIR, `${id}.json`) });
+    throw new FlowError("unreadable-file", { file: join(STATE_DIR, `${id}.json`) });
   }
   return load(file, id);
 }
@@ -38,7 +31,7 @@ export function readAllStates(root: string): FeatureState[] {
     names = readdirSync(dir);
   } catch (error) {
     if (isMissing(error)) return [];
-    throw new FlowError("unreadable-state", { file: STATE_DIR });
+    throw new FlowError("unreadable-file", { file: STATE_DIR });
   }
   return names
     .filter((name) => name.endsWith(".json") && !name.startsWith("."))
@@ -46,21 +39,9 @@ export function readAllStates(root: string): FeatureState[] {
     .map((name) => load(join(dir, name), name.slice(0, -".json".length)));
 }
 
-// Grava num temporário e troca o nome, para um arquivo de estado nunca ficar pela metade.
 export function writeState(root: string, state: FeatureState): void {
-  const file = stateFile(root, state.id);
-  const temporary = join(root, STATE_DIR, `.${state.id}.json.${process.pid}.tmp`);
-  try {
-    mkdirSync(join(root, STATE_DIR), { recursive: true });
-    writeFileSync(temporary, JSON.stringify(state, null, 2) + "\n");
-    renameSync(temporary, file);
-  } catch {
-    // O temporário guarda uma cópia do estado; não pode sobrar na pasta. Se nem a pasta existir, não há o que apagar.
-    try {
-      rmSync(temporary, { force: true });
-    } catch {}
-    throw new FlowError("unwritable-state", { file: join(STATE_DIR, `${state.id}.json`) });
-  }
+  const content = JSON.stringify(state, null, 2) + "\n";
+  writeFileAtomic(stateFile(root, state.id), content, join(STATE_DIR, `${state.id}.json`));
 }
 
 function load(file: string, id: string): FeatureState {
@@ -71,7 +52,7 @@ function load(file: string, id: string): FeatureState {
   try {
     content = readFileSync(file, "utf8");
   } catch {
-    throw new FlowError("unreadable-state", { file: join(STATE_DIR, `${id}.json`) });
+    throw new FlowError("unreadable-file", { file: join(STATE_DIR, `${id}.json`) });
   }
   let data: unknown;
   try {
@@ -90,7 +71,7 @@ function load(file: string, id: string): FeatureState {
 
 function isDecision(value: unknown): boolean {
   if (!isRecord(value)) return false;
-  const { phase, decision, by, at, reason } = value;
+  const { phase, decision, by, at, reason, answer } = value;
   return (
     FEATURE_PHASES.includes(phase as never) &&
     hasApproval(phase as never) &&
@@ -99,12 +80,9 @@ function isDecision(value: unknown): boolean {
     by.trim() !== "" &&
     typeof at === "string" &&
     !Number.isNaN(Date.parse(at)) &&
-    (reason === undefined || typeof reason === "string")
+    (reason === undefined || typeof reason === "string") &&
+    (answer === undefined || typeof answer === "string")
   );
-}
-
-function isMissing(error: unknown): boolean {
-  return (error as NodeJS.ErrnoException).code === "ENOENT";
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {

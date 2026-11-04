@@ -59,7 +59,7 @@ Um nome por conceito:
 "Portão" sai da documentação e da interface. Ele aparece só na pesquisa, como tradução de _gate_, com a fonte.
 
 Exemplos da interface, para orientar as specs: `curupira init`, `curupira approve F01a`,
-`curupira reject F01a --reason "…"`, `.curupira/state/F01a.json`, `docs/product/`,
+`curupira reject F01a`, `.curupira/state/F01a.json`, `docs/product/`,
 `docs/specs/<ID>-<nome>/plan.md` e `verification.md`. Os nomes finais de cada comando ficam nas specs.
 
 ## Consequências
@@ -89,3 +89,5 @@ Exemplos da interface, para orientar as specs: `curupira init`, `curupira approv
 - 2026-11-03: ficou combinado que todo o conteúdo das skills e dos subagentes é em inglês, e não só as
   instruções: a descrição, os exemplos e os modelos de documento também; o agente escreve para a pessoa no idioma
   do perfil.
+- 2026-11-03: o exemplo `reject F01a --reason "…"` virou `reject F01a`, porque, com a F01b, o motivo da recusa vem
+  do "não, <motivo>" digitado na conversa.

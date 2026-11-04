@@ -190,9 +190,28 @@ importers:
 
   apps/cli:
     dependencies:
+      '@curupira/claude-code':
+        specifier: workspace:*
+        version: link:../../packages/claude-code
       '@curupira/core':
         specifier: workspace:*
         version: link:../../packages/core
+    devDependencies:
+      '@types/node':
+        specifier: 'catalog:'
+        version: 24.19.2
+      typescript:
+        specifier: 'catalog:'
+        version: 7.0.2
+      vite-plus:
+        specifier: 'catalog:'
+        version: 1.4.0(@types/node@24.19.2)(@vitest/ui@5.0.5)(typescript@7.0.2)
+
+  packages/claude-code:
+    dependencies:
+      '@curupira/core':
+        specifier: workspace:*
+        version: link:../core
     devDependencies:
       '@types/node':
         specifier: 'catalog:'
