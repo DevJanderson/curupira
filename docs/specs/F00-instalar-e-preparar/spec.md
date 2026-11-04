@@ -1,6 +1,6 @@
 # F00: Instalar e preparar
 
-- **Status:** na aprovação da fase 4
+- **Status:** aprovada na fase 4
 - **Data:** 2026-11-04
 
 ## Objetivo

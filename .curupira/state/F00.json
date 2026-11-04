@@ -1,5 +1,13 @@
 {
   "id": "F00",
-  "phase": 4,
-  "decisions": []
+  "phase": 5,
+  "decisions": [
+    {
+      "phase": 4,
+      "decision": "approve",
+      "by": "Janderson Lira",
+      "at": "2026-11-04T17:30:53.012Z",
+      "answer": "sim"
+    }
+  ]
 }
