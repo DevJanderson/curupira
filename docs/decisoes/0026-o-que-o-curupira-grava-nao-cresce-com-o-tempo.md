@@ -32,8 +32,9 @@ tempo (uma entrada por decisão, sessão, rodada ou evento) se multiplica sem li
 1. **No Git, só arquivos do projeto ou de uma funcionalidade.** Nada ganha um arquivo por decisão, sessão, rodada ou
    evento; o que acontece com o tempo vira uma entrada dentro do arquivo da funcionalidade.
 2. **Um arquivo de estado por funcionalidade, com a medição dentro**: `.curupira/state/<ID>.json` guarda a fase, as
-   decisões e a medição. A medição guarda totais, não uma entrada por sessão; o formato fica para a F12. A pasta
-   `.curupira/medicao/` deixa de existir.
+   decisões e a medição; as decisões das fases 1 e 2 ficam no arquivo do projeto, `.curupira/state/project.json`. O
+   texto de cada decisão (motivo e resposta) tem até 280 caracteres. A medição guarda totais, não uma entrada por
+   sessão; o formato fica para a F12. A pasta `.curupira/medicao/` deixa de existir.
 3. **Um arquivo de spec por aprovação**, em `docs/specs/<ID>-<nome>/`:
 
    | Arquivo           | O que guarda                                      | Aprovação |
@@ -47,14 +48,14 @@ tempo (uma entrada por decisão, sessão, rodada ou evento) se multiplica sem li
    - a saída bruta das provas, até a funcionalidade terminar;
    - o que passar de 30 dias é apagado, por quem grava cada tipo de dado.
 5. **A Q09 fica respondida na v1**: um arquivo de estado por funcionalidade basta. Cada funcionalidade anda na sua
-   branch (F09) e só mexe no próprio arquivo; duas branches só escreveriam no mesmo arquivo se mudassem a mesma
-   funcionalidade, o que a jornada não prevê. A pergunta volta com os recursos de equipe.
+   branch, que nasce no `open`, e só mexe no próprio arquivo; duas branches só escreveriam no mesmo arquivo se mudassem
+   a mesma funcionalidade, o que a jornada não prevê. A pergunta volta com os recursos de equipe.
 
 ## Consequências
 
 - Cada funcionalidade deixa 4 arquivos versionados: o estado, a spec, o plano e a verificação. O número de arquivos
   cresce com o número de funcionalidades, e nenhuma pasta cresce com o tempo.
-- O hash da aprovação na aprovação da fase 4 (F08) cobre um arquivo só, o `spec.md`.
+- O hash da aprovação na aprovação da fase 4 (F01c) cobre um arquivo só, o `spec.md`.
 - O `spec.md` fica maior; o limite de tamanho do [roteiro da spec](../metodo/roteiro-spec.md) (10 requisitos e 5
   cenários, provisório) o mantém curto.
 - O arquivo de estado é escrito pela CLI nas aprovações e no fim de cada sessão, sempre na branch da funcionalidade.
@@ -66,3 +67,5 @@ tempo (uma entrada por decisão, sessão, rodada ou evento) se multiplica sem li
 
 - 2026-11-03: o caminho do estado passou a `.curupira/state/`, os arquivos a `plan.md` e `verification.md`, e
   "portão" a "aprovação" ([ADR-0027](0027-idioma-e-vocabulario-da-ferramenta.md)).
+- 2026-11-04: a branch nasce no `open`, e não na F09; o `project.json` guarda as decisões das fases 1 e 2; o texto
+  de cada decisão tem teto de 280 caracteres ([ADR-0031](0031-a-linha.md)).

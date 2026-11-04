@@ -36,12 +36,15 @@ digitada, um hook a registrava, e o comando de aprovar conferia o registro
 
 A pessoa decide pela conversa:
 
-| Quem   | Faz o quê                                                                                                       |
-| ------ | --------------------------------------------------------------------------------------------------------------- |
-| Pessoa | pede pelas skills `/cr-…` (as de aprovação, só ela chama) e, nas aprovações, digita "sim" ou "não" com o motivo |
-| Agente | roda a CLI                                                                                                      |
-| Hook   | registra cada resposta digitada, chamando `curupira hook answer`, em `.curupira/local/`                         |
-| CLI    | grava o estado e só aceita uma aprovação ou recusa se houver uma resposta digitada que a sustente               |
+| Quem   | Faz o quê                                                                                                                                                        |
+| ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Pessoa | roda a fase 0 (a instalação e o `init`); depois, pede pelas skills `/cr-…` (as de aprovação, só ela chama) e, nas aprovações, digita "sim" ou "não" com o motivo |
+| Agente | roda a CLI                                                                                                                                                       |
+| Hook   | registra cada resposta digitada, chamando `curupira hook answer`, em `.curupira/local/`                                                                          |
+| CLI    | grava o estado e só aceita uma aprovação ou recusa se houver uma resposta digitada que a sustente                                                                |
+
+Toda aprovação tem um pedido, registrado pelo agente antes de pedir a resposta; a CLI só aceita uma resposta digitada
+depois dele ([ADR-0031](0031-a-linha.md), regra 6).
 
 Uma escolha clicada numa pergunta com opções não vale como aprovação ou recusa, porque o hook não a vê. No painel, a
 decisão passa pela mesma regra (F16).
@@ -55,10 +58,12 @@ A regra da CLI vale para qualquer agente. Como capturar a resposta digitada é d
 - O mecanismo impede o agente de se aprovar por engano e deixa rastro (quem, quando e o texto digitado), mas não é
   uma garantia formal contra um agente que tente burlar: a documentação não dá essa garantia.
 - A F01 se divide: a F01a guarda o estado e os comandos, e a F01b exige a resposta digitada. As skills ficam com a
-  F03, e a ligação do hook, com a F05.
-- No repositório-piloto, até a F03 e a F05 existirem, a pessoa aprova com `!` na conversa.
+  F03, e a ligação do hook, com o `init` da F00.
+- No repositório-piloto, até a F00, o hook fica ligado à mão no `.claude/settings.json`.
 
 ## Histórico
 
 - 2026-11-03: o hook passou a `curupira hook answer`, e "portão" passou a "aprovação"
   ([ADR-0027](0027-idioma-e-vocabulario-da-ferramenta.md)).
+- 2026-11-04: a pessoa roda a fase 0; a ligação do hook passa da F05 para o `init` da F00; a regra do `!` no piloto
+  sai, porque a F01b já aprova pela conversa; toda aprovação tem um pedido ([ADR-0031](0031-a-linha.md)).

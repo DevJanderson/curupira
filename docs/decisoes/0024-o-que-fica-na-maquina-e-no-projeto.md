@@ -70,7 +70,7 @@ nome ([ADR-0008](0008-nome-provisorio-e-troca-facil.md)), e uma variável de amb
 | `.curupira/`                                      | sim | o perfil, o estado com a medição, o id do projeto e a versão do Curupira que ele usa |
 | `.curupira/local/`                                | não | provas brutas, rodadas, eventos dos hooks para o painel e temporários                |
 | `.claude/skills/cr-*/` e `.claude/agents/cr-*.md` | não | as skills e os subagentes, postos pela CLI na versão do projeto                      |
-| `.claude/settings.json`                           | sim | os hooks do Curupira, só com o "sim" da pessoa                                       |
+| `.claude/settings.json`                           | sim | o hook das respostas, pelo `init`; os outros hooks, só com o "sim" da pessoa         |
 | `AGENTS.md` e `CLAUDE.md`                         | sim | um bloco curto e delimitado do Curupira; o resto do arquivo é do projeto             |
 | `.gitignore`                                      | sim | as linhas de `.curupira/local/` e dos arquivos gerados do adaptador                  |
 
@@ -78,10 +78,10 @@ Nomes e formatos dos arquivos dentro de `.curupira/` ficam para a F01.
 
 ### Regras
 
-1. **Adaptador no projeto.** A CLI põe as skills e os subagentes no `.claude/` do projeto, com o prefixo curto
-   (`cr-`, ADR-0008), fora do Git, e os refaz a cada adoção e atualização. Os hooks são propostos na adoção e gravados
-   no `.claude/settings.json` só com o "sim" da pessoa; cada hook só chama `curupira hook <nome>`, sem lógica
-   própria.
+1. **Adaptador no projeto.** A CLI põe as skills e os subagentes no `.claude/` do projeto, com o prefixo curto (`cr-`,
+   ADR-0008), fora do Git, e os refaz a cada adoção e atualização. O hook das respostas é ligado pelo `init`, que a
+   pessoa roda; os outros hooks são propostos na ficha da adoção e gravados no `.claude/settings.json` só com o "sim" da
+   pessoa; cada hook só chama `curupira hook <nome>`, sem lógica própria.
 2. **Versão.** A CLI refaz os arquivos do adaptador na versão que o projeto usa e avisa quando a versão instalada não
    é essa.
 3. **Projeto pelo id, não pelo caminho.** O id fica em `.curupira/`, no Git. Um mesmo id pode ter vários caminhos
@@ -129,3 +129,5 @@ Nomes e formatos dos arquivos dentro de `.curupira/` ficam para a F01.
 - 2026-11-03: os nomes da interface passaram para o inglês (`docs/product/`, `verification.md`, `curupira init`,
   `~/.cache/curupira/projects/`), e "portões" passou a "checagens"
   ([ADR-0027](0027-idioma-e-vocabulario-da-ferramenta.md)).
+- 2026-11-04: o `init` é da pessoa, liga o hook das respostas e não grava decisão; os hooks que barram ações
+  entram pela ficha da adoção ([ADR-0031](0031-a-linha.md)).

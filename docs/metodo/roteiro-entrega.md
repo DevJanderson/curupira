@@ -2,7 +2,7 @@
 
 ## Para que serve
 
-Diz o que o agente faz nas fases 7 e 8 da [jornada](../conceitos/jornada.md), além do que a tabela da jornada já diz:
+Diz o que o agente faz nas fases 7 e 8 da [linha](../decisoes/0031-a-linha.md), além do que a tabela da jornada já diz:
 como a revisão ganha um olhar diferente, o que se mede em cada funcionalidade e como o método perde regras, e não só
 ganha. Saiu do [parecer](../pesquisa/relatos/2026-11-04-parecer-do-fluxo.md) sobre a F01a e a F01b.
 
@@ -11,31 +11,32 @@ ganha. Saiu do [parecer](../pesquisa/relatos/2026-11-04-parecer-do-fluxo.md) sob
 A revisão roda em eixos (spec, segurança, testes, padrões), cada um num subagente separado, e só defeitos bloqueiam.
 
 - **Um eixo com outro olhar.** O eixo de testes, que achou 8 dos 10 defeitos da revisão na F01a e na F01b, roda com
-  um olhar diferente do agente que implementou: outro agente de terminal, se a pessoa tiver um
-  ([ADR-0022](../decisoes/0022-sem-api-de-modelo-so-agentes-de-terminal.md)), ou outro modelo. Sem nenhum dos dois,
+  um olhar diferente do agente que implementou: na v1, outro modelo do mesmo agente
+  ([ADR-0005](../decisoes/0005-so-claude-code-na-v1.md)). Sem outro modelo,
   o cartão de decisão leva um teste por cenário nos pontos 👀, para a pessoa ler
   ([ADR-0028](../decisoes/0028-cartao-de-decisao.md)).
-- O relato diz qual olhar foi usado e quantos defeitos ele achou que os outros eixos não acharam.
-- O pedido de aprovação da fase 7 é um cartão de decisão, e o relato anota o tempo até a resposta.
+- A revisão diz qual olhar foi usado e quantos defeitos ele achou que os outros eixos não acharam.
+- O pedido de aprovação da fase 7 é um cartão de decisão; a CLI grava a hora do pedido, e a medição tira dela o
+  tempo até a resposta.
 
 ## Fase 8: entrega
 
 ### A tabela de medição
 
-O relato de cada funcionalidade termina com esta tabela, sempre com as mesmas linhas, para comparar uma
-funcionalidade com outra. O que não deu para medir fica como "sem dado", e não some.
+A medição de cada funcionalidade usa esta tabela (no repositório-piloto, no fim do relato), sempre com as mesmas
+linhas, para comparar uma funcionalidade com outra. O que não deu para medir fica como "sem dado", e não some.
 
-| Medida                 | O que entra                                               |
-| ---------------------- | --------------------------------------------------------- |
-| Duração                | do início da fase 3 ao merge, e só o trabalho do agente   |
-| Commits e PRs          |                                                           |
-| Código e testes        | linhas novas de código e de testes; total de testes       |
-| Tokens e custo         | da sessão que fez a funcionalidade, como o agente informa |
-| Perguntas da spec      | quantas, e quantas mudaram um requisito                   |
-| Rodadas de verificação |                                                           |
-| Defeitos por fase      | verificação, revisão (por eixo), pessoa, depois do merge  |
-| Tempo até cada "sim"   | fase 4 e fase 7                                           |
-| Regras do método       | quantas entraram e quantas saíram                         |
+| Medida                 | O que entra                                                         |
+| ---------------------- | ------------------------------------------------------------------- |
+| Duração                | do início da fase 3 ao "sim" da fase 8, e só o trabalho do agente   |
+| Commits e PRs          |                                                                     |
+| Código e testes        | linhas novas de código e de testes; total de testes                 |
+| Tokens e custo         | da sessão que fez a funcionalidade, como o agente informa           |
+| Perguntas da spec      | quantas, e quantas mudaram um requisito                             |
+| Rodadas de verificação |                                                                     |
+| Defeitos por fase      | verificação, revisão (por eixo), pessoa; os depois do merge, na F13 |
+| Tempo até cada "sim"   | fase 4 e fase 7                                                     |
+| Regras do método       | quantas entraram e quantas saíram                                   |
 
 Até a F12 existir, o agente preenche à mão. A tabela guarda só números
 ([fontes](../pesquisa/fontes.md#normas): necessidade, da LGPD).
@@ -53,3 +54,6 @@ Até a F12 existir, o agente preenche à mão. A tabela guarda só números
 
 - 2026-11-04: primeira versão, com o eixo de outro olhar, a tabela de medição e a poda de regras, a partir das
   recomendações 1, 3 e 4 do [parecer](../pesquisa/relatos/2026-11-04-parecer-do-fluxo.md).
+- 2026-11-04: na v1, o outro olhar é outro modelo do mesmo agente; a duração vai até o "sim" da fase 8, e os defeitos
+  depois do merge se contam na F13; o tempo até a resposta sai da hora do pedido
+  ([ADR-0031](../decisoes/0031-a-linha.md)).

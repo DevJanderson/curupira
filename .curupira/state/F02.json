@@ -1,0 +1,20 @@
+{
+  "id": "F02",
+  "phase": 3,
+  "decisions": [
+    {
+      "phase": 4,
+      "decision": "reject",
+      "by": "Janderson Lira",
+      "at": "2026-11-04T14:55:44.607Z",
+      "reason": "a fase 3 ficou com decisões em aberto e sem contraditório"
+    },
+    {
+      "phase": 4,
+      "decision": "reject",
+      "by": "Janderson Lira",
+      "at": "2026-11-04T15:44:23.364Z",
+      "reason": "o init tem três sentidos e o sim antes da proposta tem conserto barato. E tô vendo que vamos precisar reler todo o PR, o PRD. Precisamos ver todos os ADRs e todo esse fluxo que tem do primeiro, da instalação, a adoção, a criação do PRD, a especificação da spec, ao trabalho na spec, a entrega da spec, a finalização e todo esse espaço. A gente parece estar desafinado nesse sentido. E aqui, como a gente falou, que deve ser uma fábrica de software, a gente tem que agir como uma fábrica de software. No começo, tudo vai se interligando e fazendo sentido. No momento, pelo que eu venho lendo aqui contigo, parece que não está fazendo sentido o nosso Curupira, o fluxo do nosso Curupira."
+    }
+  ]
+}

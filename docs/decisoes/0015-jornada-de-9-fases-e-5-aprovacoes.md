@@ -1,6 +1,6 @@
 # ADR-0015: A jornada de 9 fases e 5 aprovações
 
-- **Status:** aceita
+- **Status:** substituída por ADR-0031
 - **Data:** 2026-11-03
 
 ## Contexto
@@ -26,3 +26,4 @@ partida.
 
 - 2026-11-03: "portões" passou a "aprovações", no título e no texto, e o arquivo mudou de nome
   ([ADR-0027](0027-idioma-e-vocabulario-da-ferramenta.md)).
+- 2026-11-04: substituída pelo [ADR-0031](0031-a-linha.md), que contém a linha em vez de apontar para a jornada.

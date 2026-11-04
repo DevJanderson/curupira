@@ -10,15 +10,16 @@
 
 ## As 5 aprovações
 
-As aprovações ficam nas fases 1, 2, 4, 7 e 8 da [jornada](jornada.md).
+As aprovações ficam nas fases 1, 2, 4, 7 e 8 da [linha](../decisoes/0031-a-linha.md). A fase 0, a instalação e o
+`init`, é da pessoa, no terminal; da fase 1 em diante, ela decide pela conversa, e toda aprovação tem um pedido.
 
-| Fase                | O que a pessoa decide                                                              | Se ela disser não                                                                        |
-| ------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| 1. Adotar o projeto | Se o perfil proposto (comandos, arquitetura, checagens e hooks) descreve o projeto | O agente ajusta a proposta e apresenta de novo; o perfil não é gravado                   |
-| 2. Produto (PRD)    | Se o PRD descreve o produto que ela quer                                           | A entrevista continua no ponto que falta; nenhuma funcionalidade começa                  |
-| 4. Aprovar          | Se a spec e os cenários dizem o que a funcionalidade deve fazer                    | A funcionalidade volta à fase 3; nada é implementado                                     |
-| 7. Revisar          | Se a funcionalidade entregue está pronta para o merge                              | Volta à fase 5, ou à 3 se a mudança alterar a spec                                       |
-| 8. Entregar         | Se faz o merge e quais melhorias entram no método                                  | Sem merge, a funcionalidade não conta como entregue; melhoria recusada não vira trabalho |
+| Fase                | O que a pessoa decide                                                               | Se ela disser não                                                       |
+| ------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| 1. Adotar o projeto | Se a ficha do projeto (o perfil, com as partes que as peças acrescentam) o descreve | O agente ajusta a proposta e apresenta de novo; o perfil não é gravado  |
+| 2. Produto (PRD)    | Se o PRD descreve o produto que ela quer                                            | A entrevista continua no ponto que falta; nenhuma funcionalidade começa |
+| 4. Aprovar          | Se a spec e os cenários dizem o que a funcionalidade deve fazer                     | A funcionalidade volta à fase 3; nada é implementado                    |
+| 7. Revisar          | Se a funcionalidade entregue está pronta para o merge                               | Volta à fase 5, ou à 3 se a mudança alterar a spec                      |
+| 8. Entregar         | Se a funcionalidade está entregue e quais melhorias entram no método                | A funcionalidade fica na fase 8; melhoria recusada não vira trabalho    |
 
 ## O humano revisa resultados, não cada falha
 
@@ -35,4 +36,5 @@ Assim, terminal e painel nunca divergem: os dois gravam pelo mesmo caminho.
 
 ## O merge é sempre humano
 
-O agente abre o PR, mas nunca faz o merge. Integrar o código é uma decisão da pessoa, na aprovação da fase 8.
+O agente abre o PR, mas nunca faz o merge. Integrar o código é da pessoa, depois do "sim" da fase 8; até o merge,
+o `status` mostra a funcionalidade como "esperando merge".

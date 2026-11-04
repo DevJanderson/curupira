@@ -45,7 +45,8 @@ Três categorias, cada uma no seu lugar:
 | Dados locais         | `.curupira/local/`              | fora, no `.gitignore` | CLI e verificador | provas brutas, rodadas, eventos dos hooks e temporários                          |
 
 1. **Um arquivo de estado por funcionalidade**, não um arquivo único, para que duas funcionalidades em branches
-   diferentes não escrevam no mesmo arquivo. Na v1, isso responde a Q09
+   diferentes não escrevam no mesmo arquivo; as decisões das fases 1 e 2 ficam num arquivo do projeto,
+   `project.json`. Na v1, isso responde a Q09
    ([ADR-0026](0026-o-que-o-curupira-grava-nao-cresce-com-o-tempo.md)).
 2. **Caminho e hash juntos.** Para cada artefato aprovado, o estado guarda o caminho e o hash da aprovação. Se o
    artefato for movido ou renomeado, a ferramenta avisa, em vez de seguir em silêncio.
@@ -61,7 +62,7 @@ Três categorias, cada uma no seu lugar:
 - Desinstalar o Curupira deixa os artefatos onde estão, legíveis sem a ferramenta.
 - Trocar o nome (ADR-0008) move só o estado e os dados locais; os artefatos ficam no lugar. O comando de renomear
   também ajusta a linha de `.curupira/local/` no `.gitignore`.
-- A adoção do projeto (fase 1) acrescenta `.curupira/local/` ao `.gitignore`.
+- O `init` (fase 0), que a pessoa roda, acrescenta `.curupira/local/` ao `.gitignore`.
 - A visão do projeto inteiro (painel e CLI) junta os arquivos de estado das funcionalidades ao ler.
 - A CLI continua sendo a única que escreve o estado; os artefatos são escritos pela pessoa e pelo agente
   ([conceito do painel](../conceitos/painel.md)).
@@ -77,3 +78,5 @@ Três categorias, cada uma no seu lugar:
   funcionalidade, e a Q09 ficou respondida na v1 ([ADR-0026](0026-o-que-o-curupira-grava-nao-cresce-com-o-tempo.md)).
 - 2026-11-03: as pastas e os arquivos que a ferramenta cria passaram para o inglês: `docs/product/`, `plan.md` e
   `verification.md` ([ADR-0027](0027-idioma-e-vocabulario-da-ferramenta.md)).
+- 2026-11-04: o `init`, e não a adoção, põe `.curupira/local/` no `.gitignore`, e o estado ganha o `project.json`,
+  com as decisões das fases 1 e 2 ([ADR-0031](0031-a-linha.md)).

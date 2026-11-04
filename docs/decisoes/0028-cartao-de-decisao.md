@@ -30,15 +30,16 @@ O cartão tem cinco partes, nesta ordem. Os ícones aparecem só nos títulos e 
 | Ícone | Rótulo sem emoji | Parte                                                                                 |
 | ----- | ---------------- | ------------------------------------------------------------------------------------- |
 | 🛑    | [DECIDA]         | o que está em decisão: a funcionalidade, a fase e o link do que se aprova             |
-| 👀    | [OLHE]           | até 3 pontos de atenção, cada um com onde olhar (arquivo e linha) e o que perguntar   |
-| ⚠️    | [RISCO]          | o que ficou em aberto e por quê                                                       |
+| 👀    | [OLHE]           | até 3 pontos já decididos, cada um com onde olhar (arquivo e linha) e o que conferir  |
+| ⚠️    | [RISCO]          | os riscos aceitos da spec: o que a pessoa aceita ao aprovar, e por quê                |
 | ✅    | [CONFERIDO]      | o que a máquina já conferiu (checagens, cenários, revisão), para a pessoa não refazer |
 | ⌨️    | [RESPONDA]       | como responder: `sim` ou `não, <motivo>`                                              |
 
 - O 🛑 aparece só no cartão, para continuar raro e chamar a atenção.
 - Mais de 3 pontos de atenção é sinal de peça grande: o agente propõe dividir, em vez de alongar o cartão.
-- Um ponto de atenção é algo que só a pessoa decide (um comportamento, um nome, um risco aceito), e não um
-  resumo do que mudou.
+- Um ponto de atenção aponta algo já decidido que pede o olho da pessoa (um comportamento, um nome, um limite), e não
+  uma pergunta em aberto nem um resumo do que mudou. Se o agente ainda tem uma pergunta, a peça volta à fase 3
+  ([roteiro da spec](../metodo/roteiro-spec.md#o-contraditório)).
 - Onde não há emoji, valem os rótulos entre colchetes. Os rótulos e o texto do cartão saem no idioma do projeto
   ([ADR-0027](0027-idioma-e-vocabulario-da-ferramenta.md)).
 - O "sim" continua puro ([F01b](../specs/F01b-prova-de-decisao-humana/spec.md)); o cartão só mostra a forma.
@@ -59,3 +60,5 @@ que diz se a pessoa teve tempo de olhar os pontos do cartão.
 
 - 2026-11-04: o cartão passou a ser um dos três tipos de mensagem do agente
   ([ADR-0030](0030-como-o-agente-fala-com-a-pessoa.md)).
+- 2026-11-04: na F02, o cartão da fase 4 levou perguntas em aberto nos pontos 👀 e informação de contexto no ⚠️, e a
+  pessoa recusou. Os pontos passaram a apontar só o que já está decidido, e o ⚠️, só os riscos aceitos da spec.

@@ -1,6 +1,7 @@
 # PRD do Curupira
 
-- **Status:** aprovado na fase 2, em 2026-11-03
+- **Status:** aprovado na fase 2, em 2026-11-03; a mudança do [ADR-0031](../decisoes/0031-a-linha.md) foi aprovada
+  em 2026-11-04, com um "sim" digitado
 - **Aprovado por:** Janderson
 - **Data:** 2026-11-03
 
@@ -104,8 +105,8 @@ Para a pesquisa, o resultado é evidência medida a favor ou contra cada hipóte
 - Adaptadores para outros agentes de terminal, inclusive os que usam outros modelos.
 - Outros serviços de código além do GitHub.
 - Windows nativo.
-- Instalação por um comando, publicação no npm e reserva do nome
-  ([ADR-0009](../decisoes/0009-instalacao-por-curl.md)); até lá, o Curupira roda a partir do repositório.
+- Publicação no npm, reserva do nome, domínio próprio e binário por sistema. A instalação é o script `curl` que baixa
+  do GitHub ([ADR-0009](../decisoes/0009-instalacao-por-curl.md)).
 
 ## Restrições
 
@@ -132,24 +133,25 @@ Para a pesquisa, o resultado é evidência medida a favor ou contra cada hipóte
 
 ## Funcionalidades
 
-Em ordem de valor; o detalhe está em [funcionalidades](features.md), e as dúvidas em
+Na ordem da [linha](../decisoes/0031-a-linha.md); o detalhe está em [funcionalidades](features.md), e as dúvidas em
 [perguntas em aberto](open-questions.md).
 
 - **F01a Estado e comandos:** estado versionado no Git e registro de cada decisão pela CLI.
 - **F01b Prova de decisão humana:** a CLI só registra uma aprovação ou recusa com a resposta que a pessoa digitou.
-- **F02 Adotar o projeto:** o perfil do projeto, proposto pelo agente e confirmado pela pessoa.
+- **F00 Instalar e preparar:** o script de instalação por `curl`, a partir do GitHub, e o `init`.
+- **F01c A linha no estado:** a branch desde o `open`, o pedido com hash em toda aprovação e as decisões do projeto.
+- **F02 Adotar o projeto:** a ficha do projeto, proposta pelo agente e aprovada pela pessoa.
 - **F03 Instrução mínima e adaptador:** a instrução do agente e as skills por estação, para o Claude Code.
 - **F04a Checagens básicas:** lint, tipos, testes e segredos.
-- **F04b Checagens extras:** duplicação, código morto, complexidade, dependências e segurança.
 - **F05 Hooks do ciclo de vida:** barram ações fora do fluxo.
 - **F06 Entrevista do PRD:** o PRD, as perguntas em aberto e a lista de funcionalidades.
 - **F07 Spec e cenários:** a spec ancorada, os cenários e o plano.
-- **F08 Aprovação com impressão digital:** a spec aprovada e protegida contra mudança silenciosa.
-- **F09 Implementar com testes primeiro:** branch, prova do vermelho e checagens a cada passo.
+- **F09 Implementar com testes primeiro:** prova do vermelho e checagens a cada passo.
 - **F10 Verificador separado:** os cenários conferidos contra o sistema real.
 - **F11 Revisão em eixos e PR:** a revisão em que só defeitos bloqueiam, e o PR aberto.
 - **F12 Entrega e medição:** a entrega registrada e os números da funcionalidade.
 - **F13 Retrospectiva e lições:** as melhorias do método e as lições dos defeitos.
+- **F04b Checagens extras:** duplicação, código morto, complexidade, dependências e segurança.
 - **F14 Modo leve:** mudanças pequenas e bugs com checagens e verificação.
 - **F15 Painel, andamento:** a fase, as decisões pendentes e a documentação.
 - **F16 Painel, decidir:** as aprovações pelo painel, gravadas pela CLI.
@@ -159,7 +161,8 @@ Em ordem de valor; o detalhe está em [funcionalidades](features.md), e as dúvi
 
 A F01 foi dividida em F01a e F01b na fase 3 dela
 ([ADR-0025](../decisoes/0025-a-pessoa-decide-pela-conversa.md)). A lista cresce por divisão sem reabrir o PRD, e a
-aprovação continua valendo.
+aprovação continua valendo. A F00 e a F01c não são divisão: entraram com a linha
+([ADR-0031](../decisoes/0031-a-linha.md)), e a F08 entrou na F01c; por isso, o PRD se aprova de novo.
 
 O vocabulário segue o [ADR-0027](../decisoes/0027-idioma-e-vocabulario-da-ferramenta.md): "portão" virou
 "aprovação" ou "checagem", sem mudar o conteúdo aprovado.
@@ -167,7 +170,7 @@ O vocabulário segue o [ADR-0027](../decisoes/0027-idioma-e-vocabulario-da-ferra
 ## Referências
 
 - [Roteiro do PRD](../metodo/roteiro-prd.md), [método](../metodo/README.md), [hipóteses](../metodo/hipoteses.md),
-  [jornada](../conceitos/jornada.md), [humano e agente](../conceitos/humano-e-agente.md) e
+  [linha](../decisoes/0031-a-linha.md), [humano e agente](../conceitos/humano-e-agente.md) e
   [ferramentas estudadas](../pesquisa/ferramentas-estudadas.md).
 - ADRs 0002 a 0020, no [registro de decisões](../decisoes/README.md).
 
