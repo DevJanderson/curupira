@@ -60,3 +60,4 @@ numa linha nova.
 | 2026-11-04 | 53    | F01c aprovada na fase 7 com "sim", a primeira aprovação com o pedido gravado pela CLI (2 min 17 s até o "sim"); medição e duas propostas do método                                                 |
 | 2026-11-04 | 54    | F01c entregue com "sim" na fase 8 (1 min 48 s até o "sim"); as duas melhorias entraram no roteiro da spec e na verificação; o merge do PR #5 é da pessoa                                           |
 | 2026-11-04 | 55    | F01d aberta numa branch da `main`, pelo comando instalado; spec e plano, contraditório em duas rodadas com 34 achados, sem divisão; pedido da fase 4                                               |
+| 2026-11-04 | 56    | Recusa da fase 4 da F01d para um parecer sobre o loop da F01: três causas, fontes externas, cinco mudanças propostas e a F01d estacionada como recomendação                                        |
