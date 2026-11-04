@@ -1,2 +1,4 @@
 // Quem precisa do nome importa daqui, nunca o escreve de novo (ADR-0008).
 export * from "./brand.ts";
+export * from "./errors.ts";
+export * from "./journey.ts";
