@@ -12,8 +12,12 @@ export type FlowErrorCode =
   | "no-git-author"
   | "not-a-git-repo"
   | "invalid-state"
-  | "unreadable-state"
-  | "unwritable-state";
+  | "unreadable-file"
+  | "unwritable-file"
+  | "no-session"
+  | "approve-needs-answer"
+  | "plain-yes-only"
+  | "reject-needs-answer";
 
 export class FlowError extends Error {
   readonly code: FlowErrorCode;
