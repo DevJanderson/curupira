@@ -21,10 +21,11 @@
   "error.no-git-author": "O Git não tem nome de autor. Configure com: git config user.name \"Seu Nome\"",
   "error.not-a-git-repo": "Esta pasta não está num repositório Git.",
   "error.invalid-state": "O arquivo {file} está inválido: {problem}.",
+  "error.unreadable-state": "Não foi possível ler o arquivo {file}. Confira se ele existe como arquivo e se há permissão de leitura.",
+  "error.unwritable-state": "Não foi possível gravar o arquivo {file}. Confira a permissão de escrita na pasta.",
   "problem.json": "não é um JSON válido",
   "problem.object": "o conteúdo não é um objeto JSON",
   "problem.name": "o nome do arquivo não é um ID de funcionalidade",
-  "problem.read": "não foi possível ler o arquivo",
   "problem.id": "o id não confere com o nome do arquivo",
   "problem.phase": "a fase não existe na jornada",
   "problem.decisions": "a lista de decisões está malformada"

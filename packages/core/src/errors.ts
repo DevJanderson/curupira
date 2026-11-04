@@ -11,7 +11,9 @@ export type FlowErrorCode =
   | "spec-only-in-phase-7"
   | "no-git-author"
   | "not-a-git-repo"
-  | "invalid-state";
+  | "invalid-state"
+  | "unreadable-state"
+  | "unwritable-state";
 
 export class FlowError extends Error {
   readonly code: FlowErrorCode;

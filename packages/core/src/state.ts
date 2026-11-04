@@ -36,10 +36,14 @@ export function readAllStates(root: string): FeatureState[] {
 // Grava num temporário e troca o nome, para um arquivo de estado nunca ficar pela metade.
 export function writeState(root: string, state: FeatureState): void {
   const file = stateFile(root, state.id);
-  mkdirSync(join(root, STATE_DIR), { recursive: true });
   const temporary = join(root, STATE_DIR, `.${state.id}.json.${process.pid}.tmp`);
-  writeFileSync(temporary, JSON.stringify(state, null, 2) + "\n");
-  renameSync(temporary, file);
+  try {
+    mkdirSync(join(root, STATE_DIR), { recursive: true });
+    writeFileSync(temporary, JSON.stringify(state, null, 2) + "\n");
+    renameSync(temporary, file);
+  } catch {
+    throw new FlowError("unwritable-state", { file: join(STATE_DIR, `${state.id}.json`) });
+  }
 }
 
 function load(file: string, id: string): FeatureState {
@@ -50,7 +54,7 @@ function load(file: string, id: string): FeatureState {
   try {
     content = readFileSync(file, "utf8");
   } catch {
-    throw invalid("read");
+    throw new FlowError("unreadable-state", { file: join(STATE_DIR, `${id}.json`) });
   }
   let data: unknown;
   try {

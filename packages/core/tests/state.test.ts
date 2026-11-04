@@ -99,8 +99,21 @@ test("um arquivo cujo nome não é ID de funcionalidade é inválido", () => {
   expect(error.params).toEqual({ file: join(DATA_DIR, "state", "x.json"), problem: "name" });
 });
 
-test("um arquivo que não pode ser lido gera erro de estado, não uma exceção do Node", () => {
+test("um arquivo que não pode ser lido gera erro de leitura, não uma exceção do Node", () => {
   mkdirSync(join(root, DATA_DIR, "state", "F04.json"), { recursive: true });
-  expect(failure(() => readState(root, "F04")).params.problem).toBe("read");
-  expect(failure(() => readAllStates(root)).params.problem).toBe("read");
+  const file = join(DATA_DIR, "state", "F04.json");
+  expect(failure(() => readState(root, "F04"))).toMatchObject({
+    code: "unreadable-state",
+    params: { file },
+  });
+  expect(failure(() => readAllStates(root)).code).toBe("unreadable-state");
+});
+
+test("um estado que não pode ser gravado gera erro de gravação, não uma exceção do Node", () => {
+  writeFileSync(join(root, DATA_DIR), "não é uma pasta");
+  const file = join(DATA_DIR, "state", "F01a.json");
+  expect(failure(() => writeState(root, open("F01a")))).toMatchObject({
+    code: "unwritable-state",
+    params: { file },
+  });
 });
