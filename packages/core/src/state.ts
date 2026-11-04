@@ -1,11 +1,4 @@
-import {
-  existsSync,
-  mkdirSync,
-  readdirSync,
-  readFileSync,
-  renameSync,
-  writeFileSync,
-} from "node:fs";
+import { mkdirSync, readdirSync, readFileSync, renameSync, statSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { DATA_DIR } from "./brand.ts";
 import { FlowError } from "./errors.ts";
@@ -20,14 +13,26 @@ export function stateFile(root: string, id: string): string {
 
 export function readState(root: string, id: string): FeatureState | undefined {
   const file = stateFile(root, id);
-  if (!existsSync(file)) return undefined;
+  try {
+    statSync(file);
+  } catch (error) {
+    // Só "não existe" vira funcionalidade fora da jornada; não conseguir ler é outro erro.
+    if (isMissing(error)) return undefined;
+    throw new FlowError("unreadable-state", { file: join(STATE_DIR, `${id}.json`) });
+  }
   return load(file, id);
 }
 
 export function readAllStates(root: string): FeatureState[] {
   const dir = join(root, STATE_DIR);
-  if (!existsSync(dir)) return [];
-  return readdirSync(dir)
+  let names: string[];
+  try {
+    names = readdirSync(dir);
+  } catch (error) {
+    if (isMissing(error)) return [];
+    throw new FlowError("unreadable-state", { file: STATE_DIR });
+  }
+  return names
     .filter((name) => name.endsWith(".json") && !name.startsWith("."))
     .sort()
     .map((name) => load(join(dir, name), name.slice(0, -".json".length)));
@@ -84,6 +89,10 @@ function isDecision(value: unknown): boolean {
     !Number.isNaN(Date.parse(at)) &&
     (reason === undefined || typeof reason === "string")
   );
+}
+
+function isMissing(error: unknown): boolean {
+  return (error as NodeJS.ErrnoException).code === "ENOENT";
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {

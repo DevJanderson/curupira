@@ -117,3 +117,13 @@ test("um estado que não pode ser gravado gera erro de gravação, não uma exce
     params: { file },
   });
 });
+
+test("uma pasta de estado que não pode ser lida não vira funcionalidade inexistente", () => {
+  mkdirSync(join(root, DATA_DIR), { recursive: true });
+  writeFileSync(join(root, DATA_DIR, "state"), "não é uma pasta");
+  expect(failure(() => readState(root, "F03")).code).toBe("unreadable-state");
+  expect(failure(() => readAllStates(root))).toMatchObject({
+    code: "unreadable-state",
+    params: { file: join(DATA_DIR, "state") },
+  });
+});
