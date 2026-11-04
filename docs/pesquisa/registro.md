@@ -34,3 +34,4 @@ numa linha nova.
 | 2026-11-04 | 27    | Parecer sobre o fluxo da F01a e da F01b, com 5 recomendações aceitas; ADR-0028 (cartão de decisão) e ADR-0029 (mascote)                        |
 | 2026-11-04 | 28    | ADR-0030: três tipos de mensagem do agente (aviso de passo, cartão de decisão, resposta), "segue" para continuar e 🔥 no próximo passo         |
 | 2026-11-04 | 29    | Roteiro da revisão e da entrega: eixo de testes com outro olhar, tabela de medição por funcionalidade e poda de regras na fase 8               |
+| 2026-11-04 | 30    | Recusa da fase 4 da F02 pela CLI; o contraditório entra na fase 3 do roteiro da spec e o cartão aponta só o que já está decidido               |

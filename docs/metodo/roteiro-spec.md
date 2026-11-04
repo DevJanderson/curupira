@@ -24,8 +24,8 @@ O que já está decidido entra na spec com a referência e não vira pergunta.
 Dois arquivos em `docs/specs/<ID>-<nome>/`, um por aprovação
 ([ADR-0026](../decisoes/0026-o-que-o-curupira-grava-nao-cresce-com-o-tempo.md)):
 
-- `spec.md`: objetivo, requisitos, cenários, fora do escopo, dados pessoais, decisões e o que falta esclarecer; passa
-  pela aprovação da fase 4;
+- `spec.md`: objetivo, requisitos, cenários, fora do escopo, dados pessoais, decisões, riscos aceitos e o que falta
+  esclarecer; passa pela aprovação da fase 4;
 - `plan.md`: os passos da implementação; não passa por aprovação.
 
 A `verification.md`, da aprovação da fase 7, vem depois, na verificação.
@@ -71,6 +71,9 @@ Cada requisito é uma frase com um gatilho e uma resposta, numa das cinco formas
 - **Dados pessoais:** os campos com dados pessoais e a base legal; "nenhum", quando não houver.
 - **Decisões:** o que foi decidido ao escrever a spec, com a referência (ADR, pergunta respondida). Decisão de
   arquitetura vira pendência de ADR.
+- **Riscos aceitos:** o que a pessoa aceita ao aprovar (um custo, um limite, um comportamento que pode incomodar),
+  cada um com o porquê; "nenhum", quando não houver. O risco da implementação vai para o plano, e a informação de
+  contexto, para o aviso de passo ([ADR-0030](../decisoes/0030-como-o-agente-fala-com-a-pessoa.md)).
 - **A esclarecer:** cada dúvida fica marcada no ponto do texto como `[A ESCLARECER: …]`. A spec não vai para
   aprovação com marca aberta.
 
@@ -94,10 +97,35 @@ Cada requisito é uma frase com um gatilho e uma resposta, numa das cinco formas
 Até a [Q03](../product/open-questions.md) fixar os números, valem como provisórios: até 10 requisitos e até 5 cenários.
 Acima disso, o agente propõe dividir a peça com sufixo (F10a, F10b), em vez de levar uma spec grande à aprovação.
 
+## O contraditório
+
+Quem escreve a spec não vê as próprias lacunas. Entre o rascunho e as perguntas, dois subagentes leem a peça, cada um
+no seu contexto, numa adaptação do contraditório do specwork ([fontes](../pesquisa/fontes.md#ferramentas-e-métodos)):
+
+- **Completude** procura o que vai parar a implementação ou mudar a spec depois: um estado ou erro sem requisito, uma
+  decisão sem base, uma dependência dada como pronta que não está, uma contradição com um ADR, a jornada ou outra
+  spec, uma melhoria de relato que não foi aplicada.
+- **Necessidade** responde a cada achado da Completude, concordando ou contestando com evidência, e procura o que
+  passa do PRD, o que se repete, o teste de implementação no lugar do de comportamento e a estrutura nova para o que
+  já existe.
+
+Regras:
+
+- Os dois leem só os arquivos (PRD, funcionalidades, perguntas em aberto, spec, plano, ADRs, jornada, specs de que a
+  peça depende, relatos), nunca a conversa: um achado só vale com o arquivo e o trecho.
+- Cada achado é uma linha: lacuna ou excesso, a tese, a evidência e a recomendação (incorporar, cortar ou perguntar).
+- O agente dá um destino a cada achado: **incorporado** na spec ou no plano, **recusado**, com o motivo, ou
+  **perguntado**, só quando é decisão da pessoa (escopo, regra de negócio, custo aceito). Os perguntados entram nas
+  perguntas.
+- No máximo duas rodadas; a segunda só roda se a primeira mudou um requisito ou um cenário.
+- Quando houver outro agente de terminal ou outro modelo, um dos dois subagentes o usa
+  ([roteiro da entrega](roteiro-entrega.md#fase-7-revisão)).
+- O relato da funcionalidade guarda os achados e o destino de cada um.
+
 ## As perguntas
 
-- Primeiro o rascunho, depois as perguntas: o agente escreve a spec, marca o que falta e só pergunta o que muda um
-  requisito ou um cenário.
+- Primeiro o rascunho, depois o contraditório, depois as perguntas: o agente escreve a spec, marca o que falta, passa
+  pelo contraditório e só pergunta o que muda um requisito ou um cenário.
 - No máximo 5 perguntas, uma por vez, com opções quando ajudar.
 - Cada resposta muda a spec na hora. Se uma resposta vier com variantes condicionais, o agente pergunta qual vale.
 - Se precisar de mais de 5, a peça é grande demais ou o PRD tem uma lacuna: o agente propõe dividir ou voltar ao PRD.
@@ -105,6 +133,10 @@ Acima disso, o agente propõe dividir a peça com sufixo (F10a, F10b), em vez de
 ## A aprovação
 
 A spec, com os cenários, só vale depois do "sim" da pessoa, na aprovação da fase 4. O plano não passa pela aprovação.
+
+A spec só vai para a aprovação sem marca aberta, sem pergunta pendente e com um destino para cada achado do
+contraditório. O cartão de decisão ([ADR-0028](../decisoes/0028-cartao-de-decisao.md)) aponta o que já está decidido
+e os riscos aceitos; se o agente ainda tem uma pergunta, a spec não está pronta.
 
 ## Histórico
 
@@ -118,3 +150,6 @@ A spec, com os cenários, só vale depois do "sim" da pessoa, na aprovação da 
 - 2026-11-03: depois da entrega da F01b, entraram os exemplos para regras de texto digitado, a mutação em todo teste
   escrito depois do comportamento e o teste para a consequência de ADR checada por máquina
   ([relato](../pesquisa/relatos/2026-11-03-fase-5-f01b.md)).
+- 2026-11-04: depois da recusa da fase 4 da F02, com decisões em aberto no cartão, entraram o contraditório entre o
+  rascunho e as perguntas e a seção de riscos aceitos. Nenhuma regra saiu: nada antes cobria as lacunas que quem
+  escreve não vê.

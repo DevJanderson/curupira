@@ -139,3 +139,6 @@ do Git. O campo `personalData` diz se o projeto trata dados pessoais, mas não g
   ([ADR-0024](../../decisoes/0024-o-que-fica-na-maquina-e-no-projeto.md), regra 3).
 
 ## Histórico
+
+- 2026-11-04: recusada na aprovação da fase 4, porque a fase 3 ficou com decisões em aberto e sem contraditório;
+  voltou à fase 3.

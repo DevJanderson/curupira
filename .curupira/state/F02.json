@@ -1,5 +1,13 @@
 {
   "id": "F02",
-  "phase": 4,
-  "decisions": []
+  "phase": 3,
+  "decisions": [
+    {
+      "phase": 4,
+      "decision": "reject",
+      "by": "Janderson Lira",
+      "at": "2026-11-04T14:55:44.607Z",
+      "reason": "a fase 3 ficou com decisões em aberto e sem contraditório"
+    }
+  ]
 }
