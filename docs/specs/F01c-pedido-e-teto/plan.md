@@ -75,5 +75,5 @@ e as respostas digitadas, e da F00, que trouxe o comando instalado.
 ## 7. Documentação
 
 - **Teste primeiro:** não se aplica.
-- **O que muda:** o ADR-0031 ganha a linha da entrega no histórico; o [humano e agente](../../conceitos/humano-e-agente.md)
-  diz que o agente roda `request` antes do cartão.
+- **O que muda:** o ADR-0031 ganha a linha da entrega no histórico; o
+  [humano e agente](../../conceitos/humano-e-agente.md) diz que o agente roda `request` antes do cartão.
