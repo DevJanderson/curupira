@@ -1,0 +1,81 @@
+import { mkdirSync, mkdtempSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import { beforeEach, expect, test } from "vite-plus/test";
+import {
+  approve,
+  DATA_DIR,
+  FlowError,
+  open,
+  readAllStates,
+  readState,
+  stateFile,
+  writeState,
+} from "../src/index.ts";
+
+const AT = "2026-11-03T20:00:00.000Z";
+let root: string;
+
+beforeEach(() => {
+  root = mkdtempSync(join(tmpdir(), "state-"));
+});
+
+function failure(run: () => unknown): FlowError {
+  try {
+    run();
+  } catch (error) {
+    if (error instanceof FlowError) return error;
+    throw error;
+  }
+  throw new Error("esperava um FlowError");
+}
+
+test("grava e lê o estado num arquivo por funcionalidade", () => {
+  writeState(root, open("F01a"));
+  writeState(root, open("F02"));
+  expect(stateFile(root, "F01a")).toBe(join(root, DATA_DIR, "state", "F01a.json"));
+  expect(readState(root, "F01a")).toEqual(open("F01a"));
+  expect(readAllStates(root).map((state) => state.id)).toEqual(["F01a", "F02"]);
+});
+
+test("sem estado, a leitura não acha nada", () => {
+  expect(readState(root, "F01a")).toBeUndefined();
+  expect(readAllStates(root)).toEqual([]);
+});
+
+test("uma decisão nova entra no fim, sem mudar as anteriores", () => {
+  const approved = approve({ ...open("F01a"), phase: 4 }, "Ana", AT);
+  writeState(root, approved);
+  const before = readFileSync(stateFile(root, "F01a"), "utf8");
+  writeState(root, approve({ ...readState(root, "F01a")!, phase: 7 }, "Bia", AT));
+  const after = readState(root, "F01a")!;
+  expect(after.decisions).toHaveLength(2);
+  expect(after.decisions[0]).toEqual(JSON.parse(before).decisions[0]);
+});
+
+test("a gravação não deixa arquivo temporário para trás", () => {
+  writeState(root, open("F01a"));
+  expect(readdirSync(join(root, DATA_DIR, "state"))).toEqual(["F01a.json"]);
+});
+
+test("um arquivo inválido gera erro com o nome do arquivo e o problema", () => {
+  const dir = join(root, DATA_DIR, "state");
+  mkdirSync(dir, { recursive: true });
+  const cases: [string, string][] = [
+    ["{", "json"],
+    ['{"id":"F02","phase":3,"decisions":[]}', "id"],
+    ['{"id":"F01a","phase":9,"decisions":[]}', "phase"],
+    ['{"id":"F01a","phase":3}', "decisions"],
+    [
+      '{"id":"F01a","phase":5,"decisions":[{"phase":4,"decision":"maybe","by":"Ana","at":"x"}]}',
+      "decisions",
+    ],
+  ];
+  for (const [content, problem] of cases) {
+    writeFileSync(join(dir, "F01a.json"), content);
+    const error = failure(() => readState(root, "F01a"));
+    expect(error.code).toBe("invalid-state");
+    expect(error.params).toEqual({ file: join(DATA_DIR, "state", "F01a.json"), problem });
+    expect(failure(() => readAllStates(root)).code).toBe("invalid-state");
+  }
+});
