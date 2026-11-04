@@ -34,6 +34,13 @@ beforeEach(() => {
   git("init", "-q", "-b", "main");
   git("config", "user.name", "Ana Lima");
   git("config", "user.email", "ana@example.com");
+  // Desde a F01c, a aprovação da fase 4 pede a spec, e as das fases 7 e 8, um commit.
+  for (const id of ["F01a", "F02"]) {
+    mkdirSync(join(repo, "docs", "specs", `${id}-exemplo`), { recursive: true });
+    writeFileSync(join(repo, "docs", "specs", `${id}-exemplo`, "spec.md"), `# ${id}\n`);
+  }
+  git("add", "-A");
+  git("commit", "-q", "-m", "specs");
 });
 
 function git(...args: string[]): string {
@@ -56,6 +63,7 @@ function at(id: string, phase: number): void {
   cli("open", id);
   for (let current = 3; current < phase; current++) {
     if (current === 4) {
+      cli("request", id);
       say("sim");
       cli("approve", id);
     } else cli("advance", id);
@@ -88,10 +96,12 @@ test("C1. O estado mostra a fase e o que espera decisão", () => {
 test("C2. Aprovar registra quem e quando", () => {
   // Uma recusa anterior, para conferir que ela não muda com a decisão nova.
   at("F01a", 4);
+  cli("request", "F01a");
   say("não, falta um cenário");
   cli("reject", "F01a");
   cli("advance", "F01a");
   at("F02", 3);
+  cli("request", "F01a");
   say("sim");
   const before = snapshot();
   const earlier = state("F01a").decisions;
@@ -119,6 +129,7 @@ test("C3. Aprovar fora da fase com aprovação é recusado", () => {
 
 test("C4. Recusar na fase 7 volta à implementação", () => {
   at("F01a", 7);
+  cli("request", "F01a");
   say("não, faltou tratar o erro de rede");
   const result = cli("reject", "F01a");
   expect(result.code).toBe(0);
@@ -139,11 +150,13 @@ test("C5. Duas funcionalidades em branches não conflitam", () => {
   git("add", "-A");
   git("commit", "-q", "-m", "base");
   git("switch", "-q", "-c", "a");
+  cli("request", "F01a");
   say("sim");
   cli("approve", "F01a");
   git("commit", "-q", "-am", "aprova F01a");
   git("switch", "-q", "main");
   git("switch", "-q", "-c", "b");
+  cli("request", "F02");
   say("sim");
   cli("approve", "F02");
   git("commit", "-q", "-am", "aprova F02");

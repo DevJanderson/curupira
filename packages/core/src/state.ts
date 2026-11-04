@@ -72,7 +72,7 @@ function load(file: string, id: string): FeatureState {
 
 function isDecision(value: unknown): boolean {
   if (!isRecord(value)) return false;
-  const { phase, decision, by, at, reason, answer } = value;
+  const { phase, decision, by, at, reason, answer, requestedAt, hash, path } = value;
   return (
     FEATURE_PHASES.includes(phase as never) &&
     hasApproval(phase as never) &&
@@ -82,7 +82,10 @@ function isDecision(value: unknown): boolean {
     typeof at === "string" &&
     !Number.isNaN(Date.parse(at)) &&
     (reason === undefined || typeof reason === "string") &&
-    (answer === undefined || typeof answer === "string")
+    (answer === undefined || typeof answer === "string") &&
+    (requestedAt === undefined || isDate(requestedAt)) &&
+    (hash === undefined || isHash(hash)) &&
+    (path === undefined || typeof path === "string")
   );
 }
 
@@ -92,12 +95,18 @@ function isRequest(value: unknown): boolean {
   return (
     FEATURE_PHASES.includes(phase as never) &&
     hasApproval(phase as never) &&
-    typeof at === "string" &&
-    !Number.isNaN(Date.parse(at)) &&
-    typeof hash === "string" &&
-    hash !== "" &&
+    isDate(at) &&
+    isHash(hash) &&
     (path === undefined || typeof path === "string")
   );
+}
+
+function isDate(value: unknown): boolean {
+  return typeof value === "string" && !Number.isNaN(Date.parse(value));
+}
+
+function isHash(value: unknown): boolean {
+  return typeof value === "string" && value !== "";
 }
 
 export function isRecord(value: unknown): value is Record<string, unknown> {

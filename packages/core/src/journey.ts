@@ -14,6 +14,10 @@ export interface Decision {
   // O texto digitado que sustentou a aprovação (F01b); na recusa, ele é o motivo.
   answer?: string;
   reason?: string;
+  // A hora e o hash do pedido que a decisão respondeu (F01c); as decisões de antes dela não os têm.
+  requestedAt?: string;
+  hash?: string;
+  path?: string;
 }
 
 // O pedido de aprovação (ADR-0031, regra 6): a hora e o hash do que se aprova e, na fase 4, o caminho do spec.md.
@@ -70,16 +74,12 @@ export function approve(
   at: string,
   answer?: string,
 ): FeatureState {
-  const phase = approvalPhase(state);
+  const request = currentRequest(state);
+  const { phase } = request;
   const next: Stage = phase === 8 ? "delivered" : ((phase + 1) as Phase);
-  return {
-    ...state,
-    phase: next,
-    decisions: [
-      ...state.decisions,
-      { phase, decision: "approve", by, at, ...(answer === undefined ? {} : { answer }) },
-    ],
-  };
+  const decision: Decision = { phase, decision: "approve", by, at };
+  if (answer !== undefined) decision.answer = answer;
+  return decided(state, next, { ...decision, ...answered(request) });
 }
 
 // A fase de volta de cada recusa segue a tabela das aprovações (docs/conceitos/humano-e-agente.md).
@@ -90,17 +90,32 @@ export function reject(
   reason: string,
   options: { spec?: boolean } = {},
 ): FeatureState {
-  const phase = approvalPhase(state);
+  const request = currentRequest(state);
+  const { phase } = request;
   const trimmed = reason.trim();
   if (trimmed === "") throw new FlowError("missing-reason", { id: state.id });
   if (options.spec && phase !== 7)
     throw new FlowError("spec-only-in-phase-7", { id: state.id, phase });
   const back: Phase = phase === 4 ? 3 : phase === 7 ? (options.spec ? 3 : 5) : 8;
-  return {
-    ...state,
-    phase: back,
-    decisions: [...state.decisions, { phase, decision: "reject", by, at, reason: trimmed }],
-  };
+  const decision: Decision = { phase, decision: "reject", by, at, reason: trimmed };
+  return decided(state, back, { ...decision, ...answered(request) });
+}
+
+// O pedido da fase atual: sem ele, nada se decide (ADR-0031, regra 6).
+export function currentRequest(state: FeatureState): Request {
+  const phase = approvalPhase(state);
+  if (state.request?.phase !== phase) throw new FlowError("no-request", { id: state.id, phase });
+  return state.request;
+}
+
+function answered({ at, hash, path }: Request): Pick<Decision, "requestedAt" | "hash" | "path"> {
+  return path === undefined ? { requestedAt: at, hash } : { requestedAt: at, hash, path };
+}
+
+// A decisão responde ao pedido, que sai do estado: um "sim" novo pede um pedido novo.
+function decided(state: FeatureState, phase: Stage, decision: Decision): FeatureState {
+  const { request: _answered, ...rest } = state;
+  return { ...rest, phase, decisions: [...state.decisions, decision] };
 }
 
 function activePhase(state: FeatureState): Phase {

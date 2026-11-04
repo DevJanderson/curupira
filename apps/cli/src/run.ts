@@ -1,10 +1,12 @@
 import { parseArgs } from "node:util";
 import {
   advance,
+  answerAfter,
   approvalPhase,
   approvalTarget,
   approvalText,
   approve,
+  currentRequest,
   deleteAnswer,
   FlowError,
   gitAuthor,
@@ -127,11 +129,12 @@ export function run(args: string[], io: Io): number {
       io.out(message("advanced", { id, phase: next.phase }));
       return 0;
     }
-    // Qual erro vence: a fase, depois a sessão, a resposta digitada e, por último, o autor.
+    // Qual erro vence: a fase, o pedido, a sessão, a resposta digitada e, por último, o autor.
     const from = approvalPhase(current);
+    const request = currentRequest(current);
     const session = io.agent.session(io.env);
     if (session === undefined) throw new FlowError("no-session");
-    const answer = readAnswer(root, session, new Date(io.now()));
+    const answer = answerAfter(readAnswer(root, session, new Date(io.now())), request, id);
     const supporting =
       command === "approve" ? approvalText(answer, id) : rejectionReason(answer, id);
     const by = gitAuthor(root, io.env);

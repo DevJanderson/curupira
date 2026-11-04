@@ -25,7 +25,9 @@ export type FlowErrorCode =
   | "spec-ambiguous"
   | "spec-not-file"
   | "no-commit"
-  | "uncommitted-changes";
+  | "uncommitted-changes"
+  | "no-request"
+  | "answer-before-request";
 
 export class FlowError extends Error {
   readonly code: FlowErrorCode;

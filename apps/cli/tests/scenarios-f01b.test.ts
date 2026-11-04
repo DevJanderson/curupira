@@ -33,6 +33,14 @@ beforeEach(() => {
   mkdirSync(repo);
   execFileSync("git", ["init", "-q"], { cwd: repo, env });
   execFileSync("git", ["config", "user.name", "Ana Lima"], { cwd: repo, env });
+  execFileSync("git", ["config", "user.email", "ana@example.com"], { cwd: repo, env });
+  // Desde a F01c, a aprovação da fase 4 pede a spec, e as das fases 7 e 8, um commit.
+  for (const id of ["F01a", "F02"]) {
+    mkdirSync(join(repo, "docs", "specs", `${id}-exemplo`), { recursive: true });
+    writeFileSync(join(repo, "docs", "specs", `${id}-exemplo`, "spec.md"), `# ${id}\n`);
+  }
+  execFileSync("git", ["add", "-A"], { cwd: repo, env });
+  execFileSync("git", ["commit", "-qm", "specs"], { cwd: repo, env });
 });
 
 function say(prompt: string): void {
@@ -46,13 +54,18 @@ function cli(...args: string[]) {
   return { code: result.status, out: result.stdout, err: result.stderr };
 }
 
-// Leva a funcionalidade à fase pedida, conferindo cada passo, para a recusa do cenário não vir de outra causa.
+// Leva a funcionalidade à fase pedida, conferindo cada passo, para a recusa do cenário não vir de outra causa. Na
+// fase pedida, já faz o pedido dela (F01c), que vem antes da resposta.
 function at(id: string, phase: number): void {
   expect(cli("open", id).code).toBe(0);
   for (let current = 3; current < phase; current++) {
-    if (current === 4) say("sim");
+    if (current === 4) {
+      expect(cli("request", id).code).toBe(0);
+      say("sim");
+    }
     expect(cli(current === 4 ? "approve" : "advance", id).code).toBe(0);
   }
+  expect(cli("request", id).code).toBe(0);
   expect(JSON.parse(raw(id)).phase).toBe(phase);
 }
 
