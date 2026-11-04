@@ -52,3 +52,4 @@ numa linha nova.
 | 2026-11-04 | 45    | F00 aberta na fase 3 numa branch da `main`; spec e plano, contraditório em duas rodadas com 22 achados, nenhuma pergunta                                                                           |
 | 2026-11-04 | 46    | F00 aprovada na fase 4 com "sim"; script de instalação sem npm, `curupira init` e os cenários C1 a C5 com prova por mutação; README com instalar, preparar e desinstalar                           |
 | 2026-11-04 | 47    | F00 nas fases 5 a 7: a pessoa instalou e rodou o `init` no piloto; verificação sem defeitos; revisão em 4 eixos com 13 defeitos, 12 corrigidos e 4 só do outro olhar                               |
+| 2026-11-04 | 48    | F00 aprovada na fase 7 com "sim"; medição e propostas do método: entra o eixo de mutação à parte, sai o cartão sem outro modelo, cresce a regra dos dados gravados                                 |
