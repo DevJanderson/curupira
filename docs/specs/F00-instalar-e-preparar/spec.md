@@ -1,6 +1,6 @@
 # F00: Instalar e preparar
 
-- **Status:** rascunho, na fase 3
+- **Status:** na aprovação da fase 4
 - **Data:** 2026-11-04
 
 ## Objetivo
