@@ -1,5 +1,5 @@
 {
-  "usage": "Uso:\n  {cli} open <ID>\n  {cli} status\n  {cli} advance <ID>\n  {cli} approve <ID>\n  {cli} reject <ID> --reason <texto> [--spec]",
+  "usage": "Uso:\n  {cli} open <ID>\n  {cli} status\n  {cli} advance <ID>\n  {cli} approve <ID>\n  {cli} reject <ID> [--spec]\n  {cli} hook answer   (lê o JSON do hook na entrada padrão)",
   "opened": "{id} aberta na fase 3.",
   "advanced": "{id} passou à fase {phase}.",
   "approved": "{id} aprovada na fase {from} por {by}; agora na fase {phase}.",

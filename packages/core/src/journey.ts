@@ -11,6 +11,8 @@ export interface Decision {
   decision: "approve" | "reject";
   by: string;
   at: string;
+  // O texto digitado que sustentou a aprovação (F01b); na recusa, ele é o motivo.
+  answer?: string;
   reason?: string;
 }
 
@@ -43,13 +45,21 @@ export function advance(state: FeatureState): FeatureState {
   return { ...state, phase: (phase + 1) as Phase };
 }
 
-export function approve(state: FeatureState, by: string, at: string): FeatureState {
+export function approve(
+  state: FeatureState,
+  by: string,
+  at: string,
+  answer?: string,
+): FeatureState {
   const phase = approvalPhase(state);
   const next: Stage = phase === 8 ? "delivered" : ((phase + 1) as Phase);
   return {
     ...state,
     phase: next,
-    decisions: [...state.decisions, { phase, decision: "approve", by, at }],
+    decisions: [
+      ...state.decisions,
+      { phase, decision: "approve", by, at, ...(answer === undefined ? {} : { answer }) },
+    ],
   };
 }
 

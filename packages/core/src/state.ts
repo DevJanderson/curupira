@@ -71,7 +71,7 @@ function load(file: string, id: string): FeatureState {
 
 function isDecision(value: unknown): boolean {
   if (!isRecord(value)) return false;
-  const { phase, decision, by, at, reason } = value;
+  const { phase, decision, by, at, reason, answer } = value;
   return (
     FEATURE_PHASES.includes(phase as never) &&
     hasApproval(phase as never) &&
@@ -80,7 +80,8 @@ function isDecision(value: unknown): boolean {
     by.trim() !== "" &&
     typeof at === "string" &&
     !Number.isNaN(Date.parse(at)) &&
-    (reason === undefined || typeof reason === "string")
+    (reason === undefined || typeof reason === "string") &&
+    (answer === undefined || typeof answer === "string")
   );
 }
 

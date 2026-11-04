@@ -190,6 +190,9 @@ importers:
 
   apps/cli:
     dependencies:
+      '@curupira/claude-code':
+        specifier: workspace:*
+        version: link:../../packages/claude-code
       '@curupira/core':
         specifier: workspace:*
         version: link:../../packages/core

@@ -21,8 +21,8 @@ antes da aprovação anterior.
   funcionalidade à fase seguinte.
 - **R5.** QUANDO o agente roda `curupira approve <ID>` com a funcionalidade numa fase com aprovação, O SISTEMA DEVE
   registrar a fase, quem aprovou e quando, e levar a funcionalidade à fase seguinte.
-- **R6.** QUANDO o agente roda `curupira reject <ID> --reason <texto>` com a funcionalidade numa fase com aprovação,
-  O SISTEMA DEVE registrar a fase, quem recusou, quando e o motivo, e levar a funcionalidade à fase de volta que a
+- **R6.** QUANDO o agente roda `curupira reject <ID>` com a funcionalidade numa fase com aprovação, O SISTEMA DEVE
+  registrar a fase, quem recusou, quando e o motivo, e levar a funcionalidade à fase de volta que a
   tabela das aprovações define ([humano e agente](../../conceitos/humano-e-agente.md)).
 - **R7.** SE o ID não tiver o formato de ID de funcionalidade, a funcionalidade não existir (ou já existir, ao
   abrir), ou o comando não couber na fase em que ela está, ENTÃO O SISTEMA DEVE recusar o comando, dizer o motivo e a
@@ -64,7 +64,7 @@ Cada cenário roda contra a CLI real, num repositório Git descartável, com o n
 
 - **Cobre:** R6.
 - **Ponto de partida:** F01a na aprovação da fase 7.
-- **Ação:** `curupira reject F01a --reason "faltou tratar o erro de rede"`.
+- **Ação:** `curupira reject F01a`, com o motivo "faltou tratar o erro de rede".
 - **Resultado esperado:** a F01a volta à fase 5, e o arquivo dela registra a recusa com o motivo, o nome de autor e
   a data e hora.
 
@@ -109,3 +109,5 @@ público, o nome fica visível, e a documentação avisa.
 - 2026-11-03: aprovada na fase 4 com "sim", por Janderson; voltou à fase 3 no mesmo dia, porque os nomes dos
   comandos, das opções e do caminho do estado passaram para o inglês (ADR-0027). O comportamento não mudou.
 - 2026-11-03: aprovada de novo na fase 4 com "sim", por Janderson, com os nomes em inglês.
+- 2026-11-03: com a F01b, o motivo da recusa passou a vir do "não, <motivo>" digitado, e o `reject` perdeu o
+  `--reason` ([F01b](../F01b-prova-de-decisao-humana/spec.md), decisões).
