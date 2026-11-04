@@ -113,6 +113,29 @@ O meio da linha, das fases 3 a 7, anda; as duas pontas não.
    Completude confere a peça contra a linha (quem roda cada comando, o que vem antes e o que vem depois).
 5. **Retomar a F02** com a linha nova.
 
+## As decisões dos nós
+
+Cada nó decidido entra aqui, com as palavras da pessoa resumidas e o que decorre dele. No fim, tudo vira o ADR da
+linha.
+
+### Nó 1: quem toca a CLI (2026-11-04)
+
+**Decisão da pessoa:** os comandos de preparação, da instalação até o Curupira estar implantado no projeto, são
+rodados pela pessoa (quem desenvolve, analisa ou estuda). Depois disso, o trabalho é a conversa entre a pessoa e o
+agente de IA, e os comandos dessa interação são do agente.
+
+O que decorre, para confirmar nos próximos nós:
+
+- A pessoa roda a instalação e o `init`. O `init` prepara o projeto: liga o hook das respostas, cria os arquivos do
+  agente e põe `.curupira/local/` no `.gitignore`. Serve para quem adota e para quem clona, e não registra decisão.
+- Rodar o `init` é o ato da pessoa que autoriza o hook das respostas; os hooks que barram ações (F05) continuam
+  propostos na adoção.
+- Os comandos do fluxo (`open`, `advance`, `approve`, `reject` e a entrega da proposta de perfil) são do agente,
+  na conversa, e as decisões continuam digitadas ([ADR-0025](../../decisoes/0025-a-pessoa-decide-pela-conversa.md)).
+- Os comandos que só leem (`curupira` sem argumentos, com a tela inicial, e `status`) servem aos dois.
+- O `init` deixa de ter os sentidos de "o agente entrega a proposta" e de "começar a adoção": a adoção começa
+  quando a pessoa pede ao agente, depois do `init`.
+
 ## Números
 
 | Medida                                   | Valor                                       |
