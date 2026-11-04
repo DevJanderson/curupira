@@ -36,4 +36,6 @@ consistência verificáveis, de forma repetível entre projetos?
 - [Hipóteses](hipoteses.md): as apostas que a pesquisa quer confirmar ou derrubar.
 - [Mapa do conhecimento](mapa-do-conhecimento.md): os 11 eixos da pesquisa.
 - [A jornada](../conceitos/jornada.md): as 9 fases e as 5 aprovações.
+- [Roteiro do PRD](roteiro-prd.md), [da spec](roteiro-spec.md) e [da revisão e da entrega](roteiro-entrega.md): o que o
+  agente faz nas fases 2, 3, 7 e 8.
 - [Registro de decisões](../decisoes/README.md): os ADRs.

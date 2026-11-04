@@ -33,3 +33,4 @@ numa linha nova.
 | 2026-11-03 | 26    | Fase 8 da F01b: merge pela pessoa (`7a2ec9b`); 4 melhorias aceitas no roteiro da spec e no ADR-0003                                            |
 | 2026-11-04 | 27    | Parecer sobre o fluxo da F01a e da F01b, com 5 recomendações aceitas; ADR-0028 (cartão de decisão) e ADR-0029 (mascote)                        |
 | 2026-11-04 | 28    | ADR-0030: três tipos de mensagem do agente (aviso de passo, cartão de decisão, resposta), "segue" para continuar e 🔥 no próximo passo         |
+| 2026-11-04 | 29    | Roteiro da revisão e da entrega: eixo de testes com outro olhar, tabela de medição por funcionalidade e poda de regras na fase 8               |

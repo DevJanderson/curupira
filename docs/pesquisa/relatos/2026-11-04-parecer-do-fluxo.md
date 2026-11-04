@@ -28,13 +28,13 @@ certo, antes de seguir para a F02.
 
 Todas aceitas pela pessoa em 2026-11-04:
 
-| #   | Recomendação                                                                     | Onde entra                                                            |
-| --- | -------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| 1   | Uma tabela fixa de medição por funcionalidade: tempo, tokens, defeitos por fase  | no relato de cada funcionalidade, a partir da F02                     |
-| 2   | Um cartão de decisão que aponta onde a pessoa olha, e o tempo até a resposta     | [ADR-0028](../../decisoes/0028-cartao-de-decisao.md), a partir da F02 |
-| 3   | Um eixo da revisão com outro olhar: outro modelo ou uma amostra lida pela pessoa | na revisão da F02                                                     |
-| 4   | Na fase 8, podar regras além de acrescentar                                      | no roteiro da fase 8                                                  |
-| 5   | Um segundo projeto pequeno, cedo                                                 | depois da F02 e da F04a                                               |
+| #   | Recomendação                                                                     | Onde entra                                                             |
+| --- | -------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| 1   | Uma tabela fixa de medição por funcionalidade: tempo, tokens, defeitos por fase  | [roteiro da entrega](../../metodo/roteiro-entrega.md), a partir da F02 |
+| 2   | Um cartão de decisão que aponta onde a pessoa olha, e o tempo até a resposta     | [ADR-0028](../../decisoes/0028-cartao-de-decisao.md), a partir da F02  |
+| 3   | Um eixo da revisão com outro olhar: outro modelo ou uma amostra lida pela pessoa | [roteiro da entrega](../../metodo/roteiro-entrega.md), a partir da F02 |
+| 4   | Na fase 8, podar regras além de acrescentar                                      | [roteiro da entrega](../../metodo/roteiro-entrega.md), a partir da F02 |
+| 5   | Um segundo projeto pequeno, cedo                                                 | depois da F02 e da F04a                                                |
 
 ## O mascote
 
