@@ -63,3 +63,9 @@ Nenhuma contraria a spec.
 - Os cenários dependem de a resposta e o pedido não caírem no mesmo milissegundo; cada um roda em um processo
   separado, e o caso da mesma hora está nos testes dos comandos.
 - O hash da fase 4 cobre só o `spec.md`: mudar outro arquivo não invalida a aprovação, como diz a decisão da spec.
+
+## Histórico
+
+- 2026-11-04: aprovada na fase 7 com "sim", por Janderson, no PR
+  [#5](https://github.com/DevJanderson/curupira/pull/5). É a primeira aprovação gravada com o pedido: o `request` da
+  CLI da branch, às 16:12, no commit `d54861a`, e o `approve`, às 16:14.
