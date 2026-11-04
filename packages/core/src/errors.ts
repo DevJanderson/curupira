@@ -18,7 +18,9 @@ export type FlowErrorCode =
   | "approve-needs-answer"
   | "plain-yes-only"
   | "reject-needs-answer"
-  | "invalid-hook-input";
+  | "invalid-hook-input"
+  | "invalid-settings"
+  | "symlink";
 
 export class FlowError extends Error {
   readonly code: FlowErrorCode;

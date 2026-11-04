@@ -9,7 +9,7 @@ import {
 } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { agentSession, readPromptHook } from "@curupira/claude-code";
+import { agentSession, answerHook, readPromptHook } from "@curupira/claude-code";
 import { answerFile, stateFile } from "@curupira/core";
 import { beforeEach, expect, test } from "vite-plus/test";
 import { run } from "../src/run.ts";
@@ -50,7 +50,7 @@ function cliWith(stdin: string, args: string[], now = NOW) {
   const code = run(args, {
     cwd: repo,
     env,
-    agent: { session: agentSession, readPrompt: readPromptHook },
+    agent: { session: agentSession, readPrompt: readPromptHook, answerHook },
     stdin: () => stdin,
     now: () => now,
     out: (line) => out.push(line),

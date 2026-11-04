@@ -12,9 +12,9 @@ A revisão roda em eixos (spec, segurança, testes, padrões), cada um num subag
 
 - **Um eixo com outro olhar.** O eixo de testes, que achou 8 dos 10 defeitos da revisão na F01a e na F01b, roda com
   um olhar diferente do agente que implementou: na v1, outro modelo do mesmo agente
-  ([ADR-0005](../decisoes/0005-so-claude-code-na-v1.md)). Sem outro modelo,
-  o cartão de decisão leva um teste por cenário nos pontos 👀, para a pessoa ler
-  ([ADR-0028](../decisoes/0028-cartao-de-decisao.md)).
+  ([ADR-0005](../decisoes/0005-so-claude-code-na-v1.md)).
+- **O eixo que muda o código de propósito roda à parte.** As mutações do eixo de testes acontecem numa cópia de
+  trabalho só dele, para os outros eixos, que rodam ao mesmo tempo, não lerem o código no meio de uma mutação.
 - A revisão diz qual olhar foi usado e quantos defeitos ele achou que os outros eixos não acharam.
 - O pedido de aprovação da fase 7 é um cartão de decisão; a CLI grava a hora do pedido, e a medição tira dela o
   tempo até a resposta.
@@ -57,3 +57,6 @@ Até a F12 existir, o agente preenche à mão. A tabela guarda só números
 - 2026-11-04: na v1, o outro olhar é outro modelo do mesmo agente; a duração vai até o "sim" da fase 8, e os defeitos
   depois do merge se contam na F13; o tempo até a resposta sai da hora do pedido
   ([ADR-0031](../decisoes/0031-a-linha.md)).
+- 2026-11-04: entrou o eixo que muda o código numa cópia de trabalho à parte; saiu o cartão com um teste por cenário
+  para quando não há outro modelo, que nunca foi usado
+  ([relato da F00](../pesquisa/relatos/2026-11-04-fases-5-a-7-f00.md)).

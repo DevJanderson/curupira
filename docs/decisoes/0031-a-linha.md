@@ -137,3 +137,5 @@ funcionalidade volta à 5, ou à 3 se a mudança alterar a spec.
 
 - 2026-11-04: aceita pela pessoa com um "sim" digitado, depois de duas correções na conversa: a instalação é o
   script `curl` (sem npm) e usa só o GitHub (sem domínio próprio).
+- 2026-11-04: a F00 constrói a fase 0: o script de instalação, sem npm, e o `curupira init`, que liga o hook das
+  respostas e põe `.curupira/local/` no `.gitignore`. A tabela não muda.

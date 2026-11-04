@@ -9,7 +9,10 @@ import {
   gitAuthor,
   hasApproval,
   isFeatureId,
+  ignoreLocalData,
+  LOCAL_LINE,
   open,
+  prepareProject,
   projectRoot,
   purgeAnswers,
   readAllStates,
@@ -20,6 +23,7 @@ import {
   rejectionReason,
   writeState,
   type FeatureState,
+  type ProjectFile,
 } from "@curupira/core";
 import { errorMessage, message } from "./messages.ts";
 
@@ -29,6 +33,8 @@ export interface Agent {
   session: (env: NodeJS.ProcessEnv) => string | undefined;
   // A mensagem digitada, como o hook do agente a entrega na entrada padrão.
   readPrompt: (input: string) => { session: string; prompt: string };
+  // O hook das respostas no arquivo de configuração do agente, que o `init` liga.
+  answerHook: ProjectFile;
 }
 
 export interface Io {
@@ -43,6 +49,7 @@ export interface Io {
 
 // O argumento e as opções que cada comando aceita; o que não estiver aqui é erro de uso.
 const COMMANDS: Record<string, { argument: boolean; options: string[] }> = {
+  init: { argument: false, options: [] },
   open: { argument: true, options: [] },
   status: { argument: false, options: [] },
   advance: { argument: true, options: [] },
@@ -70,6 +77,10 @@ export function run(args: string[], io: Io): number {
 
   try {
     const root = projectRoot(io.cwd, io.env);
+    if (command === "init") {
+      prepare(root, io);
+      return 0;
+    }
     if (command === "status") {
       status(root, io);
       return 0;
@@ -121,6 +132,14 @@ export function run(args: string[], io: Io): number {
     io.err(errorMessage(error));
     return 1;
   }
+}
+
+// Preparar não grava decisão nem estado: só liga o hook e põe a pasta local no .gitignore (ADR-0031, fase 0).
+function prepare(root: string, io: Io): void {
+  const changed = prepareProject(root, [io.agent.answerHook, ignoreLocalData]);
+  if (changed.length === 0) io.out(message("init-ready"));
+  for (const { file, change } of changed)
+    io.out(message(`init.${change}`, { file, line: LOCAL_LINE }));
 }
 
 function status(root: string, io: Io): void {

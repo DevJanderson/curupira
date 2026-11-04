@@ -11,9 +11,9 @@ export function message(key: MessageKey, params: Params = {}): string {
 }
 
 export function errorMessage(error: FlowError): string {
-  if (error.code === "invalid-state") {
+  if (error.code === "invalid-state" || error.code === "invalid-settings") {
     const problem = message(`problem.${error.params.problem}` as MessageKey);
-    return message("error.invalid-state", { ...error.params, problem });
+    return message(`error.${error.code}`, { ...error.params, problem });
   }
   return message(`error.${error.code}`, error.params);
 }
