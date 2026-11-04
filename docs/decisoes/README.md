@@ -36,3 +36,5 @@ Cada decisão de arquitetura nova ou mudada vira um ADR aqui, antes do código. 
 | [0030](0030-como-o-agente-fala-com-a-pessoa.md)               | Como o agente fala com a pessoa                     | aceita               |
 | [0031](0031-a-linha.md)                                       | A linha                                             | aceita               |
 | [0032](0032-parar-a-recursao.md)                              | Parar a recursão                                    | aceita               |
+| [0033](0033-todo-passo-tem-base.md)                           | Todo passo tem base                                 | aceita               |
+| [0034](0034-fluxo-no-github.md)                               | O fluxo no GitHub                                   | aceita               |

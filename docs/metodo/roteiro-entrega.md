@@ -25,6 +25,13 @@ A revisão roda em eixos (spec, segurança, testes, padrões), cada um num subag
   e o commit, e só então o cartão de decisão. Entre o pedido e a resposta, nenhum commit: um commit novo faz o
   `approve` recusar, e é preciso um pedido novo. A medição tira da hora do pedido o tempo até a resposta.
 
+### O PR
+
+O fluxo no GitHub segue o [ADR-0034](../decisoes/0034-fluxo-no-github.md). Na fase 7, o agente tira o PR de
+rascunho (`gh pr ready`) e completa o corpo pelo template: "Closes #n", a spec, os cenários, o veredito do verificador
+e o que a revisão achou. Acima de cerca de 400 linhas de código mudadas (fora documentação e testes), o cartão de
+decisão avisa, porque a revisão rende menos em mudança grande.
+
 ## Fase 8: entrega
 
 ### A tabela de medição
@@ -49,6 +56,11 @@ O agente preenche à mão, no fim do relato da peça, que é um só e curto. A t
 - As outras melhorias que a peça mostrou vão para o [backlog](../product/backlog.md).
 - O que entra e o que sai vai para o histórico do roteiro, com o link do relato.
 
+### O merge
+
+A pessoa faz o merge com commit de merge; a branch se apaga e a issue fecha sozinha. Antes do pedido da fase 8, o
+agente põe uma linha no "Unreleased" do `CHANGELOG.md`, no formato do Keep a Changelog.
+
 ### Depois da entrega
 
 Antes de abrir a próxima peça, a pessoa revê os itens pendentes do backlog e decide cada um: entra, sai ou fica.
@@ -66,3 +78,6 @@ Antes de abrir a próxima peça, a pessoa revê os itens pendentes do backlog e 
 - 2026-11-04: pelo [ADR-0032](../decisoes/0032-parar-a-recursao.md), o eixo de segurança passa a conferir os casos de
   borda que saíram da spec; a medição fica com quatro linhas; a fase 8 traz no máximo uma mudança do método, e só com
   uma regra saindo; o resto vai para o backlog, que a pessoa revê antes da próxima peça.
+- 2026-11-04: pelo [ADR-0034](../decisoes/0034-fluxo-no-github.md), o PR sai de rascunho na fase 7 pelo template,
+  com aviso acima de cerca de 400 linhas de código; a entrega põe uma linha no changelog, e o merge é com commit de
+  merge, apagando a branch.

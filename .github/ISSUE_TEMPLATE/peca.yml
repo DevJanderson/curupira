@@ -1,0 +1,29 @@
+name: Peça
+description: Uma peça da lista de funcionalidades, aberta na fase 3 (ADR-0034).
+title: "<ID>: <nome da peça>"
+labels: ["peça"]
+body:
+  - type: input
+    id: id
+    attributes:
+      label: ID
+      description: O ID da peça em docs/product/features.md, como F02.
+    validations:
+      required: true
+  - type: textarea
+    id: problema
+    attributes:
+      label: Qual é o problema, e para quem?
+      description: A primeira das seis perguntas da spec (ADR-0032).
+    validations:
+      required: true
+  - type: input
+    id: prazo
+    attributes:
+      label: Prazo
+      description: Quanto tempo a peça vale, em horas de trabalho do agente.
+  - type: input
+    id: spec
+    attributes:
+      label: Spec
+      description: O caminho da spec, quando existir (docs/specs/<ID>-<nome>/spec.md).

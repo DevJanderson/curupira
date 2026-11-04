@@ -68,7 +68,8 @@ funcionalidade volta à 5, ou à 3 se a mudança alterar a spec.
    dela. O perfil e o PRD guardam só o conteúdo. Nenhuma funcionalidade abre sem o perfil e o PRD aprovados na `main`.
 4. **Cada etapa anda numa branch e chega à `main` por um PR que o agente abre e a pessoa junta.** A CLI cria a branch no
    começo da etapa, sempre a partir da `main`: o `open` na fase 3 e o primeiro comando das fases 1 e 2. Cada
-   funcionalidade tem um PR só, com spec, plano, estado, código e verificação. As fases 1 e 2 andam uma por vez, e a
+   funcionalidade tem uma issue e um PR só, com spec, plano, estado, código e verificação; o PR abre como rascunho
+   depois do commit da spec ([ADR-0034](0034-fluxo-no-github.md)). As fases 1 e 2 andam uma por vez, e a
    seguinte começa depois do merge da anterior; as funcionalidades andam em paralelo, cada uma na sua branch.
 5. **A entrega se liga ao merge.** O "sim" da fase 8 grava "entregue" e a medição na branch, e o merge leva isso à
    `main`. Enquanto a branch não chega à `main`, o `status` rodado nela mostra "esperando merge", lido do Git, sem
@@ -151,3 +152,5 @@ funcionalidade volta à 5, ou à 3 se a mudança alterar a spec.
 - 2026-11-04: pelo [ADR-0032](0032-parar-a-recursao.md), a regra 9 sai, e as regras 3 a 5 seguem como prática do
   agente, à mão, sem peça que as imponha: a F01d saiu da fila para o backlog. Onde a tabela cita a F01d, a branch e o
   "esperando merge" ficam com o agente; as decisões das fases 1 e 2 seguem no PRD.
+- 2026-11-04: pelo [ADR-0034](0034-fluxo-no-github.md), a regra 4 ganha a issue da peça e o PR rascunho depois da
+  spec; enquanto a CLI não cria a branch (B01 do backlog), o agente a cria à mão a partir da `main`.
