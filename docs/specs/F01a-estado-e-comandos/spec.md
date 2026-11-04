@@ -110,4 +110,5 @@ público, o nome fica visível, e a documentação avisa.
   comandos, das opções e do caminho do estado passaram para o inglês (ADR-0027). O comportamento não mudou.
 - 2026-11-03: aprovada de novo na fase 4 com "sim", por Janderson, com os nomes em inglês.
 - 2026-11-03: com a F01b, o motivo da recusa passou a vir do "não, <motivo>" digitado, e o `reject` perdeu o
-  `--reason` ([F01b](../F01b-prova-de-decisao-humana/spec.md), decisões).
+  `--reason` ([F01b](../F01b-prova-de-decisao-humana/spec.md), decisões). A mudança foi aprovada junto com a spec
+  da F01b, na fase 4 dela.

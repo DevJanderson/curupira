@@ -9,7 +9,8 @@ import {
 } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { stateFile } from "@curupira/core";
+import { agentSession, readPromptHook } from "@curupira/claude-code";
+import { answerFile, stateFile } from "@curupira/core";
 import { beforeEach, expect, test } from "vite-plus/test";
 import { run } from "../src/run.ts";
 
@@ -39,18 +40,19 @@ function cli(...args: string[]) {
 }
 
 // A mensagem digitada passa pelo hook, como o Claude Code faria.
-function say(prompt: string) {
-  return cliWith(JSON.stringify({ session_id: SESSION, prompt }), ["hook", "answer"]);
+function say(prompt: string, session = SESSION, now = NOW) {
+  return cliWith(JSON.stringify({ session_id: session, prompt }), ["hook", "answer"], now);
 }
 
-function cliWith(stdin: string, args: string[]) {
+function cliWith(stdin: string, args: string[], now = NOW) {
   const out: string[] = [];
   const err: string[] = [];
   const code = run(args, {
     cwd: repo,
     env,
+    agent: { session: agentSession, readPrompt: readPromptHook },
     stdin: () => stdin,
-    now: () => NOW,
+    now: () => now,
     out: (line) => out.push(line),
     err: (line) => err.push(line),
   });
@@ -244,11 +246,56 @@ test("sem a sessão do agente, a decisão é recusada", () => {
   cli("advance", "F01a");
   say("sim");
   delete env.CLAUDE_CODE_SESSION_ID;
+  const before = readFileSync(stateFile(repo, "F01a"), "utf8");
   const result = cli("approve", "F01a");
   expect(result.code).toBe(1);
   expect(result.err).toContain("sessão");
   expect(result.err).toContain('"sim"');
   expect(result.err).toContain("não, <motivo>");
+  expect(readFileSync(stateFile(repo, "F01a"), "utf8")).toBe(before);
+});
+
+test("a recusa usada é apagada e não vale para a próxima recusa", () => {
+  cli("open", "F01a");
+  cli("advance", "F01a");
+  say("não, falta um cenário");
+  expect(cli("reject", "F01a").code).toBe(0);
+  expect(existsSync(answerFile(repo, SESSION))).toBe(false);
+  cli("advance", "F01a");
+  const before = readFileSync(stateFile(repo, "F01a"), "utf8");
+  const again = cli("reject", "F01a");
+  expect(again.code).toBe(1);
+  expect(again.err).toContain("não, <motivo>");
+  expect(readFileSync(stateFile(repo, "F01a"), "utf8")).toBe(before);
+});
+
+test("um sim digitado em outra sessão não aprova", () => {
+  cli("open", "F01a");
+  cli("advance", "F01a");
+  say("sim", "outra-sessao");
+  const before = readFileSync(stateFile(repo, "F01a"), "utf8");
+  const result = cli("approve", "F01a");
+  expect(result.code).toBe(1);
+  expect(result.err).toContain('"sim"');
+  expect(readFileSync(stateFile(repo, "F01a"), "utf8")).toBe(before);
+});
+
+test("um sim de mais de 30 dias não aprova", () => {
+  cli("open", "F01a");
+  cli("advance", "F01a");
+  say("sim", SESSION, "2026-10-01T20:00:00.000Z");
+  const result = cli("approve", "F01a");
+  expect(result.code).toBe(1);
+  expect(result.err).toContain('"sim"');
+  expect(state("F01a").phase).toBe(4);
+});
+
+test("o hook apaga as respostas de mais de 30 dias, de qualquer sessão", () => {
+  say("sim", "outra-sessao", "2026-10-01T20:00:00.000Z");
+  say("sim", "sessao-recente", "2026-10-20T20:00:00.000Z");
+  say("oi");
+  expect(existsSync(answerFile(repo, "outra-sessao"))).toBe(false);
+  expect(existsSync(answerFile(repo, "sessao-recente"))).toBe(true);
 });
 
 test("qual erro vence: a fase antes da resposta, e a resposta antes do autor", () => {

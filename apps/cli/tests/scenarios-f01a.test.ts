@@ -43,7 +43,8 @@ function git(...args: string[]): string {
 // Com a F01b, cada decisão precisa de uma resposta digitada, que entra pelo hook como o Claude Code a entregaria.
 function say(prompt: string): void {
   const input = JSON.stringify({ session_id: SESSION, prompt });
-  spawnSync(process.execPath, [MAIN, "hook", "answer"], { cwd: repo, env, input });
+  const result = spawnSync(process.execPath, [MAIN, "hook", "answer"], { cwd: repo, env, input });
+  expect(result.status).toBe(0);
 }
 
 function cli(...args: string[]) {

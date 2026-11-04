@@ -1,5 +1,4 @@
 import { parseArgs } from "node:util";
-import { agentSession, readPromptHook } from "@curupira/claude-code";
 import {
   advance,
   approvalPhase,
@@ -24,9 +23,18 @@ import {
 } from "@curupira/core";
 import { errorMessage, message } from "./messages.ts";
 
+// O que muda de um agente para outro chega pronto do adaptador; quem o escolhe é o main.ts (ADR-0021).
+export interface Agent {
+  // A sessão dos comandos que o agente roda.
+  session: (env: NodeJS.ProcessEnv) => string | undefined;
+  // A mensagem digitada, como o hook do agente a entrega na entrada padrão.
+  readPrompt: (input: string) => { session: string; prompt: string };
+}
+
 export interface Io {
   cwd: string;
   env: NodeJS.ProcessEnv;
+  agent: Agent;
   stdin: () => string;
   now: () => string;
   out: (line: string) => void;
@@ -68,7 +76,7 @@ export function run(args: string[], io: Io): number {
     }
     if (command === "hook") {
       // Nada vai para a saída padrão: no Claude Code, ela entraria no contexto do agente.
-      const { session, prompt } = readPromptHook(io.stdin());
+      const { session, prompt } = io.agent.readPrompt(io.stdin());
       purgeAnswers(root, new Date(io.now()));
       recordAnswer(root, session, prompt, io.now());
       return 0;
@@ -93,7 +101,7 @@ export function run(args: string[], io: Io): number {
     }
     // Qual erro vence: a fase, depois a sessão, a resposta digitada e, por último, o autor.
     const from = approvalPhase(current);
-    const session = agentSession(io.env);
+    const session = io.agent.session(io.env);
     if (session === undefined) throw new FlowError("no-session");
     const answer = readAnswer(root, session, new Date(io.now()));
     const supporting =

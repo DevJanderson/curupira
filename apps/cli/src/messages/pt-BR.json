@@ -16,7 +16,7 @@
   "error.needs-decision": "{id} está na fase {phase}, que espera aprovação. Use approve ou reject.",
   "error.no-approval": "{id} está na fase {phase}, que não tem aprovação.",
   "error.delivered": "{id} já foi entregue.",
-  "error.missing-reason": "A recusa de {id} precisa de um motivo: --reason <texto>.",
+  "error.missing-reason": "A recusa de {id} precisa de um motivo: digite \"não, <motivo>\" na conversa.",
   "error.spec-only-in-phase-7": "--spec só vale na recusa da fase 7; {id} está na fase {phase}.",
   "error.no-git-author": "O Git não tem nome de autor. Configure com: git config user.name \"Seu Nome\"",
   "error.not-a-git-repo": "Esta pasta não está num repositório Git.",

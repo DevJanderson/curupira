@@ -110,6 +110,23 @@ describe("o registro da última mensagem", () => {
     expect(existsSync(answerFile(root, "sem-data"))).toBe(false);
     expect(readAnswer(root, "nova")).toEqual({ at: daysAgo(1).toISOString(), text: "sim" });
   });
+
+  test("uma resposta com data inválida ou no futuro não vale, e a limpeza usa a data do arquivo", () => {
+    const now = new Date(AT);
+    recordAnswer(root, SESSION, "sim", "ontem");
+    expect(readAnswer(root, SESSION, now)).toBeUndefined();
+    recordAnswer(root, SESSION, "sim", "2027-01-01T00:00:00.000Z");
+    expect(readAnswer(root, SESSION, now)).toBeUndefined();
+    const old = new Date("2026-09-01T00:00:00.000Z");
+    utimesSync(answerFile(root, SESSION), old, old);
+    purgeAnswers(root, now);
+    expect(existsSync(answerFile(root, SESSION))).toBe(false);
+  });
+
+  test("guarda o texto na forma composta, para um não com acento separado contar", () => {
+    recordAnswer(root, SESSION, "na\u0303o, falta um cenário", AT);
+    expect(readAnswer(root, SESSION)).toEqual({ at: AT, text: "não, falta um cenário" });
+  });
 });
 
 describe("o sim que aprova", () => {
@@ -129,7 +146,7 @@ describe("o sim que aprova", () => {
       "sim, F01a",
       "sim.F01a",
     ];
-    for (const text of [...texts, "sim:F02", "sim\nF01a", "sim/abc"]) {
+    for (const text of [...texts, "sim:F02", "sim\nF01a", "sim/abc", "sim  F01a"]) {
       expect(failure(() => approvalText({ at: AT, text }, "F01a")).code).toBe("plain-yes-only");
     }
   });

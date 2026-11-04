@@ -26,15 +26,18 @@ export function answerFile(root: string, session: string): string {
 
 export function recordAnswer(root: string, session: string, prompt: string, at: string): void {
   const file = answerFile(root, session);
-  const answer: Answer = DECISION_START.test(prompt.trim()) ? { at, text: prompt } : { at };
+  // Na forma composta, um "não" com o acento como caractere à parte conta igual.
+  const text = prompt.normalize("NFC");
+  const answer: Answer = DECISION_START.test(text.trim()) ? { at, text } : { at };
   ignoreInGit(root);
   writeFileAtomic(file, JSON.stringify(answer) + "\n", join(ANSWERS_DIR, `${session}.json`));
 }
 
-// Uma resposta de mais de 30 dias não vale, mesmo que a limpeza ainda não tenha rodado.
+// Uma resposta de mais de 30 dias não vale, mesmo que a limpeza ainda não tenha rodado; uma com data
+// inválida ou no futuro também não.
 export function readAnswer(root: string, session: string, now?: Date): Answer | undefined {
   const answer = parseAnswer(answerFile(root, session));
-  if (answer && now && now.getTime() - Date.parse(answer.at) > MAX_AGE_MS) return undefined;
+  if (answer && now && !isRecent(Date.parse(answer.at), now)) return undefined;
   return answer;
 }
 
@@ -53,10 +56,10 @@ export function purgeAnswers(root: string, now: Date): void {
   }
   for (const name of names) {
     const file = join(dir, name);
-    // A idade vem da data da resposta; sem ela, da data do arquivo.
+    // A idade vem da data da resposta; sem ela, ou com uma data no futuro, da data do arquivo.
     const at = Date.parse(parseAnswer(file)?.at ?? "");
-    const time = Number.isNaN(at) ? statSync(file).mtimeMs : at;
-    if (now.getTime() - time > MAX_AGE_MS) rmSync(file, { force: true });
+    const time = Number.isNaN(at) || at > now.getTime() ? statSync(file).mtimeMs : at;
+    if (!isRecent(time, now)) rmSync(file, { force: true });
   }
 }
 
@@ -82,6 +85,11 @@ export function rejectionReason(answer: Answer | undefined, id: string): string 
   const reason = match?.[1]?.trim().replace(ownId, "").trim();
   if (!reason || /^[.!?]+$/.test(reason)) throw new FlowError("reject-needs-answer", { id });
   return reason;
+}
+
+function isRecent(time: number, now: Date): boolean {
+  const age = now.getTime() - time;
+  return age >= 0 && age <= MAX_AGE_MS;
 }
 
 // Maiúsculas, espaços nas pontas e um ponto final não contam (spec da F01b, decisões).

@@ -28,3 +28,9 @@ Complementa o ADR-0005.
 - Um agente novo exige escrever um adaptador, não mexer no núcleo.
 - O núcleo não pode depender do adaptador; essa fronteira precisa ser checada por máquina.
 - O adaptador de cada agente leva o nome dele (ADR-0020, item 7).
+
+## Histórico
+
+- 2026-11-03: com a F01b, entrou o primeiro adaptador, o pacote `claude-code`. A entrada da CLI (`apps/cli/src/main.ts`)
+  é o único lugar que escolhe o adaptador e o passa adiante; o núcleo e o resto da CLI não o importam, e um teste
+  na raiz do repositório confere essa fronteira.
