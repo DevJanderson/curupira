@@ -1,6 +1,6 @@
 # F02: Adotar o projeto
 
-- **Status:** rascunho, na fase 3
+- **Status:** rascunho, na aprovação da fase 4
 - **Data:** 2026-11-04
 
 ## Objetivo

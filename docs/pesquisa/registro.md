@@ -36,4 +36,4 @@ numa linha nova.
 | 2026-11-04 | 29    | Roteiro da revisão e da entrega: eixo de testes com outro olhar, tabela de medição por funcionalidade e poda de regras na fase 8                     |
 | 2026-11-04 | 30    | Recusa da fase 4 da F02 pela CLI; o contraditório entra na fase 3 do roteiro da spec e o cartão aponta só o que já está decidido                     |
 | 2026-11-04 | 31    | Contraditório da F02: 12 lacunas e 5 excessos, 14 incorporados na spec e no plano, 1 recusado e 1 pergunta à pessoa                                  |
-| 2026-11-04 | 32    | Pergunta 2 da F02 respondida com "a" (toda decisão da fase 1 fica gravada) e segunda rodada do contraditório: 6 achados, 4 incorporados e 1 recusado |
+| 2026-11-04 | 32    | Pergunta 2 da F02 respondida com "a" (toda decisão da fase 1 fica gravada) e segunda rodada do contraditório: 6 achados, 5 incorporados e 1 recusado |
