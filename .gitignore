@@ -31,3 +31,6 @@ dist-ssr
 
 # AI agent worktrees
 .claude/worktrees/
+
+# Dados locais do Curupira: provas brutas e temporários, fora do Git (ADR-0023)
+.curupira/local/

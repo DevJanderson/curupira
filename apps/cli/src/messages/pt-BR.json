@@ -5,6 +5,7 @@
   "approved": "{id} aprovada na fase {from} por {by}; agora na fase {phase}.",
   "approved-delivered": "{id} aprovada na fase 8 por {by}; entregue.",
   "rejected": "{id} recusada na fase {from} por {by}; voltou à fase {phase}.",
+  "rejected-stays": "{id} recusada na fase {from} por {by}; continua na fase {phase}, sem merge.",
   "status-empty": "Nenhuma funcionalidade na jornada. Abra uma com: {cli} open <ID>",
   "status-phase": "{id}  fase {phase}",
   "status-waiting": "{id}  fase {phase}  espera aprovação",
@@ -21,6 +22,9 @@
   "error.not-a-git-repo": "Esta pasta não está num repositório Git.",
   "error.invalid-state": "O arquivo {file} está inválido: {problem}.",
   "problem.json": "não é um JSON válido",
+  "problem.object": "o conteúdo não é um objeto JSON",
+  "problem.name": "o nome do arquivo não é um ID de funcionalidade",
+  "problem.read": "não foi possível ler o arquivo",
   "problem.id": "o id não confere com o nome do arquivo",
   "problem.phase": "a fase não existe na jornada",
   "problem.decisions": "a lista de decisões está malformada"

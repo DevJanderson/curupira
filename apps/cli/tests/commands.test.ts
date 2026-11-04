@@ -141,3 +141,23 @@ test("comando desconhecido ou sem ID mostra o uso", () => {
   expect(cli("approve").code).toBe(1);
   expect(cli("status", "--spec").code).toBe(1);
 });
+
+test("open de uma funcionalidade entregue diz que foi entregue, sem o nome interno da fase", () => {
+  cli("open", "F01a");
+  writeFileSync(
+    stateFile(repo, "F01a"),
+    JSON.stringify({ id: "F01a", phase: "delivered", decisions: [] }),
+  );
+  const result = cli("open", "F01a");
+  expect(result.code).toBe(1);
+  expect(result.err).toContain("entregue");
+  expect(result.err).not.toContain("delivered");
+});
+
+test("a recusa na fase 8 diz que a funcionalidade continua na fase 8", () => {
+  cli("open", "F01a");
+  writeFileSync(stateFile(repo, "F01a"), JSON.stringify({ id: "F01a", phase: 8, decisions: [] }));
+  const result = cli("reject", "F01a", "--reason", "sem merge");
+  expect(result.code).toBe(0);
+  expect(result.out).toContain("continua na fase 8");
+});

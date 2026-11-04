@@ -63,6 +63,17 @@ test("um arquivo inválido gera erro com o nome do arquivo e o problema", () => 
   mkdirSync(dir, { recursive: true });
   const cases: [string, string][] = [
     ["{", "json"],
+    ["[]", "object"],
+    [
+      '{"id":"F01a","phase":5,"decisions":[{"phase":4,"decision":"approve","by":"","at":"' +
+        AT +
+        '"}]}',
+      "decisions",
+    ],
+    [
+      '{"id":"F01a","phase":5,"decisions":[{"phase":4,"decision":"approve","by":"Ana","at":"ontem"}]}',
+      "decisions",
+    ],
     ['{"id":"F02","phase":3,"decisions":[]}', "id"],
     ['{"id":"F01a","phase":9,"decisions":[]}', "phase"],
     ['{"id":"F01a","phase":3}', "decisions"],
@@ -78,4 +89,18 @@ test("um arquivo inválido gera erro com o nome do arquivo e o problema", () => 
     expect(error.params).toEqual({ file: join(DATA_DIR, "state", "F01a.json"), problem });
     expect(failure(() => readAllStates(root)).code).toBe("invalid-state");
   }
+});
+
+test("um arquivo cujo nome não é ID de funcionalidade é inválido", () => {
+  const dir = join(root, DATA_DIR, "state");
+  mkdirSync(dir, { recursive: true });
+  writeFileSync(join(dir, "x.json"), '{"id":"x","phase":3,"decisions":[]}');
+  const error = failure(() => readAllStates(root));
+  expect(error.params).toEqual({ file: join(DATA_DIR, "state", "x.json"), problem: "name" });
+});
+
+test("um arquivo que não pode ser lido gera erro de estado, não uma exceção do Node", () => {
+  mkdirSync(join(root, DATA_DIR, "state", "F04.json"), { recursive: true });
+  expect(failure(() => readState(root, "F04")).params.problem).toBe("read");
+  expect(failure(() => readAllStates(root)).params.problem).toBe("read");
 });

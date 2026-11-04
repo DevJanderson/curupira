@@ -61,6 +61,7 @@ export function run(args: string[], io: Io): number {
     if (!isFeatureId(id!)) throw new FlowError("invalid-id", { id: id! });
     if (command === "open") {
       const existing = readState(root, id!);
+      if (existing?.phase === "delivered") throw new FlowError("delivered", { id: id! });
       if (existing) throw new FlowError("already-open", { id: id!, phase: existing.phase });
       writeState(root, open(id!));
       io.out(message("opened", { id: id! }));
@@ -107,7 +108,8 @@ function decided(
 ): string {
   if (next.phase === "delivered") return message("approved-delivered", { id: next.id, by });
   const params = { id: next.id, from, by, phase: next.phase };
-  return message(command === "approve" ? "approved" : "rejected", params);
+  if (command === "approve") return message("approved", params);
+  return message(next.phase === from ? "rejected-stays" : "rejected", params);
 }
 
 function usage(io: Io): number {
