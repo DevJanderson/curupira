@@ -1,4 +1,12 @@
-import { mkdirSync, readdirSync, readFileSync, renameSync, statSync, writeFileSync } from "node:fs";
+import {
+  mkdirSync,
+  readdirSync,
+  readFileSync,
+  renameSync,
+  rmSync,
+  statSync,
+  writeFileSync,
+} from "node:fs";
 import { join } from "node:path";
 import { DATA_DIR } from "./brand.ts";
 import { FlowError } from "./errors.ts";
@@ -47,6 +55,10 @@ export function writeState(root: string, state: FeatureState): void {
     writeFileSync(temporary, JSON.stringify(state, null, 2) + "\n");
     renameSync(temporary, file);
   } catch {
+    // O temporário guarda uma cópia do estado; não pode sobrar na pasta. Se nem a pasta existir, não há o que apagar.
+    try {
+      rmSync(temporary, { force: true });
+    } catch {}
     throw new FlowError("unwritable-state", { file: join(STATE_DIR, `${state.id}.json`) });
   }
 }

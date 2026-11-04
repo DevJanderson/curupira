@@ -116,6 +116,13 @@ test("reject exige --reason e grava o motivo", () => {
   });
 });
 
+test("reject --spec na fase 7 volta à fase 3", () => {
+  cli("open", "F01a");
+  writeFileSync(stateFile(repo, "F01a"), JSON.stringify({ id: "F01a", phase: 7, decisions: [] }));
+  expect(cli("reject", "F01a", "--reason", "a spec mudou", "--spec").code).toBe(0);
+  expect(state("F01a").phase).toBe(3);
+});
+
 test("sem nome de autor no Git, a decisão é recusada e diz como configurar", () => {
   cli("open", "F01a");
   cli("advance", "F01a");
@@ -126,13 +133,25 @@ test("sem nome de autor no Git, a decisão é recusada e diz como configurar", (
   expect(state("F01a").phase).toBe(4);
 });
 
+test("sem nome de autor no Git, um comando fora da fase diz a fase", () => {
+  cli("open", "F02");
+  execFileSync("git", ["config", "--unset", "user.name"], { cwd: repo, env });
+  const result = cli("approve", "F02");
+  expect(result.code).toBe(1);
+  expect(result.err).toMatch(/F02.*fase 3/);
+});
+
 test("funcionalidade que não existe e arquivo inválido são recusados", () => {
-  expect(cli("advance", "F09").err).toContain("F09");
+  const missing = cli("advance", "F09");
+  expect(missing.code).toBe(1);
+  expect(missing.err).toContain("F09");
+  expect(existsSync(stateFile(repo, "F09"))).toBe(false);
   cli("open", "F01a");
   writeFileSync(stateFile(repo, "F01a"), "{");
   const result = cli("status");
   expect(result.code).toBe(1);
   expect(result.err).toContain("F01a.json");
+  expect(result.err).toContain("JSON");
 });
 
 test("comando desconhecido ou sem ID mostra o uso", () => {

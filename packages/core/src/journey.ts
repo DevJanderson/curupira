@@ -79,7 +79,8 @@ function activePhase(state: FeatureState): Phase {
   return state.phase;
 }
 
-function approvalPhase(state: FeatureState): Phase {
+// A fase com aprovação em que a funcionalidade está; recusa se não houver decisão a tomar.
+export function approvalPhase(state: FeatureState): Phase {
   const phase = activePhase(state);
   if (!hasApproval(phase)) throw new FlowError("no-approval", { id: state.id, phase });
   return phase;

@@ -71,17 +71,23 @@ test("C1. O estado mostra a fase e o que espera decisão", () => {
 });
 
 test("C2. Aprovar registra quem e quando", () => {
+  // Uma recusa anterior, para conferir que ela não muda com a decisão nova.
   at("F01a", 4);
+  cli("reject", "F01a", "--reason", "falta um cenário");
+  cli("advance", "F01a");
   at("F02", 3);
   const before = snapshot();
+  const earlier = state("F01a").decisions;
   const result = cli("approve", "F01a");
   expect(result.code).toBe(0);
   const after = snapshot();
   const f01a = state("F01a");
   expect(f01a.phase).toBe(5);
-  expect(f01a.decisions).toHaveLength(1);
-  expect(f01a.decisions[0]).toMatchObject({ phase: 4, decision: "approve", by: "Ana Lima" });
-  expect(Date.parse(f01a.decisions[0].at)).not.toBeNaN();
+  expect(f01a.decisions).toHaveLength(2);
+  expect(f01a.decisions[0]).toEqual(earlier[0]);
+  expect(f01a.decisions[1]).toMatchObject({ phase: 4, decision: "approve", by: "Ana Lima" });
+  expect(Date.parse(f01a.decisions[1].at)).not.toBeNaN();
+  expect(Object.keys(after)).toEqual(Object.keys(before));
   expect(after["F02.json"]).toBe(before["F02.json"]);
 });
 

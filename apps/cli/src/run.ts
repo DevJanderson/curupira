@@ -1,6 +1,7 @@
 import { parseArgs } from "node:util";
 import {
   advance,
+  approvalPhase,
   approve,
   FlowError,
   gitAuthor,
@@ -75,7 +76,8 @@ export function run(args: string[], io: Io): number {
       io.out(message("advanced", { id: id!, phase: next.phase }));
       return 0;
     }
-    const from = current.phase;
+    // A fase é conferida antes do autor, para o erro dizer a fase mesmo sem nome no Git (R7).
+    const from = approvalPhase(current);
     const by = gitAuthor(root, io.env);
     const next =
       command === "approve"
