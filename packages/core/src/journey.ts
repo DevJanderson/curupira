@@ -16,10 +16,20 @@ export interface Decision {
   reason?: string;
 }
 
+// O pedido de aprovação (ADR-0031, regra 6): a hora e o hash do que se aprova e, na fase 4, o caminho do spec.md.
+export interface Request {
+  phase: Phase;
+  at: string;
+  hash: string;
+  path?: string;
+}
+
 export interface FeatureState {
   id: string;
   phase: Stage;
   decisions: Decision[];
+  // Um pedido aberto por vez: um novo substitui o anterior.
+  request?: Request;
 }
 
 const APPROVAL_PHASES: ReadonlySet<Phase> = new Set([4, 7, 8]);
@@ -37,6 +47,15 @@ export function hasApproval(phase: Phase): boolean {
 export function open(id: string): FeatureState {
   if (!isFeatureId(id)) throw new FlowError("invalid-id", { id });
   return { id, phase: 3, decisions: [] };
+}
+
+export function requestApproval(
+  state: FeatureState,
+  at: string,
+  target: { hash: string; path?: string },
+): FeatureState {
+  const phase = approvalPhase(state);
+  return { ...state, request: { phase, at, ...target } };
 }
 
 export function advance(state: FeatureState): FeatureState {

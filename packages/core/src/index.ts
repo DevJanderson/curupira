@@ -6,3 +6,4 @@ export * from "./state.ts";
 export * from "./git-author.ts";
 export * from "./answers.ts";
 export * from "./project.ts";
+export * from "./target.ts";

@@ -2,6 +2,7 @@ import { parseArgs } from "node:util";
 import {
   advance,
   approvalPhase,
+  approvalTarget,
   approvalText,
   approve,
   deleteAnswer,
@@ -21,6 +22,7 @@ import {
   recordAnswer,
   reject,
   rejectionReason,
+  requestApproval,
   writeState,
   type FeatureState,
   type ProjectFile,
@@ -53,6 +55,7 @@ const COMMANDS: Record<string, { argument: boolean; options: string[] }> = {
   open: { argument: true, options: [] },
   status: { argument: false, options: [] },
   advance: { argument: true, options: [] },
+  request: { argument: true, options: [] },
   approve: { argument: true, options: [] },
   reject: { argument: true, options: ["spec"] },
   hook: { argument: true, options: [] },
@@ -104,6 +107,20 @@ export function run(args: string[], io: Io): number {
     }
     const current = readState(root, id);
     if (!current) throw new FlowError("not-found", { id });
+    if (command === "request") {
+      const phase = approvalPhase(current);
+      const target = approvalTarget(root, id, phase);
+      writeState(root, requestApproval(current, io.now(), target));
+      const params = {
+        id,
+        phase,
+        at: io.now(),
+        hash: target.hash.slice(0, 12),
+        file: target.path ?? "",
+      };
+      io.out(message(target.path === undefined ? "requested-commit" : "requested-spec", params));
+      return 0;
+    }
     if (command === "advance") {
       const next = advance(current);
       writeState(root, next);

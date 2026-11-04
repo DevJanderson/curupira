@@ -66,6 +66,7 @@ function load(file: string, id: string): FeatureState {
     throw invalid("phase");
   if (!Array.isArray(data.decisions) || !data.decisions.every(isDecision))
     throw invalid("decisions");
+  if (data.request !== undefined && !isRequest(data.request)) throw invalid("request");
   return data as unknown as FeatureState;
 }
 
@@ -82,6 +83,20 @@ function isDecision(value: unknown): boolean {
     !Number.isNaN(Date.parse(at)) &&
     (reason === undefined || typeof reason === "string") &&
     (answer === undefined || typeof answer === "string")
+  );
+}
+
+function isRequest(value: unknown): boolean {
+  if (!isRecord(value)) return false;
+  const { phase, at, hash, path } = value;
+  return (
+    FEATURE_PHASES.includes(phase as never) &&
+    hasApproval(phase as never) &&
+    typeof at === "string" &&
+    !Number.isNaN(Date.parse(at)) &&
+    typeof hash === "string" &&
+    hash !== "" &&
+    (path === undefined || typeof path === "string")
   );
 }
 
