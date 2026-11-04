@@ -18,6 +18,7 @@ Este repositório é um monorepo TypeScript com Vite+ (`vp`) e pnpm: aplicaçõe
 - A interface da ferramenta (comandos, opções, pastas e arquivos que ela cria) em inglês; o texto que a pessoa
   lê no idioma do projeto (ADR-0027).
 - Documentação, mensagens, comentários e commits deste repositório em português (pt-BR).
+- Skills e subagentes da ferramenta: todo o conteúdo em inglês, inclusive descrição, exemplos e modelos (ADR-0027).
 
 ## Commits
 

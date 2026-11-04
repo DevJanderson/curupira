@@ -31,14 +31,14 @@ nome para duas coisas gera confusão na documentação e para quem usa a ferrame
 
 Interface em inglês e texto no idioma do projeto:
 
-| O quê                                                                                                                                 | Idioma                                               |
-| ------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
-| Código, comandos, opções, nomes de skills, subagentes e hooks, chaves dos arquivos de estado, pastas e arquivos que a ferramenta cria | inglês, sempre                                       |
-| Instruções das skills e dos subagentes (o texto que o agente lê)                                                                      | inglês, com a ordem de responder no idioma do perfil |
-| Mensagens da CLI, perguntas e documentos gerados para o projeto (o texto que a pessoa lê)                                             | o idioma do perfil do projeto; pt-BR primeiro        |
-| Respostas aceitas numa decisão                                                                                                        | as do idioma do perfil: "sim"/"não", "yes"/"no"      |
-| Este repositório: pesquisa, ADRs, relatos, roteiros e commits                                                                         | pt-BR, como no ADR-0014                              |
-| README deste repositório                                                                                                              | inglês, com uma versão em pt-BR                      |
+| O quê                                                                                                                                 | Idioma                                                          |
+| ------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| Código, comandos, opções, nomes de skills, subagentes e hooks, chaves dos arquivos de estado, pastas e arquivos que a ferramenta cria | inglês, sempre                                                  |
+| Todo o conteúdo das skills e dos subagentes: descrição, instruções, exemplos e modelos (o texto que o agente lê)                      | inglês, com a ordem de responder e escrever no idioma do perfil |
+| Mensagens da CLI, perguntas e documentos gerados para o projeto (o texto que a pessoa lê)                                             | o idioma do perfil do projeto; pt-BR primeiro                   |
+| Respostas aceitas numa decisão                                                                                                        | as do idioma do perfil: "sim"/"não", "yes"/"no"                 |
+| Este repositório: pesquisa, ADRs, relatos, roteiros e commits                                                                         | pt-BR, como no ADR-0014                                         |
+| README deste repositório                                                                                                              | inglês, com uma versão em pt-BR                                 |
 
 Até a F02 trazer o perfil, o idioma é pt-BR. As mensagens ficam fora do código, num catálogo por idioma, desde a
 primeira peça com saída para a pessoa.
@@ -86,3 +86,6 @@ Exemplos da interface, para orientar as specs: `curupira init`, `curupira approv
   - "portão" virou "aprovação" ou "checagem" em toda a documentação, menos no registro e nos relatos, que guardam o
     que aconteceu, e na pesquisa;
   - a spec da F01a voltou à fase 3 com os comandos `open`, `status`, `advance`, `approve` e `reject --reason`.
+- 2026-11-03: ficou combinado que todo o conteúdo das skills e dos subagentes é em inglês, e não só as
+  instruções: a descrição, os exemplos e os modelos de documento também; o agente escreve para a pessoa no idioma
+  do perfil.
