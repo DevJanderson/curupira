@@ -136,6 +136,22 @@ O que decorre, para confirmar nos próximos nós:
 - O `init` deixa de ter os sentidos de "o agente entrega a proposta" e de "começar a adoção": a adoção começa
   quando a pessoa pede ao agente, depois do `init`.
 
+### Nó 2: o que é a adoção (2026-11-04)
+
+**Decisão da pessoa:** "a". A adoção é uma ficha do projeto aprovada com um "sim" só, que cresce com as peças.
+
+O que decorre:
+
+- A ficha continua com o nome de perfil, já usado no PRD e nas funcionalidades, e ganha partes: o perfil de hoje
+  (idioma, stack, comandos, dados pessoais, limites) vem com a F02; as checagens, com a F04a; os hooks que barram
+  ações, com a F05; a instrução do agente, com a F03.
+- Quando uma peça acrescenta uma parte, o agente propõe a ficha inteira de novo, e a pessoa aprova de novo. A
+  aprovação nova mantém o id do projeto, como a F02 já prevê.
+- Cada checagem aparece na ficha como um item que a pessoa vê no cartão: é assim que "cada um confirmado pela
+  pessoa", do PRD, se cumpre.
+- A arquitetura e o ambiente de verificação, que a jornada põe na fase 1, entram como partes da ficha quando houver
+  a peça que os usa; qual é essa peça fica para o ADR da linha.
+
 ## Números
 
 | Medida                                   | Valor                                       |

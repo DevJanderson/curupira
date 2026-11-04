@@ -40,3 +40,4 @@ numa linha nova.
 | 2026-11-04 | 33    | Segunda recusa da fase 4 da F02: o `init` tem três sentidos e o "sim" antes da proposta tem conserto barato; F02 parada                              |
 | 2026-11-04 | 34    | Revisão do fluxo inteiro em três leituras (linha, ADRs, código): 61 achados em seis nós e um caminho para decidir                                    |
 | 2026-11-04 | 35    | Nó 1 da revisão do fluxo: a pessoa roda a preparação (instalação e `init`), e o agente roda os comandos do fluxo na conversa                         |
+| 2026-11-04 | 36    | Nó 2 da revisão do fluxo: a adoção é uma ficha do projeto com um "sim" só, que cresce com as peças                                                   |
