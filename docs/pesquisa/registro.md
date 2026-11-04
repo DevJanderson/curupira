@@ -58,3 +58,4 @@ numa linha nova.
 | 2026-11-04 | 51    | F01c na fase 5: o `request`, o pedido exigido no `approve` e no `reject`, o conteúdo conferido, o teto do motivo, o estado da F01a e da F01b, e C1 a C5 provados por mutação; 166 testes           |
 | 2026-11-04 | 52    | F01c nas fases 6 e 7: verificação sem defeitos; revisão em 4 eixos com 15 defeitos, todos corrigidos, 12 só do outro olhar; os testes deixam de varrer `.claude/`                                  |
 | 2026-11-04 | 53    | F01c aprovada na fase 7 com "sim", a primeira aprovação com o pedido gravado pela CLI (2 min 17 s até o "sim"); medição e duas propostas do método                                                 |
+| 2026-11-04 | 54    | F01c entregue com "sim" na fase 8 (1 min 48 s até o "sim"); as duas melhorias entraram no roteiro da spec e na verificação; o merge do PR #5 é da pessoa                                           |

@@ -51,8 +51,13 @@ Cenário aprovado vira teste de regressão e passa a rodar sempre.
 
 Cada passo da implementação começa com um teste que falha: a prova do vermelho.
 Só depois vem o código que faz o teste passar.
+Se o código de um passo vier antes do teste, a prova do vermelho é feita depois: os testes novos rodam com o código do
+passo guardado (`git stash`), e o relato diz que foi assim.
 
 ## Histórico
 
 - 2026-11-03: depois da entrega da F01a, o verificador passou a ler os testes dos cenários, e as observações
   ganharam um limite de rodadas ([relato](../pesquisa/relatos/2026-11-03-fase-5-f01a.md)).
+- 2026-11-04: a prova do vermelho feita depois, com o código guardado, quando o código de um passo veio antes do
+  teste, como no passo 2 da F01c ([relato](../pesquisa/relatos/2026-11-04-fases-5-a-7-f01c.md)). Nenhuma regra saiu:
+  é o caminho de volta de uma regra que já existe, e não uma regra nova.

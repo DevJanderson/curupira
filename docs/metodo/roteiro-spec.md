@@ -60,6 +60,9 @@ Cada requisito é uma frase com um gatilho e uma resposta, numa das cinco formas
 - Para cada dado que a funcionalidade grava, a spec diz o que acontece quando ele não pode ser lido ou gravado (pasta
   sem permissão, arquivo que é pasta, disco cheio), quando o caminho é um link simbólico ou já é de outro dono, quando
   duas execuções rodam ao mesmo tempo e quando a gravação é interrompida no meio.
+- A regra vale também para o que a funcionalidade lê e mostra: um link simbólico em qualquer parte do caminho lido, e
+  não só no arquivo do fim, e um nome vindo do disco que vai para a saída (com quebra de linha ou outro caractere de
+  controle).
 - Quando duas condições de erro podem acontecer juntas (fase errada e autor ausente, por exemplo), um cenário ou
   requisito diz qual erro vence.
 - Quando uma regra depende de texto digitado (uma resposta, um nome, um comando), a spec lista exemplos do que vale e
@@ -162,3 +165,7 @@ e os riscos aceitos; se o agente ainda tem uma pergunta, a spec não está pront
 - 2026-11-04: a regra dos dados gravados passa a cobrir o link simbólico, o caminho de outro dono, duas execuções ao
   mesmo tempo e a interrupção no meio, os quatro defeitos de segurança da F00
   ([relato](../pesquisa/relatos/2026-11-04-fases-5-a-7-f00.md)). Nenhuma regra saiu: a regra cresceu sem virar outra.
+- 2026-11-04: a regra dos dados gravados passa a valer também para o que a funcionalidade lê e mostra: o link em
+  qualquer parte do caminho e o nome que vai cru para a saída, os dois pontos da segurança da F01c que a spec não
+  previa ([relato](../pesquisa/relatos/2026-11-04-fases-5-a-7-f01c.md)). Nenhuma regra saiu: a regra cresceu sem virar
+  outra.
