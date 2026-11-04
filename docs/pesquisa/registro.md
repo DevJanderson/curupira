@@ -26,3 +26,4 @@ numa linha nova.
 | 2026-11-03 | 19    | Fase 7 à mão da F01a: revisão em 4 eixos, 5 defeitos corrigidos, PR #1 aberto; espera a aprovação da fase 7                                    |
 | 2026-11-03 | 20    | Aprovação da fase 7 da F01a com "sim", PR #1 com a CI passando; o merge é da pessoa, na fase 8                                                 |
 | 2026-11-03 | 21    | Fase 8 da F01a: merge pela pessoa (`53e29e5`); 6 melhorias aceitas no roteiro da spec e na verificação                                         |
+| 2026-11-03 | 22    | Fase 5 à mão da F01b na branch `feat/F01b`: respostas, adaptador do Claude Code, regra nos comandos, hook e C1 a C5                            |
