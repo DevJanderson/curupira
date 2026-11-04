@@ -1,6 +1,6 @@
 # F01b: Prova de decisão humana
 
-- **Status:** rascunho, na fase 3
+- **Status:** aprovada na fase 4
 - **Data:** 2026-11-03
 
 ## Objetivo
@@ -95,3 +95,7 @@ para provar a decisão (LGPD, art. 6º, III;
   de usar, e sem ela vale o R5.
 - **Só a última mensagem de cada sessão**, porque só ela pode sustentar uma decisão; uma mensagem nova depois do
   "sim" o desfaz (ADR-0026).
+
+## Histórico
+
+- 2026-11-03: aprovada na fase 4 com "sim", por Janderson.
