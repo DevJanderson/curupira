@@ -104,7 +104,8 @@ no seu contexto, numa adaptação do contraditório do specwork ([fontes](../pes
 
 - **Completude** procura o que vai parar a implementação ou mudar a spec depois: um estado ou erro sem requisito, uma
   decisão sem base, uma dependência dada como pronta que não está, uma contradição com um ADR, a jornada ou outra
-  spec, uma melhoria de relato que não foi aplicada.
+  spec, uma melhoria de relato que não foi aplicada. Ela também confere a peça contra a
+  [linha](../decisoes/0031-a-linha.md): quem roda cada comando, o que vem antes e o que vem depois.
 - **Necessidade** responde a cada achado da Completude, concordando ou contestando com evidência, e procura o que
   passa do PRD, o que se repete, o teste de implementação no lugar do de comportamento e a estrutura nova para o que
   já existe.
@@ -118,9 +119,10 @@ Regras:
   **perguntado**, só quando é decisão da pessoa (escopo, regra de negócio, custo aceito). Os perguntados entram nas
   perguntas.
 - No máximo duas rodadas; a segunda só roda se a primeira mudou um requisito ou um cenário.
-- Quando houver outro agente de terminal ou outro modelo, um dos dois subagentes o usa
+- Um dos dois subagentes usa outro modelo do mesmo agente, quando houver
   ([roteiro da entrega](roteiro-entrega.md#fase-7-revisão)).
-- O relato da funcionalidade guarda os achados e o destino de cada um.
+- O histórico do `spec.md` guarda os achados e o destino de cada um, sem arquivo novo. No repositório-piloto, o
+  relato também guarda.
 
 ## As perguntas
 
@@ -153,3 +155,6 @@ e os riscos aceitos; se o agente ainda tem uma pergunta, a spec não está pront
 - 2026-11-04: depois da recusa da fase 4 da F02, com decisões em aberto no cartão, entraram o contraditório entre o
   rascunho e as perguntas e a seção de riscos aceitos. Nenhuma regra saiu: nada antes cobria as lacunas que quem
   escreve não vê.
+- 2026-11-04: a Completude passa a conferir a peça contra a linha, os achados ficam no histórico do `spec.md`, e o
+  outro olhar é outro modelo do mesmo agente ([ADR-0031](../decisoes/0031-a-linha.md)). Saiu a menção a outro agente
+  de terminal, que o ADR-0005 deixa fora da v1.

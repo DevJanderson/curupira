@@ -1,6 +1,6 @@
 # ADR-0031: A linha
 
-- **Status:** proposta
+- **Status:** aceita
 - **Data:** 2026-11-04
 
 ## Contexto
@@ -132,3 +132,8 @@ funcionalidade volta à 5, ou à 3 se a mudança alterar a spec.
 - **Da `main`, a pessoa não vê o que anda nas outras branches** até o painel (F15); o `status` mostra a branch atual.
 - **Uma funcionalidade aberta antes de uma ficha nova** só vê as checagens novas quando a branch dela recebe a
   `main`.
+
+## Histórico
+
+- 2026-11-04: aceita pela pessoa com um "sim" digitado, depois de duas correções na conversa: a instalação é o
+  script `curl` (sem npm) e usa só o GitHub (sem domínio próprio).

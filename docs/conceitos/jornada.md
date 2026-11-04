@@ -1,23 +1,7 @@
 # A jornada
 
-A jornada tem 9 fases. A pessoa decide em 5 aprovações (★); entre elas, o agente trabalha sozinho, e a fase seguinte só
-começa com o "sim" registrado pela CLI. As fases 3 a 8 se repetem por funcionalidade.
+A jornada é a linha do Curupira: 9 fases, da instalação à entrega, com 5 aprovações da pessoa. Ela mora no
+[ADR-0031](../decisoes/0031-a-linha.md), que diz, para cada fase, quem age, o que fica registrado e quais peças a
+constroem, e traz as regras da linha.
 
-| #   | Fase             | Pessoa                                                     | Agente                                                                                                                                           | Sai                                                       |
-| --- | ---------------- | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------- |
-| 0   | Instalar         | roda o instalador, uma vez por máquina                     | —                                                                                                                                                | o comando `curupira`                                      |
-| 1 ★ | Adotar o projeto | roda `curupira init`; confirma perfil, checagens e hooks   | lê o projeto (ou pergunta a stack, se vazio) e propõe a constituição: comandos de teste, lint e tipos, arquitetura, ambiente de verificação      | `.curupira/profile.md`                                    |
-| 2 ★ | Produto (PRD)    | responde a entrevista e aprova o PRD                       | conduz a entrevista em rodadas curtas; registra perguntas em aberto; divide em funcionalidades pequenas                                          | `prd.md`, perguntas em aberto, lista de funcionalidades   |
-| 3   | Especificar      | responde até 5 perguntas                                   | escreve a spec em EARS ("QUANDO … O SISTEMA DEVE …"), poucos cenários e o plano; marca o que falta esclarecer                                    | `spec.md` com os cenários, `plan.md`                      |
-| 4 ★ | Aprovar          | aprova a spec com os cenários, digitando "sim" na conversa | grava a aprovação com a impressão digital (hash) da spec                                                                                         | estado: aprovada                                          |
-| 5   | Implementar      | acompanha no painel, se quiser                             | testes primeiro (prova do vermelho), passo a passo; checagens locais a cada passo                                                                | código e testes numa branch                               |
-| 6   | Verificar        | só é chamada se o veredito for "bloqueado"                 | verificador separado roda os cenários contra o sistema real; o agente corrige e o verificador roda de novo, até passar, com limite de tentativas | `verification.md`, com os vereditos e o resumo das provas |
-| 7 ★ | Revisar          | revisa a página da funcionalidade; aprova ou pede mudanças | revisão em eixos (spec, segurança, testes, padrões), só defeitos bloqueiam; abre o PR                                                            | PR e relatório                                            |
-| 8 ★ | Entregar         | faz o merge e decide as melhorias                          | atualiza docs; cenários viram testes de regressão; mede tempo, custo e cache; retrospectiva                                                      | métricas e lições                                         |
-
-Os arquivos de cada funcionalidade ficam em `docs/specs/<ID>-<nome>/`
-([ADR-0026](../decisoes/0026-o-que-o-curupira-grava-nao-cresce-com-o-tempo.md)), e a pessoa decide pela conversa
-([ADR-0025](../decisoes/0025-a-pessoa-decide-pela-conversa.md)).
-
-Se a pessoa pede mudanças na fase 7, a funcionalidade volta à fase 5 (ou à 3, se a mudança alterar a spec).
-A jornada é revisada a cada funcionalidade entregue ([ADR-0015](../decisoes/0015-jornada-de-9-fases-e-5-aprovacoes.md)).
+Mudar a jornada é mudar o ADR-0031, com uma linha no histórico dele, no mesmo PR da peça que a muda.
