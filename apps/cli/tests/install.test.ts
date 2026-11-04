@@ -1,7 +1,5 @@
 import { execFileSync, spawnSync } from "node:child_process";
 import {
-  chmodSync,
-  copyFileSync,
   existsSync,
   lstatSync,
   mkdirSync,
@@ -14,38 +12,25 @@ import {
   writeFileSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
-import { dirname, join, resolve } from "node:path";
+import { dirname, join } from "node:path";
 import { BRAND } from "@curupira/core";
 import { beforeAll, beforeEach, expect, test } from "vite-plus/test";
+import {
+  makeOrigin,
+  runInstall,
+  SCRIPT,
+  TOOLS,
+  which,
+  type InstallOptions,
+} from "./install-support.ts";
 
 // O script de instalação (passo 1 do plano da F00), rodado com uma pasta pessoal e um PATH descartáveis.
-// O PATH só tem links para as ferramentas que o script usa, sem npm, npx nem pnpm (ADR-0009).
-const ROOT = resolve(import.meta.dirname, "../../..");
-const SCRIPT = join(ROOT, "install.sh");
-const TOOLS = ["node", "git", "env", "sh", "mkdir", "rm", "mv", "ln", "readlink"];
-
 let origin: string;
 let base: string;
 let home: string;
 
-// A origem é um repositório Git local com os arquivos desta cópia de trabalho, para o teste valer antes do commit.
 beforeAll(() => {
-  origin = realpathSync(mkdtempSync(join(tmpdir(), "install-origin-")));
-  const files = execFileSync("git", ["ls-files", "--cached", "--others", "--exclude-standard"], {
-    cwd: ROOT,
-    encoding: "utf8",
-  })
-    .split("\n")
-    .filter((file) => file !== "" && existsSync(join(ROOT, file)));
-  for (const file of files) {
-    mkdirSync(dirname(join(origin, file)), { recursive: true });
-    copyFileSync(join(ROOT, file), join(origin, file));
-  }
-  const git = (...args: string[]) =>
-    execFileSync("git", args, { cwd: origin, env: gitEnv(origin), stdio: "ignore" });
-  git("init", "-q", "-b", "main");
-  git("add", "-A");
-  git("-c", "user.name=Teste", "-c", "user.email=teste@example.com", "commit", "-qm", "origem");
+  origin = makeOrigin();
 });
 
 beforeEach(() => {
@@ -54,54 +39,8 @@ beforeEach(() => {
   mkdirSync(home);
 });
 
-function gitEnv(dir: string): NodeJS.ProcessEnv {
-  const config = join(dir, "..", "gitconfig-vazio");
-  if (!existsSync(config)) writeFileSync(config, "");
-  return { ...process.env, GIT_CONFIG_GLOBAL: config, GIT_CONFIG_NOSYSTEM: "1" };
-}
-
-// Uma pasta com links só para as ferramentas pedidas; `fake` troca uma delas por um script.
-function toolsDir(tools: string[], fake: Record<string, string> = {}): string {
-  const dir = join(base, `bin-${readdirSync(base).length}`);
-  mkdirSync(dir);
-  for (const tool of tools) {
-    const target = tool === "node" ? process.execPath : which(tool);
-    symlinkSync(target, join(dir, tool));
-  }
-  for (const [tool, body] of Object.entries(fake)) {
-    writeFileSync(join(dir, tool), `#!/bin/sh\n${body}\n`);
-    chmodSync(join(dir, tool), 0o755);
-  }
-  return dir;
-}
-
-function which(tool: string): string {
-  return execFileSync("sh", ["-c", `command -v ${tool}`], { encoding: "utf8" }).trim();
-}
-
-interface Options {
-  tools?: string[];
-  fake?: Record<string, string>;
-  repo?: string;
-  env?: Record<string, string>;
-  onPath?: boolean;
-}
-
-function install(options: Options = {}) {
-  const tools = toolsDir(options.tools ?? TOOLS, options.fake);
-  const path = options.onPath ? `${tools}:${join(home, ".local/bin")}` : tools;
-  const result = spawnSync(join(tools, "sh"), [SCRIPT], {
-    env: {
-      HOME: home,
-      PATH: path,
-      SHELL: "/bin/zsh",
-      GIT_CONFIG_NOSYSTEM: "1",
-      [`${BRAND.name.toUpperCase()}_REPO`]: options.repo ?? `file://${origin}`,
-      ...options.env,
-    },
-    encoding: "utf8",
-  });
-  return { code: result.status, out: result.stdout, err: result.stderr, tools };
+function install(options: InstallOptions = {}) {
+  return runInstall(base, home, origin, options);
 }
 
 const dataDir = () => join(home, ".local/share", BRAND.name);
