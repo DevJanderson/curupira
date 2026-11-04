@@ -95,7 +95,7 @@ export function run(args: string[], io: Io): number {
     const from = approvalPhase(current);
     const session = agentSession(io.env);
     if (session === undefined) throw new FlowError("no-session");
-    const answer = readAnswer(root, session);
+    const answer = readAnswer(root, session, new Date(io.now()));
     const supporting =
       command === "approve" ? approvalText(answer, id) : rejectionReason(answer, id);
     const by = gitAuthor(root, io.env);

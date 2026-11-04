@@ -29,7 +29,7 @@
   "problem.id": "o id não confere com o nome do arquivo",
   "problem.phase": "a fase não existe na jornada",
   "problem.decisions": "a lista de decisões está malformada",
-  "error.no-session": "Não foi possível identificar a sessão do agente. A decisão precisa vir de uma resposta digitada na conversa.",
+  "error.no-session": "Não foi possível identificar a sessão do agente. A decisão precisa vir de uma resposta digitada na conversa: \"sim\" sozinho para aprovar, ou \"não, <motivo>\" para recusar.",
   "error.approve-needs-answer": "Para aprovar {id}, a pessoa precisa digitar \"sim\" sozinho na conversa (ou \"sim {id}\").",
   "error.plain-yes-only": "O \"sim\" precisa vir sozinho na mensagem, sem outra frase. Peça para a pessoa digitar só \"sim\" para aprovar {id}.",
   "error.reject-needs-answer": "Para recusar {id}, a pessoa precisa digitar \"não, <motivo>\" na conversa.",

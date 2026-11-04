@@ -31,19 +31,11 @@ export function recordAnswer(root: string, session: string, prompt: string, at: 
   writeFileAtomic(file, JSON.stringify(answer) + "\n", join(ANSWERS_DIR, `${session}.json`));
 }
 
-export function readAnswer(root: string, session: string): Answer | undefined {
-  const file = answerFile(root, session);
-  let data: unknown;
-  try {
-    data = JSON.parse(readFileSync(file, "utf8"));
-  } catch {
-    // Ausente ou ilegível: não sustenta decisão, e a próxima mensagem a substitui.
-    return undefined;
-  }
-  if (typeof data !== "object" || data === null || typeof (data as Answer).at !== "string")
-    return undefined;
-  const { at, text } = data as Answer;
-  return typeof text === "string" ? { at, text } : { at };
+// Uma resposta de mais de 30 dias não vale, mesmo que a limpeza ainda não tenha rodado.
+export function readAnswer(root: string, session: string, now?: Date): Answer | undefined {
+  const answer = parseAnswer(answerFile(root, session));
+  if (answer && now && now.getTime() - Date.parse(answer.at) > MAX_AGE_MS) return undefined;
+  return answer;
 }
 
 export function deleteAnswer(root: string, session: string): void {
@@ -61,28 +53,33 @@ export function purgeAnswers(root: string, now: Date): void {
   }
   for (const name of names) {
     const file = join(dir, name);
-    if (now.getTime() - statSync(file).mtimeMs > MAX_AGE_MS) rmSync(file, { force: true });
+    // A idade vem da data da resposta; sem ela, da data do arquivo.
+    const at = Date.parse(parseAnswer(file)?.at ?? "");
+    const time = Number.isNaN(at) ? statSync(file).mtimeMs : at;
+    if (now.getTime() - time > MAX_AGE_MS) rmSync(file, { force: true });
   }
 }
 
-// Devolve o texto digitado se ele for um "sim" puro ("sim" ou "sim <ID>").
+// Devolve o texto digitado se ele for um "sim" puro: "sim" ou "sim <ID>", com um espaço.
 export function approvalText(answer: Answer | undefined, id: string): string {
   const text = answer?.text;
   if (text === undefined) throw new FlowError("approve-needs-answer", { id });
   if (DECISION_START.exec(text.trim())?.[1]?.toLowerCase() !== "sim") {
     throw new FlowError("approve-needs-answer", { id });
   }
-  const words = normalize(text).split(/\s+/);
-  if (words.length === 1 || (words.length === 2 && words[1] === id.toLowerCase())) return text;
-  if (words.length === 2 && /^f\d{2,}[a-z]?$/.test(words[1]!))
+  const plain = /^sim(?: (\S+))?$/.exec(normalize(text));
+  if (plain && (plain[1] === undefined || plain[1] === id.toLowerCase())) return text;
+  // "sim F02" é um sim puro para outra funcionalidade: não sustenta esta.
+  if (plain && /^f\d{2,}[a-z]?$/.test(plain[1]!))
     throw new FlowError("approve-needs-answer", { id });
   throw new FlowError("plain-yes-only", { id });
 }
 
-// Devolve o motivo de um "não, <motivo>".
+// Devolve o motivo de um "não, <motivo>"; o ID da própria funcionalidade não faz parte dele.
 export function rejectionReason(answer: Answer | undefined, id: string): string {
   const match = REJECTION.exec(answer?.text?.trim() ?? "");
-  const reason = match?.[1]?.trim();
+  const ownId = new RegExp(`^${id}(?![\\p{L}\\p{N}])[\\s,.:;!?—–-]*`, "iu");
+  const reason = match?.[1]?.trim().replace(ownId, "").trim();
   if (!reason || /^[.!?]+$/.test(reason)) throw new FlowError("reject-needs-answer", { id });
   return reason;
 }
@@ -105,4 +102,19 @@ function ignoreInGit(root: string): void {
   } catch {
     writeFileAtomic(file, "*\n", join(LOCAL_DIR, ".gitignore"));
   }
+}
+
+function parseAnswer(file: string): Answer | undefined {
+  let data: unknown;
+  try {
+    data = JSON.parse(readFileSync(file, "utf8"));
+  } catch {
+    // Ausente ou ilegível: não sustenta decisão, e a próxima mensagem a substitui.
+    return undefined;
+  }
+  if (typeof data !== "object" || data === null || typeof (data as Answer).at !== "string") {
+    return undefined;
+  }
+  const { at, text } = data as Answer;
+  return typeof text === "string" ? { at, text } : { at };
 }

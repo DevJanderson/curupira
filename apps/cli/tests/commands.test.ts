@@ -247,6 +247,8 @@ test("sem a sessão do agente, a decisão é recusada", () => {
   const result = cli("approve", "F01a");
   expect(result.code).toBe(1);
   expect(result.err).toContain("sessão");
+  expect(result.err).toContain('"sim"');
+  expect(result.err).toContain("não, <motivo>");
 });
 
 test("qual erro vence: a fase antes da resposta, e a resposta antes do autor", () => {

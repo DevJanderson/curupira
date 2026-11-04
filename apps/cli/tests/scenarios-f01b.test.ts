@@ -46,14 +46,14 @@ function cli(...args: string[]) {
   return { code: result.status, out: result.stdout, err: result.stderr };
 }
 
+// Leva a funcionalidade à fase pedida, conferindo cada passo, para a recusa do cenário não vir de outra causa.
 function at(id: string, phase: number): void {
-  cli("open", id);
+  expect(cli("open", id).code).toBe(0);
   for (let current = 3; current < phase; current++) {
-    if (current === 4) {
-      say("sim");
-      cli("approve", id);
-    } else cli("advance", id);
+    if (current === 4) say("sim");
+    expect(cli(current === 4 ? "approve" : "advance", id).code).toBe(0);
   }
+  expect(JSON.parse(raw(id)).phase).toBe(phase);
 }
 
 function raw(id: string): string {
@@ -87,6 +87,7 @@ test("C3. Uma resposta não vale duas vezes", () => {
   const before = raw("F02");
   const result = cli("approve", "F02");
   expect(result.code).not.toBe(0);
+  expect(result.err).toContain('"sim"');
   expect(raw("F02")).toBe(before);
 });
 
